@@ -2,38 +2,37 @@
   background: url("/Images/hero.png");
   background-repeat: no-repeat;
   background-size: cover;
-}
+  height: 100vh;
 
-.hero-content h1 {
-  font-size: 60px;
-  font-weight: 500;
-  width: 50%;
-  text-align: center;
-  max-width: 37%;
-  margin: auto;
-  /* margin:auto; */
-  line-height: 130%;
-  color: #fff;
+  /* first way */
+  /* display: grid;
+  place-content: center; */
+
+  /* second way */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-content {
-  margin-top: 3rem;
+  color: white;
+}
+
+.hero-content h1 {
+  font-size: 6vw;
+  font-weight: 500;
+  text-align: center;
+  line-height: 130%;
 }
 
 .hero-content p {
   font-size: 20px;
   font-weight: 350;
   width: 68%;
-  margin: auto;
+  margin: 0 auto;
   max-width: 70%;
   text-align: center;
   color: #fff;
-  margin-top: 1rem;
-}
-
-.hero-content > div {
-  width: 90%;
-  max-width: 30rem;
 }
 
 .flex_btn {
@@ -48,8 +47,6 @@
 .flex_btn {
   width: 90%;
   max-width: 30rem;
-  margin-bottom: 7rem;
-  margin-top: 2.5rem;
 }
 
 @media screen and (max-width: 767px) {
@@ -89,11 +86,14 @@
 }
 
 .flex_btn .docs2 {
+  position: relative;
+
   background: linear-gradient(92deg, #9327ff 1.06%, #ffa927 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  padding: 16px 40px 16px 40px;
+  padding: 16px 40px;
+
   border-radius: 500px;
   border: none;
   border-image: linear-gradient(100.09deg, #9327ff 0%, #ffa927 100%) 1;
@@ -102,15 +102,4 @@
   color: red;
   font-size: 18px;
   cursor: pointer;
-}
-
-/* test */
-#test div {
-  height: 100px;
-  border: 2px gray solid;
-}
-
-#test {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
 }

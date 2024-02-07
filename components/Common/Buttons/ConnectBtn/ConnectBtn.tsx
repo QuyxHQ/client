@@ -1,18 +1,23 @@
-import React from 'react'
+import React from "react";
 import Image from "next/image";
-import particle from "../public/Images/particle 1.png"
-import "./ConnectBtn.css"
+import "./ConnectBtn.css";
 
 const ConnectBtn = () => {
   return (
     <div className="btn_container">
       {/* <div className="btn"> */}
-        <button>
-          Connect With <Image src={particle} alt="particleauth" />
-        </button>
+      <button className="flex items-center space-x-2">
+        <span>Connect With</span>
+        <Image
+          width={20}
+          height={20}
+          src={"/Images/particle_1.svg"}
+          alt="particleauth"
+        />
+      </button>
       {/* </div> */}
     </div>
   );
-}
+};
 
-export default ConnectBtn
+export default ConnectBtn;

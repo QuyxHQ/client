@@ -1,19 +1,24 @@
 import React from "react";
 import "./TopHero.css";
+import { montserratAlternatesBold } from "@/lib/utils/fonts";
 
 const TopHero = () => {
   return (
     <>
-      <section id="hero-section">
+      <section id="hero-section" className="h-full">
         <div className="container">
           <div className="row">
             <div className="col-12">
               <div>
-                {/* <Header /> */}
-                {/* <div className="col-12"> */}
-                <div className="hero-content ">
-                  <h1>Craft your digital identity</h1>
-                  <p className="mb-3">
+                <div className="hero-content space-y-6">
+                  <h1
+                    id="main-title"
+                    className={`${montserratAlternatesBold.className}`}
+                  >
+                    Craft your
+                    <br /> digital identity
+                  </h1>
+                  <p className="">
                     In a realm where digital identities are crafted, traded, and
                     celebrated, QUYX enables visionaries and artists to unite to
                     redefine personal expression in the digital space.
@@ -33,18 +38,6 @@ const TopHero = () => {
           </div>
         </div>
       </section>
-
-      <div id="test">
-        <div>logo</div>
-        <div>
-          <p>link 1</p>
-          <p>link 1</p>
-          <p>link 1</p>
-        </div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
     </>
   );
 };

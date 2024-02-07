@@ -1,17 +1,29 @@
-*{
-    padding: 0;
-    margin: 0;
+* {
+  padding: 0;
+  margin: 0;
 }
 
 .btn_container > button {
   outline: none;
-  padding: .5rem 1.3rem;
+  padding: 0.5rem 1.3rem;
   display: flex;
   align-items: center;
   color: #fff;
   background: #140029;
-  border: 1px solid;
-  border-image: linear-gradient(100.09deg, #9327FF 0%, #FFA927 100%) 1;
   border-radius: 500px;
   justify-content: center;
+
+  position: relative;
+}
+
+.btn_container > button::after {
+  content: "";
+  position: absolute;
+  top: -1;
+  left: -1;
+  width: 101%;
+  height: 106%;
+  background: linear-gradient(100.09deg, #9327ff 0%, #ffa927 100%);
+  border-radius: 500px;
+  z-index: -1;
 }
