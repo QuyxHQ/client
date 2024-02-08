@@ -16,13 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserratAlternatesRegular.className}>
-        
-        
-        <Header/>
+        <Header />
         {children}
-        
-        
-        </body>
+      </body>
     </html>
   );
 }

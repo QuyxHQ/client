@@ -1,3 +1,66 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#9327ff, #ffa927);
+  border-radius: 2px;
+}
+
+.border-effect::after {
+  content: "";
+  position: absolute;
+  top: -1;
+  left: -1;
+  width: 101%;
+  height: 106%;
+  background: linear-gradient(100.09deg, #9327ff 0%, #ffa927 100%);
+  z-index: -1;
+  border-radius: 6px;
+}
+
+.gradient-btn {
+  background: linear-gradient(92deg, #9327ff 1.06%, #ffa927 100%);
+  padding: 14px 36px;
+  border-radius: 500px;
+  border: none;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .gradient-btn {
+    padding: 14px 20px;
+  }
+}
+
+.gradient-btn-outline {
+  background: linear-gradient(92deg, #9327ff 1.06%, #ffa927 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 14px 36px;
+  position: relative;
+}
+
+.gradient-btn-outline::after {
+  content: "";
+  position: absolute;
+  top: -1;
+  left: -1;
+  width: 101%;
+  height: 106%;
+  /* background: linear-gradient(100.09deg, #9327ff 0%, #ffa927 100%); */
+  z-index: -1;
+  border-radius: 8px;
+}

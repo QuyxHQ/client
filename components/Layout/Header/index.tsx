@@ -7,10 +7,10 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <nav className="fixed w-full text-white">
+    <nav className="fixed w-full text-white z-[500]">
       <div className="container">
         <div className="d-flex items-center">
-          <div className="flex py-10 items-center flex md:flex-row items-center justify-between">
+          <div className="flex py-10 items-center md:flex-row justify-between">
             <div className="nav-brand">
               <Link href={"/"}>
                 <Image

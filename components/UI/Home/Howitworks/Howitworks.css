@@ -1,0 +1,61 @@
+.Wrapper {
+  background: url("/Images/bg3.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: auto;
+}
+
+.watch{
+ background: linear-gradient(92deg, #9327ff 1.06%, #ffa927 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 16px 40px;
+  border-radius: 500px;
+  border: none;
+  border-image: linear-gradient(100.09deg, #9327ff 0%, #ffa927 100%) 1;
+  border: 1px solid;
+  font-weight: 500;
+  color: red;
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 5px;
+  width: 25vw;
+  margin: auto;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.timeline::after {
+  content: "";
+  position: absolute;
+  /* z-index: 99999; */
+  width: 4px;
+  height: 100%;
+   /* background: linear-gradient(#9327ff 0%, #ffa927 100%); */
+   background: linear-gradient(270deg, rgba(204, 153, 255, 0) 0.5%, #CC99FF 49.5%, rgba(204, 153, 255, 0) 100%);
+
+  top: 0;
+  left: 50%;
+  margin-left: -2px;
+  z-index: -1;
+} /* for bullets */
+.bullet-edu {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  right: -23px;
+  z-index: 10;
+  background: linear-gradient(#9327ff 0%, #ffa927 100%);
+} /* right bullet */
+.right-con .bullet-edu {
+  left: -23px;
+} /* managing responsiveness */
+@media screen and (max-width: 640px) {
+  .timeline::after {
+    display: none;
+  }
+}

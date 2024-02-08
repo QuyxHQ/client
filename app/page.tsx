@@ -1,14 +1,20 @@
 import React from "react";
 import TopHero from "../components/UI/Home/TopHero";
+import CardHero from "../components/UI/Home/CardHero";
+import How from "../components/UI/Home/Howitworks"
+import What from "../components/UI/Home/Whatweoffer";
 
 // import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-const page = () => {
+const Page = () => {
   return (
-    <div>
+    <main>
       <TopHero />
-    </div>
+      <CardHero />
+      <How />
+      <What />
+    </main>
   );
 };
 
-export default page;
+export default Page;

@@ -1,12 +1,13 @@
 import React from "react";
+import Image from "next/image"
 import "./TopHero.css";
 import { montserratAlternatesBold } from "@/lib/utils/fonts";
 
 const TopHero = () => {
   return (
-    <>
-      <section id="hero-section" className="h-full">
-        <div className="container">
+    <section>
+      <div id="hero-section" className="h-full">
+        <div className="container py-8">
           <div className="row">
             <div className="col-12">
               <div>
@@ -27,7 +28,13 @@ const TopHero = () => {
                     <button className="docs1 d-flex align-items-center justify-content-center gap-1">
                       Explore now
                     </button>
-                    <button className="docs2 d-flex align-items-center justify-content-center gap-1">
+                    <button className="docs2 flex items-center justify-center ">
+                      <Image
+                        src={"/Images/Avatars/Play.svg"}
+                        alt=""
+                        width={20}
+                        height={20}
+                      />
                       Watch video
                     </button>
                   </div>
@@ -37,8 +44,8 @@ const TopHero = () => {
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

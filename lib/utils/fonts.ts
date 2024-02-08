@@ -9,3 +9,8 @@ export const montserratAlternatesBold = localFont({
   display: "swap",
   src: "../../assets/fonts/MontserratAlternates-Bold.ttf",
 });
+
+export const montserratAlternatesMedium = localFont({
+  display: "swap",
+  src: "../../assets/fonts/MontserratAlternates-Medium.ttf",
+});
