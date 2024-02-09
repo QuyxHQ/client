@@ -9,9 +9,6 @@ import About from "../components/UI/Home/About";
 import Unlock from "../components/UI/Home/Unlock"
 
 
-
-// import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 const Page = () => {
   return (
     <main>

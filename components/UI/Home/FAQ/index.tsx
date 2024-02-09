@@ -1,9 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { IoChevronDownOutline } from "react-icons/io5";
 import { IoChevronUp } from "react-icons/io5";
 import "./FAQ.css";
+import {
+  montserratAlternatesBold,
+  montserratAlternatesMedium,
+} from "@/lib/utils/fonts";
+import { AnimatePresence, motion } from "framer-motion";
+import { opacityReveal } from "@/lib/utils/variants";
 
 type FAQItem = {
   question: string;
@@ -34,42 +39,58 @@ const FAQList: FAQItem[] = [
 ];
 
 const index = () => {
-  const [currentIndex, setCurrentIndex] = useState<number>(1);
+  const [currentIndex, setCurrentIndex] = useState<number | null>(0);
+
+  const chooseQuestion = (id: number) => {
+    if (currentIndex === id) {
+      setCurrentIndex(null);
+      return;
+    }
+
+    setCurrentIndex(id);
+  };
 
   return (
     <section className={`faq pt-5 pb-10 bg-black mx-auto`} id="faq">
       <div className=" p-8 ">
-        <h2 className="text-4xl text-center font-bold mb-8 text-[#fff]">
+        <h2
+          className={`text-5xl text-center font-bold mb-8 text-[#fff] ${montserratAlternatesBold.className}`}
+        >
           Frequently Asked Questions
         </h2>
         <div className="flex flex-col w-[90vw] max-w-[600px] mx-auto">
           {FAQList.map((faq, i) => (
-            <div className="w-full" key={`faq-list-${i}`}>
+            <div
+              className="w-full cursor-pointer select-none"
+              onClick={() => chooseQuestion(i)}
+              key={`faq-list-${i}`}
+            >
               <div
                 className={`single-faq w-full text-[#fff] ${
                   FAQList.length === i + 1 && "border-none"
                 }`}
               >
                 <div className="w-full flex items-center justify-between">
-                  <h4 className="text-center text-[#fff]">{faq.question}</h4>
-                  <div
-                    className="cursor-pointer"
-                    onClick={() =>
-                      setCurrentIndex(currentIndex === i + 1 ? 0 : i + 1)
-                    }
+                  <h4
+                    className={`text-center text-[#fff] ${montserratAlternatesBold.className}`}
                   >
-                    {currentIndex === i + 1 ? (
-                      <IoChevronUp />
-                    ) : (
-                      <IoChevronDownOutline />
-                    )}
-                  </div>
+                    {faq.question}
+                  </h4>
+                  <IoChevronUp
+                    className={`${
+                      currentIndex === i ? "rotate-180" : ""
+                    } duration-300`}
+                  />
                 </div>
 
-                <div>
-                  <p className={currentIndex === i + 1 ? "block" : "hidden"}>
-                    {faq.answer}
-                  </p>
+                <div className="overflow-hidden">
+                  <AnimatePresence mode="wait" initial={false}>
+                    {currentIndex === i && (
+                      <motion.p key={"somthing" + i} {...opacityReveal}>
+                        {faq.answer}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
             </div>

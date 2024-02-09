@@ -1,11 +1,34 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 // import logo from "../../public/Images/logo.png";
 import "./Header.css";
 import Button from "../../Common/Buttons/ConnectBtn/ConnectBtn";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const navLinks = [
+  {
+    path: "/",
+    label: "Home",
+  },
+  {
+    path: "/markter",
+    label: "Marketplace",
+  },
+  {
+    path: "/er",
+    label: "About Us",
+  },
+  {
+    path: "/erer",
+    label: "Docs",
+  },
+];
 
 const Header = () => {
+  const pathname = usePathname();
+
   return (
     <nav className="fixed w-full text-white z-[500]">
       <div className="container">
@@ -22,20 +45,20 @@ const Header = () => {
               </Link>
             </div>
             {/* <div className="d-flex align-items-center gap-1"> */}
-            <div className="hidden md:block links bg-[#211f22] rounded-[500px] py-[15px] px-[20px]">
-              <ul className="flex items-center space-x-6">
-                <li className="">
-                  <a  className="link" href="#features">Home</a>
-                </li>
-                <li className="">
-                  <a  className="link"href="#methodology">Marketplace</a>
-                </li>
-                <li className="">
-                  <a className="link" href="#faq">About Us</a>
-                </li>
-                <li className="">
-                  <a className="link" href="#faq">Docs</a>
-                </li>
+            <div className="hidden md:block links bg-[#211f22] border-[1px] border-purple-500/30 rounded-full p-2">
+              <ul className="flex items-center space-x-6 text-sm">
+                {navLinks.map((link, id) => (
+                  <li
+                    className={`${
+                      pathname === link.path ? "bg-zinc-500" : "bg-transparent"
+                    } py-2 px-5 rounded-full`}
+                    key={id}
+                  >
+                    <a className="link" href="#features">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
             <Button />

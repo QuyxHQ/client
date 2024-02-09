@@ -5,7 +5,7 @@ import { montserratAlternatesBold } from "@/lib/utils/fonts";
 const index = () => {
   return (
     <>
-      <div className="Lock_wrapper bg-black">
+      <div className="Lock_wrapper bg-black pb-10">
         <div className="group_text space-y-2 w-full text-center">
           <p
             className={`text-[#fff] text-[3vw] font-bold ${montserratAlternatesBold.className}`}
