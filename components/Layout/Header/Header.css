@@ -8,6 +8,12 @@
   margin: auto;
 }
 
+.link:active{
+  background-color: #4d4b4e;
+  padding: 10px 10px;
+  border-radius: 500px;
+}
+
 /* ul {
   list-style-type: none;
   gap: 2rem;

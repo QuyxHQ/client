@@ -55,6 +55,10 @@
   .flex_btn > button {
     width: 100% !important;
   }
+
+  #hero-section{
+    height: auto;
+  }
 }
 
 .hero-content .bg-purple {
@@ -89,13 +93,11 @@
 
 .flex_btn .docs2 {
   position: relative;
-
   background: linear-gradient(92deg, #9327ff 1.06%, #ffa927 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   padding: 16px 40px;
-
   border-radius: 500px;
   border: none;
   border-image: linear-gradient(100.09deg, #9327ff 0%, #ffa927 100%) 1;
@@ -108,6 +110,7 @@
   position: relative;
   gap: 5px;
   font-size: 18px;
+  width: auto;
   cursor: pointer;
 }
 
