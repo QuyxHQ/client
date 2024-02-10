@@ -14,7 +14,7 @@ const index = () => {
           </p>
           <p className=" text-[1vw] text-[#9DA3AF]  ">
             consectetur adipiscing elit, sed do eiusmod tempor
-            <br /> incididunt ut labore et dolore magna aliqua.
+            <br /> incididunt ut labore et dolore magna aliquai.
           </p>
         </div>
       </div>
