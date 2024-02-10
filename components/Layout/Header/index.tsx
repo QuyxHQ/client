@@ -13,9 +13,9 @@ const navLinks = [
     label: "Home",
   },
   {
-    path: "/markter",
+    path: "/Marketplace",
     label: "Marketplace",
-  },
+  }, 
   {
     path: "/er",
     label: "About Us",
