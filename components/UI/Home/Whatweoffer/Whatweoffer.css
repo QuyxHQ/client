@@ -4,3 +4,15 @@ background: url("/Images/bg-4.png");
   background-size: cover;
   height: auto;
 }
+
+
+@media screen and (max-width: 767px) {
+
+.para_graph1{
+  font-size: 2rem;
+}
+
+.para_graph2{
+  font-size: 2rem;
+}
+}

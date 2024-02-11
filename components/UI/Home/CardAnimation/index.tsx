@@ -43,9 +43,9 @@ const data: BiddingCard[] = [
 const CardAnimationScetion = () => {
   return (
     <>
-      <div className="md:h-[10rem]"></div>
+      <div className="sm:min-h-[10rem] md:min-h-[10rem]"></div>
 
-      <div className="h-[48vh] relative text-white group">
+      <div className="min-h-[100vh] relative text-white group">
         {data.map((card, id) => (
           <div
             key={id}

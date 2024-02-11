@@ -1,5 +1,5 @@
 import React from 'react'
-import Tophero from "./Components/Tophero"
+import Tophero from "../../components/UI/Marketplace/Tophero"
 
 const index = () => {
   return (

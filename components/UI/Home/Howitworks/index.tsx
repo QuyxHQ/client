@@ -1,8 +1,8 @@
-import React from 'react'
-import "./Howitworks.css"
-import Image from "next/image"
-import Grid from "../Grid"
-import connect from "../../../../public/Images/connect.svg"
+import React from "react";
+import "./Howitworks.css";
+import Image from "next/image";
+import Grid from "../Grid";
+import connect from "../../../../public/Images/connect.svg";
 
 const index = () => {
   // const data = [
@@ -22,39 +22,37 @@ const index = () => {
   //       "Decide to Lorem ipsum dolor sit amet, consectetur adipiscing elit",
   //   },
   // ];
+
   return (
     <>
       <div className="Wrapper pb-[1rem]">
-        <div className="flex align-center justify-center space-x-20 pt-[5rem]">
-          <div className="flex text-white-500 min-w-fit align-center justify-center bg-[#191919] rounded-[500px] p-4 space-x-2">
+        <div className="flex items-center align-center justify-center gap-4 pt-[5rem] container">
+          {/* <div className="but flex text-white-500 min-w-fit align-center justify-center bg-[#191919] rounded-[500px] px-4 py-2 space-x-2 ">
             <Image width={20} height={20} src={"/Images/brand.svg"} alt="" />
-            <h3 className="text-[#fff] text-[20px] min-w-fit">Brand name</h3>
-          </div>
-          <div className="flex text-white-500 align-center justify-center bg-[#191919] rounded-[500px] p-4 space-x-2 ">
-            <Image width={20} height={20} src={"/Images/brand.svg"} alt="" />
-            <h3 className="text-[#fff] text-[20px]">Brand name</h3>
-          </div>
-          <div className="flex text-white-500 align-center justify-center bg-[#191919] rounded-[500px] p-4 space-x-2">
-            <Image width={20} height={20} src={"/Images/brand.svg"} alt="" />
-            <h3 className="text-[#fff] text-[20px]">Brand name</h3>
-          </div>
-          <div className="flex text-white-500 align-center justify-center bg-[#191919] rounded-[500px] p-4 space-x-2">
-            <Image width={20} height={20} src={"/Images/brand.svg"} alt="" />
-            <h3 className="text-[#fff] text-[20px]">Brand name</h3>
-          </div>
-          <div className="flex text-white-500 align-center justify-center bg-[#191919] rounded-[500px] p-4 space-x-2">
-            <Image width={20} height={20} src={"/Images/brand.svg"} alt="" />
-            <h3 className="text-[#fff] text-[20px]">Brand name</h3>
-          </div>
+            <h3 className="text-[#fff] text-[16px]">Brand name</h3>
+          </div> */}
+          {Array.from({ length: 5 }).map((_, id) => (
+            <div
+              key={id}
+              className={`text-white-500 min-w-fit align-center justify-center bg-[#191919] rounded-[500px] px-4 py-2 space-x-2 ${
+                id > 0 ? "md:flex hidden" : 'flex'
+              }`}
+            >
+              <Image width={20} height={20} src={"/Images/brand.svg"} alt="" />
+              <h3 className="text-white text-[22px] flex-shrink-0 md:text-[16px]">
+                Brand name
+              </h3>
+            </div>
+          ))}
         </div>
         <div className="pt-[2rem] mt-[2rem]">
-          <h1
+          <p
             id="Heading"
-            className="text-[#fff] text-[3vw] font-bold text-center"
+            className="para_graph1 text-[#fff] sm:text-[2rem] font-bold text-center md:text-[4rem]"
           >
             How it works
-          </h1>
-          <Grid/>
+          </p>
+          <Grid />
           {/* <div className="relative timeline space-y-8 md:space-y-container">
             {data.map((item, idx) => (
               <div
@@ -87,10 +85,10 @@ const index = () => {
             </button>
           </div>
         </div> */}
-      </div>
+        </div>
       </div>
     </>
   );
-}
+};
 
-export default index
+export default index;

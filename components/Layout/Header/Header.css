@@ -10,7 +10,7 @@
 
 .link:active{
   background-color: #4d4b4e;
-  padding: 10px 10px;
+  padding: 5px 2px;
   border-radius: 500px;
 }
 
@@ -55,3 +55,20 @@ li > a {
   font-size: 16px;
   color: #fff;
 } */
+
+@media screen and (max-width: 1012px) and (min-width: 700px)  {
+ .navy{
+  padding-top:6px;
+  padding-bottom:6px;
+ }
+
+.link:active{
+    padding-top:2px;
+  padding-bottom:2px;
+}
+
+/* .flex_nav{
+  gap:1rem;
+} */
+  
+}

@@ -16,3 +16,31 @@
      */
   /* color: red; */
 }
+
+@media screen and (max-width: 767px) {
+.wrapper_cont{
+    display: none;
+}
+.image_3{
+  width:33%;
+}
+.image_2{
+  width:33%;
+}
+.image_1{
+ width:60%;
+}
+.decent{
+  min-height:69vh;
+  min-width:60vw;
+}
+.position{
+  top:80px;
+}
+.center{
+  margin-top: 3rem;
+}
+.head_text {
+  font-size:12px;
+}
+}

@@ -6,24 +6,26 @@ const index = () => {
     <>
       <div className="feat">
         <div className="group_text sm:mb-[3vw] pt-[5rem] md:pt-16 w-full mb-8rem text-center">
-          <p className="text-[#fff] text-[3vw] font-bold">Powerful Features</p>
-          <p className=" text-[1vw] text-[#9DA3AF]  ">
+          <p className="para_graph1 text-[#fff] text-[3vw] font-bold">
+            Powerful Features
+          </p>
+          <p className=" para_graph  text-[#9DA3AF]  ">
             consectetur adipiscing elit, sed do eiusmod tempor
             <br /> incididunt ut labore et dolore magna aliqua.
           </p>
         </div>
 
-        <div className="grid gap-7 grid-cols-7 text-white bg-red w-[95%] max-w-[1100px] min-h-[40rem]  mx-auto">
-          <div className="grid_1 col-span-3 bg-[#171717] rounded-lg border-white-500 flex-1 p-8 relative">
+        <div className="center grid gap-7 md:grid-cols-7 text-white bg-red w-[95%] max-w-[1100px] min-h-[40rem] mx-auto">
+          <div className="decent grid_1 col-span-3 bg-[#171717] rounded-lg border-white-500 flex-1 p-8 relative">
             <Image
               alt="..."
               src={"/Images/secure.svg"}
               width={400}
               height={400}
-              className="absolute -top-2 -left-20"
+              className="image_1 absolute -top-2 -left-20"
             />
 
-            <div className="absolute top-0 left-0 w-full h-full px-8 pb-28 flex items-end">
+            <div className="position absolute top-0 left-0 w-full h-full px-8 pb-28 flex items-end">
               <div className="space-y-2">
                 <p className="text-zinc-500">Decentralized Exchange</p>
                 <p className="text-4xl">
@@ -39,7 +41,7 @@ const index = () => {
                 src={"/Images/token.png"}
                 width={310}
                 height={310}
-                className="absolute -top-2 -right-6"
+                className="image_2 absolute -top-2 -right-6"
               />
 
               <div className="space-y-2">
@@ -55,7 +57,7 @@ const index = () => {
                 src={"/Images/token.png"}
                 width={310}
                 height={310}
-                className="absolute -top-2 -right-6"
+                className="image_3 absolute -top-2 -right-6"
               />
 
               <div className="space-y-2">

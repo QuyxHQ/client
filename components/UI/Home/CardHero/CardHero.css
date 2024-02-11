@@ -2,11 +2,12 @@
     background: url("/Images/cards.png");
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 @media screen and (max-width: 767px) {
     .general{
         height:auto;
+        /* min-height: 10rem; */
     }
 }

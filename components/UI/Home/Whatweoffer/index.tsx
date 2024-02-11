@@ -40,17 +40,20 @@ const index = () => {
   return (
     <>
       <div className="cover">
-        <div className="control w-[55vw] m-auto" space-y-8>
-          <div className="group_text  sm:mb-[4vw] pt-[6vw] text-center md: w-full pt-[3rem] mb-8rem text-start">
-            <h1 className="text-[#fff] text-[3vw] font-bold ">
+        <div className="control container m-auto" space-y-8>
+          <div className="group_text  sm:mb-[4vw] pt-[6vw] text-center md: w-full md:pt-[3rem] mb-8rem md:text-start">
+            <p
+              id="Heading"
+              className="para_graph1 text-[#fff] sm:text-[2rem] font-bold text-center md:text-[4rem]"
+            >
               What We Offer You
-            </h1>
-            <p className=" text-[1vw] text-[#9DA3AF]  ">
+            </p>
+            <p className="para_graph  text-[#9DA3AF]  ">
               consectetur adipiscing elit, sed do eiusmod tempor
-              <br /> incididunt ut labore et dolore magna aliqua.
+              incididunt ut labore et dolore magna aliqua.
             </p>
           </div>
-          <div className="info_grid pt-[3vw] grid grid-cols-1 gap-[3rem] md:grid-cols-2 w-full pb-[3rem] gap-[6rem]">
+          <div className="info_grid pt-[3vw] grid grid-cols-1 gap-[3rem] md:grid-cols-2 w-full pb-[3rem] md:gap-[6rem]">
             {data.map((info, id) => (
               <div
                 key={id}

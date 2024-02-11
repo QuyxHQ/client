@@ -5,6 +5,12 @@
   height: auto;
 }
 
+/* .but{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
 .watch{
  background: linear-gradient(92deg, #9327ff 1.06%, #ffa927 100%);
   background-clip: text;

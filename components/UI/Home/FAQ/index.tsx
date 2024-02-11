@@ -54,7 +54,7 @@ const index = () => {
     <section className={`faq pt-5 pb-10 bg-black mx-auto`} id="faq">
       <div className=" p-8 ">
         <h2
-          className={`text-5xl text-center font-bold mb-8 text-[#fff] ${montserratAlternatesBold.className}`}
+          className={`text-[2rem] text-center font-bold mb-8 text-[#fff] md:text-5xl ${montserratAlternatesBold.className}`}
         >
           Frequently Asked Questions
         </h2>
@@ -70,9 +70,9 @@ const index = () => {
                   FAQList.length === i + 1 && "border-none"
                 }`}
               >
-                <div className="w-full flex items-center justify-between">
+                <div className="w-full flex gap-4 justify-between">
                   <h4
-                    className={`text-center text-[#fff] ${montserratAlternatesBold.className}`}
+                    className={`text-start text-[#fff] ${montserratAlternatesBold.className}`}
                   >
                     {faq.question}
                   </h4>

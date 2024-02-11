@@ -5,7 +5,7 @@ import Image from "next/image";
 const index = () => {
   return (
     <>
-      <div className="wrapper_cont bg-black py-32">
+      <div className="wrapper_cont  md:bg-black py-32 lg:text-white lg:py-48 xl:py-64">
         <div className="group_text  sm:mb-[3vw] pt-[6vw] md:pt-2 w-full mb-8rem text-center">
           <h1 className="text-[#fff] text-[3vw] font-bold ">About Us</h1>
           <p className=" text-[1vw] text-[#9DA3AF]  ">
