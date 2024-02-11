@@ -52,48 +52,50 @@ const CardAnimationScetion = () => {
             className="absolute top-0 left-0 w-full h-full flex items-center justify-center"
           >
             <div
-              className={`lg:w-[20rem] md:w-[18rem] w-[60vw] min-h-[28rem] space-y-4 p-4 z-10 bg-gradient-to-b from-[#150b04] duration-300 relative via-[#0b030c] to-[#0b030c] border rounded-md md:skew-x-12 ${card?.additionalClass}`}
+              className={`lg:w-[20rem] md:w-[18rem] w-[60vw] min-h-[28rem] duration-300 relative bg-gradient-to-b from-[#150b04] via-[#0b030c] to-[#0b030c] card-border-effect rounded-md md:skew-x-12 ${card?.additionalClass}`}
             >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
+              <div className="bg-gradient-to-b from-[#150b04] via-[#0b030c] to-[#0b030c] p-4 space-y-4 rounded-md">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Image
+                      src={card.profileImage}
+                      alt=""
+                      width={35}
+                      height={35}
+                    />
+                    <span className="text-sm">{card.username}</span>
+                    <Image
+                      alt="verified"
+                      src={"/Images/verified.svg"}
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                </div>
+                <div className="md:h-[15rem] h-[10rem] rounded-lg relative overflow-hidden">
                   <Image
-                    src={card.profileImage}
+                    src={card.image}
                     alt=""
-                    width={35}
-                    height={35}
-                  />
-                  <span className="text-sm">{card.username}</span>
-                  <Image
-                    alt="verified"
-                    src={"/Images/verified.svg"}
-                    width={20}
-                    height={20}
+                    width={300}
+                    height={300}
+                    className="w-full h-full object-cover"
                   />
                 </div>
-              </div>
-              <div className="md:h-[15rem] h-[10rem] rounded-lg relative overflow-hidden">
-                <Image
-                  src={card.image}
-                  alt=""
-                  width={300}
-                  height={300}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="space-y-3">
-                <p
-                  className={`${montserratAlternatesMedium.className} text-lg`}
-                >
-                  {card.title}
-                </p>
-                <p className="text-sm"> {card.description}</p>
-                <div className="flex items-center justify-between md:text-sm text-xs">
-                  <button className="gradient-btn flex-shrink-0">
-                    Place a bid
-                  </button>
-                  <button className="relative bg-black rounded-lg gradient-btn-outline">
-                    Auction
-                  </button>
+                <div className="space-y-3">
+                  <p
+                    className={`${montserratAlternatesMedium.className} text-lg`}
+                  >
+                    {card.title}
+                  </p>
+                  <p className="text-sm"> {card.description}</p>
+                  <div className="flex items-center justify-between md:text-sm text-xs">
+                    <button className="gradient-btn flex-shrink-0">
+                      Place a bid
+                    </button>
+                    <button className="relative bg-black rounded-lg gradient-btn-outline">
+                      Auction
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

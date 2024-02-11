@@ -1,14 +1,14 @@
-import React from 'react'
-import "./Whatweoffer.css"
+import React from "react";
+import "./Whatweoffer.css";
 
-type offer ={
-  Image : string;
-  title : string;
-  description : string;
+type Offer = {
+  Image: string;
+  title: string;
+  description: string;
 };
 
 const index = () => {
-  const data: offer[] = [
+  const data: Offer[] = [
     {
       Image: "/Images/market.png",
       title: "Marketplace",
@@ -35,8 +35,6 @@ const index = () => {
     },
   ];
 
-  
-
   return (
     <>
       <div className="cover">
@@ -48,12 +46,12 @@ const index = () => {
             >
               What We Offer You
             </p>
-            <p className="para_graph  text-[#9DA3AF]  ">
-              consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua.
+            <p className="para_graph  text-[#9DA3AF] text-center">
+              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+              labore et dolore magna aliqua.
             </p>
           </div>
-          <div className="info_grid pt-[3vw] grid grid-cols-1 gap-[3rem] md:grid-cols-2 w-full pb-[3rem] md:gap-[6rem]">
+          <div className="info_grid pt-[3vw] grid grid-cols-1 gap-[3rem] mx-auto md:grid-cols-2 w-[70%] mx:auto pb-[10rem] md:gap-[6rem]">
             {data.map((info, id) => (
               <div
                 key={id}
@@ -67,9 +65,9 @@ const index = () => {
                   className="mx-auto md:mx-0"
                 />{" "}
                 {/* Change 'profileImage' to 'Image' */}
-                <h1 className="text-[#fff] text-[24px] font-bold">
+                <h4 className="text-[#fff] text-[24px] font-bold">
                   {info.title}
-                </h1>
+                </h4>
                 <p className="text-[#fff] text-[16px]">{info.description}</p>
               </div>
             ))}
@@ -78,6 +76,6 @@ const index = () => {
       </div>
     </>
   );
-}
+};
 
-export default index
+export default index;

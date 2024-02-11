@@ -12,35 +12,33 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   border-image: linear-gradient(100.09deg, #9327ff 0%, #ffa927 100%) 1;
-  /* color: linear-gradient(92deg, #9327ff 1.06%, #ffa927 100%);
-     */
-  /* color: red; */
 }
 
 @media screen and (max-width: 767px) {
-.wrapper_cont{
+  .head_text {
+    font-size: 3rem;
+  
+  }
+  .wrapper_cont {
     display: none;
-}
-.image_3{
-  width:33%;
-}
-.image_2{
-  width:33%;
-}
-.image_1{
- width:60%;
-}
-.decent{
-  min-height:69vh;
-  min-width:60vw;
-}
-.position{
-  top:80px;
-}
-.center{
-  margin-top: 3rem;
-}
-.head_text {
-  font-size:12px;
-}
+  }
+  .image_3 {
+    width: 33%;
+  }
+  .image_2 {
+    width: 33%;
+  }
+  .image_1 {
+    width: 60%;
+  }
+  .decent {
+    min-height: 69vh;
+    /* min-width: 60vw; */
+  }
+  .position {
+    top: 80px;
+  }
+  .center {
+    margin-top: 3rem;
+  }
 }

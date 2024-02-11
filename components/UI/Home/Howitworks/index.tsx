@@ -26,7 +26,7 @@ const index = () => {
   return (
     <>
       <div className="Wrapper pb-[1rem]">
-        <div className="flex items-center align-center justify-center gap-4 pt-[5rem] container">
+        <div className="flex items-center align-center justify-center gap-[7rem] pt-[5rem] container">
           {/* <div className="but flex text-white-500 min-w-fit align-center justify-center bg-[#191919] rounded-[500px] px-4 py-2 space-x-2 ">
             <Image width={20} height={20} src={"/Images/brand.svg"} alt="" />
             <h3 className="text-[#fff] text-[16px]">Brand name</h3>
