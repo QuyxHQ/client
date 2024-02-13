@@ -1,4 +1,3 @@
-import React from "react";
 import TopHero from "../components/UI/Home/TopHero";
 import CardHero from "../components/UI/Home/CardHero";
 import How from "../components/UI/Home/Howitworks"

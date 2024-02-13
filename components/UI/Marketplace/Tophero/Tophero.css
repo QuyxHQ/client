@@ -1,6 +1,27 @@
-*{
-    background: url("/Images/Marketplace/hero.png");
+.wrap {
+  background: url("/Images/Marketplace/hero.png");
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
 }
+
+#marketplace-slider::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100%;
+  background: linear-gradient(to right, #010101, rgba(0, 0, 0, 0));
+}
+
+
+/* #marketplace-slider::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100%;
+  background: linear-gradient(to left, #312108, rgba(0, 0, 0, 0));
+} */

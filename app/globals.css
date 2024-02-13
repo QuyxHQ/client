@@ -28,7 +28,6 @@ body {
   border-radius: 6px;
 }
 
-
 .card-border-effect::after {
   content: "";
   position: absolute;
@@ -77,3 +76,9 @@ body {
   z-index: -1;
   border-radius: 8px;
 }
+
+.slider::-webkit-scrollbar {
+  height: 0px;
+  width: 0px;
+}
+
