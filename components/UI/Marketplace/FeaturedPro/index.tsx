@@ -73,18 +73,18 @@ const data: CardProps[] = [
 // Define the Card component
 const Card: React.FC<CardProps> = ({ username, image, description, price }) => (
   <div className="min-h-[30rem] min-w-[50rem] rounded-lg relative card-border-effect">
-    <div className="bg-gradient-to-b from-[#150b04] via-[#0b030c] border text-white relative to-[#0b030c]  space-y-4 h-full w-full rounded-md card-border-effect">
-      <div className="flex justify-center w-[100%] gap-4">
+    <div className="bg-gradient-to-b from-[#150b04] via-[#0b030c] border text-white relative to-[#0b030c]  space-y-4 h-full w-full rounded-md overflow-hidden card-border-effect">
+      <div className="flex justify-center w-full h-full">
         <div className="w-[50%] min-h-fit">
           <Image
             src={image}
             alt=""
             width={1000}
             height={1000}
-            className="h-fit"
+            className="object-cover w-full h-full"
           />
         </div>
-        <div className="w-[45%] my-auto">
+        <div className="w-[50%] p-4 my-auto">
           <p className="text-2xl">@{username}</p>
           <p className="whitespace-pre-line text-s text-zinc-400 select-none">
             {description}
@@ -102,8 +102,10 @@ const Index = () => {
 
   return (
     <div className="feature_wrap bg-black">
-      <div className="container flex align-center justify-between pt-[2rem]">
-        <h3 className="text-white text-[2.5rem] font-bold">Top Sellers</h3>
+      <div className="container flex align-center justify-between pt-[2rem] ">
+        <h3 className="text-white text-[1.5rem] md:text-[2.5rem] font-bold">
+          Featured Pro
+        </h3>
         <button className="flex items-center justify-center border px-[18px] py-[7px] gap-3 text-white rounded-[500px]">
           Browse All
           <IoIosArrowRoundForward />

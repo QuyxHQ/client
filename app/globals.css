@@ -82,3 +82,6 @@ body {
   width: 0px;
 }
 
+.hide_scroll::-webkit-scrollbar {
+  display: none;
+}

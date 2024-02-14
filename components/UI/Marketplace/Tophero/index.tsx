@@ -112,7 +112,7 @@ const Tophero = () => {
     <>
       <div className="wrap">
         <div className="flex container pt-40 align-center justify-between">
-          <div className="flex align-center justify-between w-[35%] rounded-[500px] bg-transparent border px-[30px] py-[15px]">
+          <div className="flex align-center gap-[5px] justify-between w-fit rounded-[500px] bg-transparent border px-[30px] py-[15px]">
             <Image
               alt="..."
               src={"/Images/Marketplace/icons/Search 2.svg"}
@@ -123,7 +123,7 @@ const Tophero = () => {
             <input
               type="Search"
               placeholder="Search"
-              className="border-none outline-none bg-transparent text-white"
+              className="border-none outline-none bg-transparent text-white w-[27vw]"
             />
             <Image
               alt="..."
@@ -139,7 +139,7 @@ const Tophero = () => {
           </div>
         </div>
         <div className="container">
-          <h3 className="text-white text-[2.5rem] mt-[2.5rem] font-bold">Featured Cards</h3>
+          <h3 className="text-white text-[1.5rem] md:text-[2.5rem] mt-[2.5rem] font-bold">Featured Cards</h3>
         </div>
         <div className="relative flex items-center space-x-7">
           <div
