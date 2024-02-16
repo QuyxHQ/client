@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { montserratAlternatesRegular } from "@/lib/utils/fonts";
-import Header from "@/components/Layout/Header";
-import Footer from "@/components/Layout/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,9 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserratAlternatesRegular.className}>
-        <Header />
         {children}
-        <Footer />
       </body>
     </html>
   );
