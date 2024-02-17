@@ -1,17 +1,16 @@
 import React from 'react';
-import DashboardLayout from "@/app/(dashboard)/DashboardLayout";
 
 
-const index = () => {
+const CreateUpload = () => {
   return (
     <>
-    <DashboardLayout>
-
-    
-    </DashboardLayout>
-
+  <div className="create_wrapper bg-black">
+    <div className="container">
+      <h1>CReate </h1>
+    </div>
+  </div>
     </>
   )
 }
 
-export default index
+export default CreateUpload
