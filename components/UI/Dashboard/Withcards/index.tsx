@@ -96,10 +96,22 @@ const index = () => {
         </div>
         <div className="allcard_cont bg-black">
         <div className="container flex align-center justify-between pt-[2rem]">
-          <h3 className="text-white font-bold text-[1.5rem] md:text-[2.5rem] ">
-            All Cards
-          </h3>
-          <div className="flex gap-[8px] items-center justify-between w-fit rounded-[500px] bg-transparent border px-[30px] py-[15px]">
+          <button className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium rounded-[500px] group bg-transparent border border-gradient bg-gradient-to-r from-purple-700 to-yellow-400 px-5 py-2.5">
+            All
+          </button>
+          <button>
+          <p>Created</p>
+          </button>
+          <button>
+            <p>Bought</p>
+          </button>
+          <button>
+          <p>Sold</p>
+          </button>
+          <button>
+            <p>For Sale</p>
+          </button>
+          <div className="flex gap-[8px] items-center justify-between w-fit rounded-[500px] bg-transparent border px-[15px] py-[7px]">
             <Image
               alt="..."
               src={"/Images/Marketplace/icons/Search 2.svg"}
