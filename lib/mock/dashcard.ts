@@ -4,9 +4,9 @@ type Card = {
   image: string;
   title: string;
   description: string;
-  coinType: Coin;
-  price: number;
-  amount: number;
+  coinType?: Coin;
+  price?: number;
+  amount?: number;
   additionalClass?: string;
 };
 
