@@ -1,8 +1,11 @@
 import React from 'react'
+import Withcards from '@/components/UI/Dashboard/Withcards'
 
 const page = () => {
   return (
-    <div>page</div>
+    <main>
+      <Withcards />
+    </main>
   )
 }
 

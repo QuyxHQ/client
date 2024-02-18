@@ -4,7 +4,7 @@ import { useRef } from "react";
 const useCustomSlider = (slideAmount: number | undefined) => {
   const slider = useRef<HTMLDivElement | null>(null);
 
-  const slideLeft = () =>
+   const slideLeft = () =>
     slider.current &&
     (slider.current.scrollLeft -= slideAmount ? slideAmount : 500);
   const slideRight = () =>
