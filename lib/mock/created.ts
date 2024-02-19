@@ -13,25 +13,6 @@ type Card = {
 
 export const dashCard: Card[] = [
   {
-    image: "/Images/maestro.png",
-    description: `The formidable force in the blockchain realm, sculpting decentralized ecosystems with lines of unyielding code. A true...see more`,
-    title: "Blockchain Maester",
-  },
-  {
-    status:"/Images/Frame 1000005128.png",
-    image: "/Images/NFT ART.png",
-    description: `A web3 design maverick, that fearlessly pioneers the future of digital aesthetics with blockchain brushes and NFT chisels...see more`,
-    title: "PHP Laver",
-    price: 589.25,
-    coinType: "ETH",
-    amount: 0.024,
-  },
-  {
-    image: "/Images/-iqXcpqe7HAyniScHBpPIXycN1HAflsWQeLZmz5oNUr3cBDyPXWIModuC1vVi_YbjXYG1gBpptHaSP4LmQzJcHPWIAkWWAruAAHJ.png",
-    description: `Badass frontend virtuoso sculpting immersive user experiences with a fusion of code and creativity. With a relentless...see more`,
-    title: "React Native",
-  },
-  {
     status:"/Images/Frame 1000005128.png",
     image: "/Images/ddss.png",
     description: `A formidable cyber security expert whose expertise transcends the digital battlefield. With a relentless commitment to safeguarding the virtual...see more`,
@@ -52,8 +33,23 @@ export const dashCard: Card[] = [
   {
     image: "/Images/gg.png",
     description: `Badass frontend virtuoso sculpting immersive user experiences with a fusion of code and creativity. With a relentless...see more`,
-    title: "@Design Maverick",
-    price: 89.25,
+    title: "Ghost writer",
+  },
+  {
+    status:"/Images/Frame 1000005128.png",
+    image: "/Images/Daft Punk Toy Face NFT.png",
+    description: `Badass frontend virtuoso sculpting immersive user experiences with a fusion of code and creativity. With a relentless...see more`,
+    title: "Ghost writer",
+    price: 5.04,
+    coinType: "ETH",
+    amount: 0.024,
+  },
+  {
+    status:"/Images/Frame 1000005128.png",
+    image: "/Images/guy.png",
+    description: `Badass frontend virtuoso sculpting immersive user experiences with a fusion of code and creativity. With a relentless...see more`,
+    title: "React Native",
+    price: 819.25,
     coinType: "ETH",
     amount: 0.024,
   },

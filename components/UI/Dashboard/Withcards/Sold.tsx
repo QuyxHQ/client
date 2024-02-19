@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { montserratAlternatesMedium } from "@/lib/utils/fonts";
-import { dashCard } from "@/lib/mock/dashcard";
+import { dashCard } from "@/lib/mock/sold";
 import Link from "next/link";
 
 const cardlink = [
@@ -197,15 +197,6 @@ const index = () => {
                 className="card bg-gradient-to-bg p-4 rounded-md card-border-effect">
                 <div className="">
                   <div className="rounded-lg relative overflow-hidden">
-                  <div className="z-index">
-                  <Image
-                      src={card.status}
-                      alt=".."
-                      width={80}
-                      height={32}
-                      className=""
-                    />
-                  </div>
                     <Image
                       src={card.image}
                       alt=""
