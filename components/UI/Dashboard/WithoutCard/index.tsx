@@ -7,9 +7,9 @@ const WithoutCard = () => {
   return (
     // <DashboardLayout>
     <>
-      <div className="dashboard_wrap bg-black">
+      <div className="dashboard_wrap bg-black pb-[2rem]">
         <div className="container">
-          <div className="flex flex-col gap-4 md:items-center md:flex-row justify-between text-white">
+          <div className="m flex flex-col gap-4 md:items-center md:flex-row justify-between text-white">
             <div className="flex flex-col items-start space-y-1">
               <Image
                 alt="..."
@@ -68,7 +68,7 @@ const WithoutCard = () => {
 
             <Link href="/createupload">
               <div className='flex items-center justify-between'>
-                <button className="text-base sm:text-[14px] md:text-base px-[20px] sm:py-[10px] sm:px-4 md:px-[20px] py-3 md:py-[15px] flex items-center text-white justify-center gap-2 bg-transparent border rounded-[500px]">
+                <button className="text-[14px] md:text-base px-[20px] sm:py-[10px] sm:px-4 md:px-[20px] py-3 md:py-[15px] flex items-center text-white justify-center gap-2 bg-transparent border rounded-[500px]">
                   Create new card
                   <Image
                     src={"/Images/Vector.svg"}
@@ -78,7 +78,7 @@ const WithoutCard = () => {
                   />
                 </button>
 
-                <button className=" flex items-center justify-center gap-[6px] bg-[#272727]  rounded-[500px] px-[20px] py-[10px] md:hidden">
+                <button className=" hidden text-[14px] flex items-center justify-center gap-[6px] bg-[#272727]  rounded-[500px] md:text-base px-[20px] sm:py-[10px] sm:px-4 md:px-[20px] py-3 md:py-[15px] ">
                   <Image
                     alt="..."
                     src={"/Images/bookmark.svg"}
@@ -129,7 +129,7 @@ const WithoutCard = () => {
                 className="text-white"
               />
             </div>
-            <button className=" hidden md:flex items-center justify-center gap-[6px] bg-[#272727]  rounded-[500px] px-[20px] py-[10px]">
+            <button className=" hidden text-[14px] md:flex items-center justify-center gap-[6px] bg-[#272727]  rounded-[500px] px-[20px] py-[10px] md:text-base">
               <Image
                 alt="..."
                 src={"/Images/bookmark.svg"}
@@ -144,7 +144,7 @@ const WithoutCard = () => {
           <div className="min-h-[50vh] bg-transparent border rounded-xl grid place-items-center mt-[4rem]">
             <div className="text-center space-y-6">
               <p className="text-white font-bold">Nothing here yet</p>
-              <button className="text-base sm:text-[14px] md:text-base px-3 sm:px-4 md:px-[20px] py-3 sm:py-2 md:py-[15px] flex items-center text-white justify-center gap-2 bg-transparent border rounded-[500px]">
+              <button className="sm:text-[14px] md:text-base px-3 sm:px-4 md:px-[20px] py-3 sm:py-2 md:py-[15px] flex items-center text-white justify-center gap-2 bg-transparent border rounded-[500px]">
                 Create new card
                 <Image
                   src={"/Images/Vector.svg"}

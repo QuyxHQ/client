@@ -1,10 +1,10 @@
-import CreateUpload from '@/components/UI/Dashboard/CreateUpload'
+import ProfileAuction from '@/components/UI/Dashboard/ProfileAuction'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-      <CreateUpload/>
+        <ProfileAuction/>
     </div>
   )
 }
