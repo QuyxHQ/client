@@ -35,9 +35,9 @@ const index = () => {
   const [compressed, setCompressed] = useState(true);
   return (
     <>
-      <div className="wrapper_cont  md:bg-black lg:text-white lg:py-40 xl:py-30">
-        <div className="flex justify-around">
-          <div className="block justify-between items-center">
+      <div className="wrapper_cont md:bg-black lg:text-white lg:py-40 xl:py-30">
+        <div className="top flex justify-around">
+          <div className="block moy justify-between items-center">
             <Image
               alt="..."
               src={"/Images/profilerof.png"}
@@ -64,10 +64,21 @@ const index = () => {
               />
               <p className="text[1rem] text-gray-500">0x5506...50E4</p>
             </div>
+            <div className="flex wallet gap-[8px] items-center justify-between w-fit rounded-[500px] bg-[#FFFFFF26] px-[15px] py-[7px] md:hidden">
+            <Image
+              alt="..."
+              src={"/Images/Wallet.svg"}
+              width={20}
+              height={20}
+              className="text-white "
+            />
+            <p>$5,700.45</p>
           </div>
+          </div>
+          
           <div className="pt-10 pl-10">
             <div className="flex items-center p-1 items-center gap-2 w-fit rounded-[100px] bg-[#211f22] w-[324px] h-[24]">
-              <p className="pl-7 text-[14px]">Stats</p>
+              <p className="pl-7 text-[white] text-[14px]">Stats</p>
               <Image
                 alt="..."
                 src={"/Images/Line 18.png"}
@@ -119,43 +130,23 @@ const index = () => {
                 />
               </button>
             </div>
-
           </div>
         </div>
         <div className="container justify-between flex align-center pb-[40px] pt-[40px] w-[1200px]">
             <div className="flex gap-[8rem]">
-              <div className="flex btn_contain items-center space-x-10 min-w-fit p-2 rounded-md">
-              {cardlink.map((link, id)=>
-            <button
+            <div className="flex btn_contain items-center space-x-10 min-w-fit p-2 rounded-md">
+            {cardlink.map((link, id)=>
+              <button
             className={`${
-              pathname === link.path
+              pathname == link.path
             } text-[11px] lg:text-base xl:text-lg flex-shrink-0 2xl:text-xl`}
             key={id}
           >
             <Link href={link.path}>{link.label}</Link>
-          </button>
+            </button>
             )}
               </div>
             
-              {/* <div className="flex btn_contain items-center space-x-2 min-w-fit p-2 rounded-md">
-                <button className=" text-[11px] lg:text-base xl:text-lg flex-shrink-0 2xl:text-xl">
-                  <Link href={"/"}>
-                  <span className="gradtext">All</span>
-                  </Link>
-                </button>
-              </div>
-              <button>
-               <p>Created</p>
-              </button>
-              <button>
-               <p>Bought</p> 
-              </button>
-              <button>
-               <p>Sold</p> 
-              </button>
-              <button>
-              <p>For Sale</p>
-              </button> */}
             </div>
             <div className="flex gap-[8px] items-center justify-between w-fit rounded-[500px] bg-transparent border px-[15px] py-[15px] cursor-pointer">
               <Image
@@ -189,29 +180,30 @@ const index = () => {
               <p>Saved</p>
             </div>
           </div>  
-        <div className="allcard_cont bg-black">
+        <div className="allcard_cont bg-black rounded-[2rem]">
           <div className="container grid grid-cols-1 md:grid-cols-3 gap-3.5 mt-[2rem] pb-[2rem]">
             {dashCard.map((card, id) => (
               <div
                 key={id}
                 className="card bg-gradient-to-bg p-4 rounded-md card-border-effect">
                 <div className="">
-                  <div className="rounded-lg relative overflow-hidden">
-                  <div className="z-index">
+                  <div className="relative overflow-hidden">
+                  <div className="absolute top-0 left-0 pl-[20rem] z-10">
+                {card.status?
                   <Image
                       src={card.status}
                       alt=".."
                       width={80}
                       height={32}
                       className=""
-                    />
+                    />:null}
                   </div>
                     <Image
                       src={card.image}
                       alt=""
                       width={200}
                       height={100}
-                      className="w-full h-full object-cover"
+                      className="rounded-lg w-full h-full object-cover"
                     />
                   </div>
                   <div className="space-y-3 py-8 px-1">

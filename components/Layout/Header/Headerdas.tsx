@@ -6,7 +6,7 @@ import "./Header.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { IoClose } from "react-icons/io5";
-
+import { IoMenu } from "react-icons/io5";
 
 const Headerd = () => {
   const pathname = usePathname();
@@ -16,10 +16,10 @@ const Headerd = () => {
 
   return (
     <>
-      <nav className="fixed w-full text-white z-[500]">
+      <nav className="fixed w-full h-[6.5rem] text-white z-[500]">
         <div className="container">
           <div className="d-flex items-center">
-            <div className="flex gap-6  py-10 items-center md:flex-row justify-between">
+            <div className="flex gap-6 py-10 items-center md:flex-row justify-between">
               <div className="nav-brand">
                 <Link href={"/"}>
                   <Image
@@ -67,7 +67,7 @@ const Headerd = () => {
               className="text-white"
             />
           </div>
-            <div className="flex gap-[8px] items-center justify-between w-fit rounded-[500px] bg-[#FFFFFF26] px-[15px] py-[7px]">
+            <div className="flex wallet gap-[8px] items-center justify-between w-fit rounded-[500px] bg-[#FFFFFF26] px-[15px] py-[7px]">
             <Image
               alt="..."
               src={"/Images/Wallet.svg"}
@@ -83,8 +83,11 @@ const Headerd = () => {
               src={"/Images/profilerof.png"}
               width={64}
               height={64}
-              className="text-white rounded-[120px]"
+              className="text-white rounded-[120px] profile"
             />
+            <div className="flex items-center">
+          <IoMenu className="text-[white] text-[2rem] md:hidden" />
+          </div>
             </div>
         </div>
         </div>

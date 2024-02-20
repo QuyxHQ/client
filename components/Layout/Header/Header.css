@@ -96,19 +96,21 @@ li > a {
   color: #fff;
 } */
 
-@media screen and (max-width: 1012px) and (min-width: 700px)  {
- .navy{
-  padding-top:6px;
-  padding-bottom:6px;
- }
-
-.link:active{
-    padding-top:2px;
-  padding-bottom:2px;
-}
-
-/* .flex_nav{
-  gap:1rem;
-} */
+@media screen and (max-width: 1012px) and (min-width: 500px)  {
+  .btn_container > button {
+    display: none;
+  }
+  .wallet{
+    display: none;
+  }
+  .profile{
+    display: none;
+  }
+  .nav-brand > h1 {
+    font-size: 20px;
+  }
+  nav{
+    border-bottom: 1px solid white;
+  }
   
 }

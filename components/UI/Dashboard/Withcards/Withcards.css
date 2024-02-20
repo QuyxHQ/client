@@ -84,3 +84,25 @@
     border: 1px solid white;
     height: 538px;
   }
+  @media screen and (max-width: 1012px) and (min-width: 300px)  {
+    .wrapper_cont {
+      background-color: #000000;
+      padding-top: 8rem;
+      color: white;
+    }
+    .top{
+      display: block;
+      padding-top: 1rem;
+    }
+    .top2{
+      display: flex;
+      padding-top: 1rem;
+    }
+    .moy{
+      display: block;
+    }
+    .nav-brand > h1 {
+      font-size: 20px;
+    }
+    
+  }

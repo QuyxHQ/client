@@ -196,13 +196,23 @@ const index = () => {
                 key={id}
                 className="card bg-gradient-to-bg p-4 rounded-md card-border-effect">
                 <div className="">
-                  <div className="rounded-lg relative overflow-hidden">
+                  <div className="relative overflow-hidden">
+                  <div className="absolute top-0 left-0 pl-[20rem] z-10">
+                {card.status?
+                  <Image
+                      src={card.status}
+                      alt=".."
+                      width={80}
+                      height={32}
+                      className=""
+                    />:null}
+                  </div>  
                     <Image
                       src={card.image}
                       alt=""
                       width={200}
                       height={100}
-                      className="w-full h-full object-cover"
+                      className="rounded-lg w-full h-full object-cover"
                     />
                   </div>
                   <div className="space-y-3 py-8 px-1">
