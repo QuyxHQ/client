@@ -39,7 +39,6 @@ body {
   z-index: -10;
   border-radius: 6px;
 }
-
 .gradient-btn {
   background: linear-gradient(92deg, #9327ff 1.06%, #ffa927 100%);
   padding: 14px 36px;

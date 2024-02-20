@@ -17,8 +17,7 @@
     width: auto;
     cursor: pointer;
   }
-  
-  .flex_btn > .docs2::after {
+    .flex_btn > .docs2::after {
     content: "";
     position: absolute;
     top: -1;
@@ -93,6 +92,7 @@
     .top{
       display: block;
       padding-top: 1rem;
+      margin-left: 1rem;
     }
     .top2{
       display: flex;
@@ -104,5 +104,12 @@
     .nav-brand > h1 {
       font-size: 20px;
     }
-    
+    .numbers{
+      font-size: 100px;
+      gap: 10rem;
+      margin-left: 2rem;
+    }
+    .lg\:hidden{
+      display: none;
+    }
   }

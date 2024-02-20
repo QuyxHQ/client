@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 import { montserratAlternatesMedium } from "@/lib/utils/fonts";
 import { dashCard } from "@/lib/mock/dashcard";
 import Link from "next/link";
-
 const cardlink = [
   {
     path: "/Dasboard",
@@ -37,8 +36,9 @@ const index = () => {
     <>
       <div className="wrapper_cont md:bg-black lg:text-white lg:py-40 xl:py-30">
         <div className="top flex justify-around">
-          <div className="block moy justify-between items-center">
-            <Image
+          <div className="block justify-between items-center">
+            <div className="moy">
+              <Image
               alt="..."
               src={"/Images/profilerof.png"}
               width={120}
@@ -64,7 +64,8 @@ const index = () => {
               />
               <p className="text[1rem] text-gray-500">0x5506...50E4</p>
             </div>
-            <div className="flex wallet gap-[8px] items-center justify-between w-fit rounded-[500px] bg-[#FFFFFF26] px-[15px] py-[7px] md:hidden">
+            </div>
+            <div className="flex wallet gap-[8px] items-center justify-between w-fit rounded-[500px] bg-[#FFFFFF26] px-[15px] py-[7px] lg:hidden">
             <Image
               alt="..."
               src={"/Images/Wallet.svg"}
@@ -87,8 +88,8 @@ const index = () => {
                 className="pr-2"
               />
             </div>
-            <div className="block items-center  items-center  w-[324px] h-[94px]">
-              <div className="flex pl-2 text-[#FFD599] text-[60px] gap-10">
+            <div className="block items-center items-center  w-[324px] h-[94px]">
+              <div className="numbers flex pl-2 text-[#FFD599] text-[60px] gap-10">
                 <p>05</p>
                 <p>03</p>
                 <p>04</p>
@@ -181,11 +182,11 @@ const index = () => {
             </div>
           </div>  
         <div className="allcard_cont bg-black rounded-[2rem]">
-          <div className="container grid grid-cols-1 md:grid-cols-3 gap-3.5 mt-[2rem] pb-[2rem]">
+          <div className="container grid grid-cols-1 md:grid-cols-3 gap-3.5 mt-[2rem]">
             {dashCard.map((card, id) => (
               <div
                 key={id}
-                className="card bg-gradient-to-bg p-4 rounded-md card-border-effect">
+                className="card bg-gradient-to-bg p-4 rounded-md">
                 <div className="">
                   <div className="relative overflow-hidden">
                   <div className="absolute top-0 left-0 pl-[20rem] z-10">
