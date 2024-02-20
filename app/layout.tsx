@@ -18,9 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserratAlternatesRegular.className}>
-        <Headerd />
         {children}
-        {/* <Footer /> */}
       </body>
     </html>
   );

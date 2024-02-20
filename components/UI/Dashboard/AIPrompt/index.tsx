@@ -1,0 +1,109 @@
+import React from 'react'
+import Link from "next/link"
+import Image from "next/image"
+
+const AIPrompt = () => {
+  return (
+    <>
+      <div className="AI_wrap bg-black">
+        <div className="container text-white">
+          <h1 className="text-white text-4xl font-bold pt-[2rem]">
+            Create Profile Card{" "}
+          </h1>
+          <div className="flex items-start justify-start gap-[2rem]  px-3 py-3  mt-[1.5rem] bg-transparent border rounded-[500px] w-fit">
+            <Link href="/ProfileCardInfo">
+              <p>Upload media</p>
+            </Link>
+            <Link href="/AIPrompt">
+              <p>Generate PFP with AI prompt</p>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 mt-[3rem] gap-[3rem] md:grid-cols-2">
+            <div className="flex flex-col space-y-4">
+              <textarea
+                id="bio"
+                placeholder="describe what you want your pfp to look like..."
+                className="min-h-[12vh] px-3 py-3 mt-1 block w-full rounded-md border outline-none text-sm resize-none bg-transparent"
+                //     <Image
+                //     src={"/Images/push.svg"}
+                //     width={20}
+                //     height={20}
+                //     alt="logo"
+                //     className="bg-transparent border rounded-full  text-white"
+                //   />
+              />
+
+              <div className="min-h-[55vh]  w-full bg-transparent border rounded-xl grid place-items-center ">
+                <div className="text-center space-y-3">
+                  <p className="">Drag and drop media</p>
+                  <h3 className="font-bold text-purple-300 text-3xl cursor-pointer">
+                    Browse files
+                  </h3>
+                  <p className="text-[#D9D9D9]">max size 50mb</p>
+                </div>
+
+                <div className="flex items-end py-3 justify-center w-full rounded-[500px] bg-[#242424]">
+                  <button className="flex items-center text-xl gap-[10px]  ">
+                    Regenerate
+                    <Image
+                      src={"/Images/re.svg"}
+                      width={17}
+                      height={17}
+                      alt="logo"
+                      className="text-white"
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+            {/* <p>This card is for sale</p> */}
+
+            <div>
+              <form action="" className="space-y-2">
+                <label
+                  htmlFor="bio"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Username
+                </label>
+                <input
+                  type="text"
+                  placeholder="Username"
+                  className=" min-w-[40vw] outline-none block w-full bg-transparent border py-3 rounded-md px-3 text-sm"
+                />
+                <label
+                  htmlFor="bio"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Bio
+                </label>
+                <textarea
+                  id="bio"
+                  placeholder="Info about this card"
+                  className="min-w-[40vw] h-[14rem] px-3 py-3 mt-1 block w-full rounded-md border outline-none text-sm resize-none bg-transparent"
+                />
+                <label
+                  htmlFor="bio"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Description <span className='text-[#cc99ff]'>(Optional)</span>
+                </label>
+                <textarea
+                  id="bio"
+                  placeholder="Info about this card"
+                  className="min-w-[40vw] h-[6.8rem] px-3 py-3 mt-1 block w-full rounded-md border outline-none text-sm resize-none bg-transparent"
+                />
+                {/* <button className="text-base min-w-[70%] sm:text-[14px] md:text-base px-3 sm:px-4 md:px-[20px] py-3 sm:py-2 md:py-[15px] flex items-center text-white justify-center gap-2 bg-transparent border rounded-[500px]">
+                  Create
+                </button> */}
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default AIPrompt
