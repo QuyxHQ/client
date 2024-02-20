@@ -3,7 +3,7 @@
   margin: 0;
 }
 
-.btn_container > Link > button {
+.connect {
   outline: none;
   padding: 0.5rem 1.3rem;
   display: flex;
@@ -15,7 +15,7 @@
   position: relative;
 }
 
-.btn_container > Link > button::after {
+.connect {
   content: "";
   position: absolute;
   top: -1;

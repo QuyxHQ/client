@@ -6,7 +6,7 @@ const ProfileCardInfo = () => {
   return (
     <>
       <div className="info_wrap bg-black">
-        <div className="container">
+        <div className="container pb-[2rem]">
           <div className="flex items-start flex-col justify-between gap-[2rem] md:flex md:flex-row md:items-center text-white">
             <div className="flex items-center justify-center gap-2 ">
               <div className="p-2 rounded-full border w-fit bg-zinc-800 border-zinc-500">

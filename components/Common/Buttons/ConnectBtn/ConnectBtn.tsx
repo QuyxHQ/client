@@ -8,7 +8,7 @@ const ConnectBtn = () => {
     <div className="btn_container ">
       <Link href="/dashboard">
         {/* <div className="btn"> */}
-        <button className="flex items-center space-x-2 min-w-fit bg-blue-500 p-2 rounded-[500px]">
+        <button className="flex items-center space-x-2 min-w-fit bg-transparent border  p-2 rounded-[500px]">
           <span className="text-[11px] lg:text-base xl:text-lg flex-shrink-0 2xl:text-xl">
             Connect With
           </span>
