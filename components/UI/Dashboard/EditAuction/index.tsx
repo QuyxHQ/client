@@ -1,18 +1,154 @@
 import React from 'react'
 import Image from "next/image";
-import "./AuctionSell.css"
 import Link from "next/link";
+import DetailsTab from "@/components/UI/Dashboard/CardDetails/DetailsTab";
 import "@/components/UI/Dashboard/ProfileAISell/ProfileAISell.css";
-import { FaToggleOn } from "react-icons/fa";
 
-const AuctionSell = () => {
+const EditAuction = () => {
   return (
     <>
-      <div className="profilesell_wrap bg-black">
+      <div className="EditAuction_wrap bg-black">
         <div className="container text-white pb-[2rem]">
-          <h1 className="text-white text-2xl font-bold pt-[2rem] md:text-4xl">
-            Create Profile Card{" "}
-          </h1>
+          <div className="m flex flex-col gap-4 md:items-center md:flex-row justify-between text-white">
+            <div className="flex flex-col items-start space-y-1">
+              <Image
+                alt="..."
+                src={"/Images/moyin.svg"}
+                width={70}
+                height={70}
+                className="text-white"
+              />
+              <div className="flex items-center justify-center">
+                <span className="text-m">Moyinthegrait</span>
+                <Image
+                  alt="verified"
+                  src={"/Images/verified.svg"}
+                  width={20}
+                  height={20}
+                />
+              </div>
+
+              <div className="flex items-center justify-center gap-[5px]">
+                <Image
+                  alt="verified"
+                  src={"/Images/Eth.svg"}
+                  width={15}
+                  height={15}
+                />
+                <span className="text-[#9da3af]">0x5506...50E4</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center">
+              <div className="flex sm:justify-start sm:px-[20px] md:min-w-[350px] items-center w-full md:items-center justify-center gap-[6px] bg-[#272727] rounded-full px-[10px] py-[5px] ">
+                <p>stats</p>
+
+                <div className="h-[2px] w-full flex-grow bg-gray-500 rounded-md"></div>
+                {/* <Image
+                  alt="verified"
+                  src={"/Images/Line 18.svg"}
+                  width={300}
+                  height={20}
+                  className="md:bg-[#414349] w-full"
+                /> */}
+              </div>
+              <div className="grid grid-cols-3 gap-[3rem] text-center md:gap-[5rem]">
+                <div className="flex flex-col">
+                  <span className="text-[32px] text-[#ffd599] md:text-[40px]">
+                    00
+                  </span>
+                  <p className="text-[#4f5258] text-[13px] md:text-[14px]">
+                    Created
+                  </p>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[32px] text-[#ffd599] md:text-[40px]">
+                    00
+                  </span>
+                  <p className="text-[#4f5258] text-[13px] md:text-[14px]">
+                    Sold
+                  </p>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[32px] text-[#ffd599] md:text-[40px]">
+                    00
+                  </span>
+                  <p className="text-[#4f5258] text-[13px] md:text-[14px]">
+                    Bought
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-start md:items-end gap-[3rem]">
+              <div className="flex items-start gap-[2rem]">
+                <Image
+                  alt="..."
+                  src={"/Images/Upload.svg"}
+                  width={25}
+                  height={15}
+                  className="text-white"
+                />
+                <Image
+                  alt="..."
+                  src={"/Images/Menu Kebab.svg"}
+                  width={25}
+                  height={15}
+                  className="text-white"
+                />
+              </div>
+              <Link href="/createupload">
+                <div className="flex items-center justify-between">
+                  <button className="text-[14px] flex-shrink-0 md:text-base px-[20px] sm:py-[10px] sm:px-4 md:px-[20px] py-3 md:py-[15px] flex items-center text-white justify-center gap-2 bg-transparent border rounded-[500px]">
+                    Create new card
+                    <Image
+                      src={"/Images/Vector.svg"}
+                      width={20}
+                      height={20}
+                      alt="logo"
+                    />
+                  </button>
+
+                  <button className=" hidden text-[14px] items-center justify-center gap-[6px] bg-[#272727]  rounded-[500px] md:text-base px-[20px] sm:py-[10px] sm:px-4 md:px-[20px] py-3 md:py-[15px] ">
+                    <Image
+                      alt="..."
+                      src={"/Images/bookmark.svg"}
+                      width={15}
+                      height={15}
+                      className="text-white"
+                    />
+                    saved
+                  </button>
+                </div>
+              </Link>
+            </div>
+          </div>
+
+          <DetailsTab />
+
+          <div className="flex items-center justify-between mt-[3rem]">
+            <button className="flex items-center gap-2 text-white bg-[#272727] px-3 py-1 rounded-full">
+              <Image
+                alt="..."
+                src={"/Images/Left 1.svg"}
+                width={15}
+                height={15}
+                className="text-white"
+              />
+              Back
+            </button>
+            <button className="flex items-center gap-2 text-white px-3 py-1">
+              <Image
+                alt="..."
+                src={"/Images/Edit 1.svg"}
+                width={15}
+                height={15}
+                className="text-white"
+              />
+              Edit
+            </button>
+          </div>
+
           <div className="navigate flex items-start gap-[1rem] justify-start md:gap-[2rem]  px-3 py-3  mt-[1.5rem] bg-transparent border rounded-[500px] w-fit">
             <Link href="/ProfileCardInfo">
               <p className="paragraph text-[12px] md:text-base">Upload media</p>
@@ -34,7 +170,9 @@ const AuctionSell = () => {
                   <h3 className="font-bold text-2xl text-purple-300 md:text-3xl cursor-pointer">
                     Browse files
                   </h3>
-                  <p className="text-[#D9D9D9] text-[13px] md:text-base">max size 50mb</p>
+                  <p className="text-[#D9D9D9] text-[13px] md:text-base">
+                    max size 50mb
+                  </p>
                 </div>
               </div>
             </div>
@@ -81,18 +219,24 @@ const AuctionSell = () => {
             </div>
           </div>
 
-          <div className="flex flex-col items-start gap-[1rem] md:flex-row md:items-center md:gap-[2rem] mt-[1.5rem]">
+          <div className="flex flex-col items-start md:flex-row md:items-center justify-between mt-[1rem]">
             <div className="flex">
-              <p className="text-[16px] md:text-2xl text-white">
-                This card is for sale
+              <p className="text-[14px] md:text-xl text-white">
+                Make Card Available for Sale
               </p>
               {/* <FaToggleOn className="text-[40px]" /> */}
             </div>
-            <span className="text_span text-[12px] md:text-base text-white flex items-center gap-[6px] bg-[#1A1a1a] rounded-[500px] px-2 py-2">
-              <Image src={"/Images/note.svg"} alt="" width={20} height={20} />
-              Note: 10% of your selling price will be deducted as commission
-              fees
-            </span>
+
+            <button className="min-w-[5rem] bg-[#FF4c00] text-[12px] md:min-w-[7rem] mt-[1rem]  md:text-base px-2 sm:px-4 md:px-[20px] py-2  md:py-[15px] flex items-center text-white justify-center gap-2  rounded-[500px]">
+              Delete Card
+              <Image
+                alt="..."
+                src={"/Images/Delete 2.svg"}
+                width={15}
+                height={15}
+                className="text-white"
+              />
+            </button>
           </div>
 
           <div className="flex items-center min-w-[48%] md:w-[48%] justify-between border bg-transparent px-4 py-5 rounded-xl mt-[1.5rem]">
@@ -205,7 +349,7 @@ const AuctionSell = () => {
           </div>
 
           <button className="min-w-[58%] text-base md:min-w-[48%] mt-[1rem] sm:text-[14px] md:text-base px-3 sm:px-4 md:px-[20px] py-3 sm:py-2 md:py-[15px] flex items-center text-white justify-center gap-2 bg-transparent border rounded-[500px]">
-            Create
+            Save change
           </button>
         </div>
       </div>
@@ -213,4 +357,4 @@ const AuctionSell = () => {
   );
 }
 
-export default AuctionSell
+export default EditAuction

@@ -9,15 +9,15 @@ const ProfileSell = () => {
     <>
       <div className="profilesell_wrap bg-black">
         <div className="container text-white pb-[2rem]">
-          <h1 className="text-white text-2xl md:text-4xl font-bold pt-[2rem]">
+          <h1 className="text-white text-2xl font-bold pt-[2rem] md:text-4xl">
             Create Profile Card{" "}
           </h1>
-          <div className="flex items-start justify-start gap-[2rem]  px-3 py-3  mt-[1.5rem] bg-transparent border rounded-[500px] w-fit">
-            <Link href="#">
-              <p className="text-[12px] md:text-base">Upload media</p>
+          <div className="navigate flex items-start gap-[1rem] justify-start md:gap-[2rem]  px-3 py-3  mt-[1.5rem] bg-transparent border rounded-[500px] w-fit">
+            <Link href="/ProfileCardInfo">
+              <p className="paragraph text-[12px] md:text-base">Upload media</p>
             </Link>
             <Link href="/AIPrompt">
-              <p className="text-[12px] md:text-base">
+              <p className="paragraph text-[12px] md:text-base">
                 Generate PFP with AI prompt
               </p>
             </Link>
@@ -78,12 +78,14 @@ const ProfileSell = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-[2rem] mt-[2rem] ">
-            <p className="text-[18px] md:text-2xl text-white">
-              This card is for sale
-            </p>
-            <FaToggleOn className="text-[40px]" />
-            <span className="text-white flex items-center gap-[6px] bg-[#1A1a1a] rounded-[500px] px-2 py-2">
+          <div className="flex flex-col items-start gap-[1rem] md:flex-row md:items-center md:gap-[2rem] mt-[1.5rem]">
+            <div className="flex">
+              <p className="text-[16px] md:text-2xl text-white">
+                This card is for sale
+              </p>
+              {/* <FaToggleOn className="text-[40px]" /> */}
+            </div>
+            <span className="text_span  text-white flex items-center gap-[6px] bg-[#1A1a1a] rounded-[500px] px-2 py-2">
               <Image src={"/Images/note.svg"} alt="" width={20} height={20} />
               Note: 10% of your selling price will be deducted as commission
               fees
@@ -91,7 +93,7 @@ const ProfileSell = () => {
           </div>
 
           <div className="flex items-center min-w-[48%] md:w-[48%] justify-between border bg-transparent px-4 py-5 rounded-xl mt-[1.5rem]">
-            <p className="text-2xl">Fixed</p>
+            <p className="text-xl md:text-2xl">Fixed</p>
             <Image src={"/Images/Down.svg"} alt="" width={20} height={20} />
           </div>
 
@@ -108,13 +110,13 @@ const ProfileSell = () => {
               name="price"
               placeholder="$ | 0.00"
               required
-              className="bg-transparent outline-none text-4xl text-white resize-none"
+              className="bg-transparent outline-none text-2xl md:text-4xl text-white resize-none"
             />
           </div>
           <div className="text-white bg-[#1a1a1a] rounded-xl px-4 py-1 mt-[1rem] max-w-fit">
             <p className="inline text-xl">Eth</p>
           </div>
-          <button className="text-base sm:w-full md:min-w-[48%] mt-[1rem] sm:text-[14px] md:text-base px-3 sm:px-4 md:px-[20px] py-3 sm:py-2 md:py-[15px] flex items-center text-white justify-center gap-2 bg-transparent border rounded-[500px]">
+          <button className="min-w-[58%] text-base md:min-w-[48%] mt-[1rem] sm:text-[14px] md:text-base px-3 sm:px-4 md:px-[20px] py-3 sm:py-2 md:py-[15px] flex items-center text-white justify-center gap-2 bg-transparent border rounded-[500px]">
             Create
           </button>
         </div>

@@ -8,15 +8,17 @@ const CreateUpload = () => {
     <>
       <div className="create_wrapper bg-black">
         <div className="container text-white pb-[2rem]">
-          <h1 className="text-white text-2xl md:text-4xl font-bold pt-[2rem]">
+          <h1 className="text-white text-2xl font-bold pt-[2rem] md:text-4xl">
             Create Profile Card{" "}
           </h1>
-          <div className="flex items-start justify-start gap-[2rem]  px-3 py-3  mt-[1.5rem] bg-transparent border rounded-[500px] w-fit">
-            <Link href="#">
-              <p className="text-[12px] md:text-base">Upload media</p>
+          <div className="navigate flex items-start gap-[1rem] justify-start md:gap-[2rem]  px-3 py-3  mt-[1.5rem] bg-transparent border rounded-[500px] w-fit">
+            <Link href="/ProfileCardInfo">
+              <p className="paragraph text-[12px] md:text-base">Upload media</p>
             </Link>
             <Link href="/AIPrompt">
-              <p className="text-[12px] md:text-base">Generate PFP with AI prompt</p>
+              <p className="paragraph text-[12px] md:text-base">
+                Generate PFP with AI prompt
+              </p>
             </Link>
           </div>
 
@@ -32,7 +34,9 @@ const CreateUpload = () => {
                 </div>
               </div>
               <div className="flex items-center gap-[2rem] mt-[2rem] ">
-                <p className="text-[18px] md:text-2xl text-white">This card is for sale</p>
+                <p className="text-[18px] md:text-2xl text-white">
+                  This card is for sale
+                </p>
                 <FaToggleOn className="text-[40px]" />
               </div>
             </div>

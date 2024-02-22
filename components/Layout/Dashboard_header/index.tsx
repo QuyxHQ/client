@@ -83,35 +83,42 @@ const index = () => {
               />
             </div>
 
-            <div className="flex items-center justify-center gap-8 md:hidden">
-              <Image
-                src={"/Images/Vector.svg"}
-                width={20}
-                height={20}
-                alt="logo"
-                className="bg-transparent border rounded-full  text-white"
-              />
+            <div className="flex items-center justify-center gap-4 md:hidden">
+              <div className="bg-transparent border rounded-full text-white p-1">
+                <Image
+                  src={"/Images/Vector.svg"}
+                  width={20}
+                  height={20}
+                  alt="logo"
+                />
+              </div>
+              <div className="bg-transparent border rounded-full text-white p-1">
               <Image
                 src={"/Images/Wallet.svg"}
                 width={20}
                 height={20}
                 alt="logo"
-                className="bg-transparent border rounded-full  text-white"
+                className=" text-white"
               />
+              </div>
+              <div className="bg-transparent border rounded-full text-white p-1">
               <Image
                 alt="..."
                 src={"/Images/Marketplace/icons/Search 2.svg"}
                 width={20}
                 height={20}
-                className="bg-transparent border rounded-full  text-white"
+                className=" text-white"
               />
+              </div>
+              <div className="bg-transparent border rounded-full text-white p-1">
               <Image
                 src={"/Images/moyin.svg"}
                 width={20}
                 height={20}
                 alt="logo"
-                className="bg-transparent border rounded-full  text-white"
+                className=" text-white"
               />
+              </div>
             </div>
 
             {/* <div className="flex align-center items-center">
