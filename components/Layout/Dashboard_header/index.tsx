@@ -28,8 +28,8 @@ const index = () => {
               </Link>
             </div>
 
-            <div className="hidden md:block">
-              <button className="flex items-center justify-center gap-2 flex-shrink-0 bg-transparent border rounded-[500px] px-[20px] py-[15px]">
+            <div className="btn_container hidden md:block">
+              <button className="flex items-center justify-center gap-2 flex-shrink-0 rounded-[500px] px-[20px] py-[15px]">
                 Create
                 <Image
                   src={"/Images/Vector.svg"}

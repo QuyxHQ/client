@@ -17,6 +17,7 @@
     width: auto;
     cursor: pointer;
   }
+  
     .flex_btn > .docs2::after {
     content: "";
     position: absolute;
@@ -35,7 +36,7 @@
     padding: 16px 40px;
   
   }
-  .doct{
+  .active{
     border-width: 3px;
     border-style: solid;
     border-image: linear-gradient(92deg, #9327ff 1.06%, #ffa927 100%);
@@ -83,20 +84,22 @@
     border: 1px solid white;
     height: 538px;
   }
+  .upload{
+    position: absolute;
+    top: 7.5rem;
+    left: 75rem;
+    padding: 1.5rem;
+  }
   @media screen and (max-width: 1012px) and (min-width: 300px)  {
-    .wrapper_cont {
+    .dashboard_wrap {
       background-color: #000000;
-      padding-top: 8rem;
-      color: white;
+      padding-top: 4rem;
     }
-    .top{
-      display: block;
-      padding-top: 1rem;
-      margin-left: 1rem;
-    }
-    .top2{
-      display: flex;
-      padding-top: 1rem;
+    .wallet{
+      position: absolute;
+      top: 10rem;
+      left: 33rem;
+      padding: 1.5rem;
     }
     .moy{
       display: block;
@@ -109,7 +112,13 @@
       gap: 10rem;
       margin-left: 2rem;
     }
-    .lg\:hidden{
-      display: none;
+    .saved{
+      padding-left: 30rem;
+    }
+    .upload{
+      position: absolute;
+      top: 15rem;
+      left: 35rem;
+      padding: 1.5rem;
     }
   }

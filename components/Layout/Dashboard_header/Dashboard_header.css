@@ -12,3 +12,26 @@
   -webkit-animation-name: comeDown;
   -webkit-animation-duration: 0.6s;
 }
+.btn_container > button {
+  outline: none;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1.3rem;
+  color: #fff;
+  background: linear-gradient(92deg, #140029 1.06%, #010101 100%);
+  border-radius: 500px;
+  justify-content: center;
+  position: relative;
+}
+
+.btn_container > button::after {
+  content: "";
+  position: absolute;
+  top: -1;
+  left: -1;
+  width: 101%;
+  height: 106%;
+  background: linear-gradient(100.09deg, #9327ff 0%, #ffa927 100%);
+  border-radius: 500px;
+  z-index: -1;
+}
