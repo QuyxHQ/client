@@ -1,4 +1,4 @@
-import AuctionSell from '@/components/UI/Dashboard/AuctionSell'
+import AuctionSell from '@/components/UI/Dashboard/Creating/AuctionSell'
 import React from 'react'
 
 const page = () => {

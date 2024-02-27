@@ -1,4 +1,4 @@
-import ProfileAISell from '@/components/UI/Dashboard/ProfileAISell'
+import ProfileAISell from '@/components/UI/Dashboard/Creating/ProfileAISell'
 import React from 'react'
 
 const page = () => {

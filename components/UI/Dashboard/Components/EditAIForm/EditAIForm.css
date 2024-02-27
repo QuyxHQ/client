@@ -1,0 +1,6 @@
+.bg_NFT{
+    background: url("/Images/profile_nft.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background: transparent; */
+}

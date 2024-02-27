@@ -1,5 +1,5 @@
 import React from 'react'
-import CardDetails from "@/components/UI/Dashboard/CardDetails"
+import CardDetails from "@/components/UI/Dashboard/ClickfromDashboard/CardDetails"
 
 const page = () => {
   return (

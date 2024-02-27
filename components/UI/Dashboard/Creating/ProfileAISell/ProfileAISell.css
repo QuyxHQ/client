@@ -1,0 +1,22 @@
+  @media (max-width: 400px) {
+   .text_span{
+        font-size: 13px;
+        /* font-weight: 600; */
+
+    }
+}
+
+  @media (max-width: 355px) {
+   .paragraph{
+        font-size: 10px;
+        font-weight: 600;
+
+    }
+}
+
+  /* @media (max-width: 359px) {
+   .navigate{
+       gap:10px;
+
+    }
+} */

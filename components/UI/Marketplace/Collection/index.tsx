@@ -199,7 +199,7 @@ const index = () => {
                   className="bg-gradient-to-bg  from-[#150b04] via-[#0b030c] border text-white  to-[#0b030c] p-4  rounded-md card-border-effect"
                 >
                   <div className="">
-                    <div className="">
+                    {/* <div className="">
                       <div className="flex items-center gap-2 mb-3">
                         <Image
                           src={card.profileImage}
@@ -215,7 +215,7 @@ const index = () => {
                           height={20}
                         />
                       </div>
-                    </div>
+                    </div> */}
                     <div className="md:h-[15rem] h-[10rem] rounded-lg relative overflow-hidden">
                       <Image
                         src={card.image}
@@ -305,7 +305,7 @@ const index = () => {
                   className="bg-gradient-to-bg  from-[#150b04] via-[#0b030c] border text-white  to-[#0b030c] p-4  rounded-md card-border-effect"
                 >
                   <div className="">
-                    <div className="">
+                    {/* <div className="">
                       <div className="flex items-center gap-2 mb-3">
                         <Image
                           src={card.profileImage}
@@ -321,7 +321,7 @@ const index = () => {
                           height={20}
                         />
                       </div>
-                    </div>
+                    </div> */}
                     <div className="md:h-[15rem] h-[10rem] rounded-lg relative overflow-hidden">
                       <Image
                         src={card.image}

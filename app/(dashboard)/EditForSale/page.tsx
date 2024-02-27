@@ -1,4 +1,4 @@
-import EditForSale from '@/components/UI/Dashboard/EditForSale'
+import EditForSale from '@/components/UI/Dashboard/Edits_Components/EditForSale'
 import React from 'react'
 
 const page = () => {

@@ -85,3 +85,7 @@ body {
 .hide_scroll::-webkit-scrollbar {
   display: none;
 }
+
+.small_scroll::-webkit-scrollbar {
+  height: 4px;
+}

@@ -6,8 +6,9 @@ type Card = {
   image: string;
   title: string;
   description: string;
-  price: number;
+  price: number | null;
   coinType: Coin;
+  saleTag: string | null;
   additionalClass?: string;
   amount: number;
 };
@@ -19,7 +20,8 @@ export const cardData: Card[] = [
     image: "/Images/moyin_nft.png",
     description: `A web3 design maverick, that fearlessly pioneers the future of digital aesthetics with blockchain brushes and NFT chisels`,
     title: "@Design Maverick",
-    price: 89.25,
+    saleTag: "/Images/ForSale.svg",
+    price: null,
     coinType: "ETH",
     amount: 0.024,
   },
@@ -29,6 +31,7 @@ export const cardData: Card[] = [
     image: "/Images/codeforge.png",
     description: `A web3 design maverick, that fearlessly pioneers the future of digital aesthetics with blockchain brushes and NFT chisels`,
     title: "@Design Maverick",
+    saleTag: "/Images/ForSale.svg",
     price: 89.25,
     coinType: "ETH",
     amount: 0.024,
@@ -39,6 +42,7 @@ export const cardData: Card[] = [
     image: "/Images/maestro.png",
     description: `A web3 design maverick, that fearlessly pioneers the future of digital aesthetics with blockchain brushes and NFT chisels`,
     title: "@Design Maverick",
+    saleTag: "/Images/ForSale.svg",
     price: 89.25,
     coinType: "ETH",
     amount: 0.024,
@@ -49,7 +53,8 @@ export const cardData: Card[] = [
     image: "/Images/moyin_nft.png",
     description: `A web3 design maverick, that fearlessly pioneers the future of digital aesthetics with blockchain brushes and NFT chisels`,
     title: "@Design Maverick",
-    price: 89.25,
+    saleTag: null,
+    price: null,
     coinType: "ETH",
     amount: 0.024,
   },
@@ -59,6 +64,7 @@ export const cardData: Card[] = [
     image: "/Images/moyin_nft.png",
     description: `A web3 design maverick, that fearlessly pioneers the future of digital aesthetics with blockchain brushes and NFT chisels`,
     title: "@Design Maverick",
+    saleTag: "/Images/ForSale.svg",
     price: 89.25,
     coinType: "ETH",
     amount: 0.024,
@@ -69,7 +75,8 @@ export const cardData: Card[] = [
     image: "/Images/codeforge.png",
     description: `A web3 design maverick, that fearlessly pioneers the future of digital aesthetics with blockchain brushes and NFT chisels`,
     title: "@Design Maverick",
-    price: 89.25,
+    price: null,
+    saleTag: null,
     coinType: "ETH",
     amount: 0.024,
   },

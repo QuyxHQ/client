@@ -1,4 +1,4 @@
-import SaleDetails from '@/components/UI/Dashboard/SaleDetails'
+import SaleDetails from '@/components/UI/Dashboard/ClickfromDashboard/SaleDetails'
 import React from 'react'
 
 const page = () => {

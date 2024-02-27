@@ -1,5 +1,5 @@
 import React from 'react'
-import AuctionSellAI from "@/components/UI/Dashboard/AuctionSellAI"
+import AuctionSellAI from "@/components/UI/Dashboard/Creating/AuctionSellAI"
 
 const page = () => {
   return (

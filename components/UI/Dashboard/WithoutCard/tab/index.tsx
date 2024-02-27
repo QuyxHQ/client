@@ -5,13 +5,17 @@ import { useState } from "react";
 import CreatedTabView from "./created-view";
 import BoughtTabView from "./bought-view";
 import SoldTabView from "./sold-view";
-import ActiveTabView from "./active-view";
+import AllTabView from "./all-view";
 import ForSaleTabView from "./for-sale";
 
-type Tabs = "created" | "bought" | "sold" | "active" | "for-sale";
+type Tabs = "all" | "created" | "bought" | "sold" | "for-sale";
 type TabButton = { text: string; tab: Tabs };
 
 const buttons: TabButton[] = [
+  {
+    text: "All",
+    tab: "all",
+  },
   {
     text: "Created",
     tab: "created",
@@ -24,10 +28,6 @@ const buttons: TabButton[] = [
     text: "Sold",
     tab: "sold",
   },
-  {
-    text: "Active",
-    tab: "active",
-  },
 
   {
     text: "For Sale",
@@ -36,18 +36,18 @@ const buttons: TabButton[] = [
 ];
 
 const Tab = () => {
-  const [currentTab, setCurrrentTab] = useState<Tabs>("created");
+  const [currentTab, setCurrrentTab] = useState<Tabs>('all');
 
   const renderTabView = (): JSX.Element | null => {
     switch (currentTab) {
+      case "all":
+        return <AllTabView />;
       case "created":
         return <CreatedTabView />;
       case "bought":
         return <BoughtTabView />;
       case "sold":
         return <SoldTabView />;
-      case "active":
-        return <ActiveTabView />;
       case "for-sale":
         return <ForSaleTabView />;
       default:

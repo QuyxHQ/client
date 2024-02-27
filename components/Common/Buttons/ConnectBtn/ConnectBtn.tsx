@@ -6,7 +6,7 @@ import "./ConnectBtn.css";
 const ConnectBtn = () => {
   return (
     <div className="btn_container ">
-      <Link href="/dashboard">
+      {/* <Link href="/dashboard"> */}
         {/* <div className="btn"> */}
         <button className="flex items-center space-x-2 min-w-fit bg-transparent border  p-2 rounded-[500px]">
           <span className="text-[11px] lg:text-base xl:text-lg flex-shrink-0 2xl:text-xl">
@@ -19,7 +19,7 @@ const ConnectBtn = () => {
             alt="particleauth"
           />
         </button>
-      </Link>
+      {/* </Link> */}
       {/* </div> */}
     </div>
   );

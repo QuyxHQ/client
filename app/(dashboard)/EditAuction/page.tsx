@@ -1,4 +1,4 @@
-import EditAuction from '@/components/UI/Dashboard/EditAuction'
+import EditAuction from '@/components/UI/Dashboard/Edits_Components/EditAuction'
 import React from 'react'
 
 const page = () => {

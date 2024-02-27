@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Tab from "./tab";
+import "./WithoutCard.css"
 // import DashboardLayout from "@/app/(dashboard)/DashboardLayout";
 
 const WithoutCard = () => {
@@ -58,26 +59,32 @@ const WithoutCard = () => {
                   <span className="text-[32px] text-[#ffd599] md:text-[40px]">
                     00
                   </span>
-                  <p className="text-[#4f5258] text-[13px] md:text-[14px]">Created</p>
+                  <p className="text-[#4f5258] text-[13px] md:text-[14px]">
+                    Created
+                  </p>
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[32px] text-[#ffd599] md:text-[40px]">
                     00
                   </span>
-                  <p className="text-[#4f5258] text-[13px] md:text-[14px]">Sold</p>
+                  <p className="text-[#4f5258] text-[13px] md:text-[14px]">
+                    Sold
+                  </p>
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[32px] text-[#ffd599] md:text-[40px]">
                     00
                   </span>
-                  <p className="text-[#4f5258] text-[13px] md:text-[14px]">Bought</p>
+                  <p className="text-[#4f5258] text-[13px] md:text-[14px]">
+                    Bought
+                  </p>
                 </div>
               </div>
             </div>
 
-            <Link href="/createupload">
+            <Link href="/">
               <div className="flex items-center justify-between">
-                <button className="text-[14px] flex-shrink-0 md:text-base px-[20px] sm:py-[10px] sm:px-4 md:px-[20px] py-3 md:py-[15px] flex items-center text-white justify-center gap-2 bg-transparent border rounded-[500px]">
+                <button className="Create text-[14px] flex-shrink-0 md:text-base px-[20px] sm:py-[10px] sm:px-4 md:px-[20px] py-3 md:py-[15px] flex items-center text-white justify-center gap-2 bg-transparent  rounded-[500px]">
                   Create new card
                   <Image
                     src={"/Images/Vector.svg"}

@@ -1,4 +1,4 @@
-import ToggleAvailSale from '@/components/UI/Dashboard/ToggleAvailSale'
+import ToggleAvailSale from '@/components/UI/Dashboard/ClickfromDashboard/ToggleAvailSale'
 import React from 'react'
 
 const page = () => {
