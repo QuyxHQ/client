@@ -413,10 +413,7 @@ class Api {
     return data as ApiPaginationResponse<QuyxCard[]>;
   }
 
-  async getCard(
-    { chainId, card }: { chainId: string; card: string },
-    { limit = 10, page = 1 }
-  ) {
+  async getCard({ chainId, card }: { chainId: string; card: string }) {
     const { data, error } = await this.apiSdk
       .getInstanceWithoutAuth()
       .get(`/card/${chainId}/${card}`);
@@ -461,13 +458,7 @@ class Api {
     return data as ApiResponse<Record<string, QuyxCard[]>>;
   }
 
-  async getTopSellers({
-    chainId,
-    limit = 10,
-  }: {
-    chainId: string;
-    limit: number;
-  }) {
+  async getTopSellers({ limit = 10 }: { chainId: string; limit: number }) {
     const { data, error } = await this.apiSdk
       .getInstanceWithoutAuth()
       .get(`/marketplace/top/sellers?limit=${limit}`);

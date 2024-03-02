@@ -113,4 +113,10 @@ type BuyCardProps = {
   referredBy?: string;
 };
 
-type AppContextProps = {};
+type AppContextProps = {
+  isMounting: boolean;
+  isLoggedIn: boolean;
+  isWalletConnected?: boolean;
+  userInfo?: QuyxUser;
+  address?: string;
+};

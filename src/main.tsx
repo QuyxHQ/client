@@ -11,12 +11,9 @@ import {
   cryptoDefiWallet,
   ThirdwebProvider,
 } from "@thirdweb-dev/react";
-import {
-  Goerli,
-  BaseGoerli,
-  Binance,
-  BinanceTestnet,
-} from "@thirdweb-dev/chains";
+import { Goerli, BaseGoerli, Binance, BinanceTestnet } from "@thirdweb-dev/chains";
+import settings from "./utils/settings.ts";
+import AppProvider from "./entry/context/AppProvider.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -36,7 +33,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       theme="dark"
       clientId={settings.THIRDWEB_CLIENT_ID}
     >
-      <App />
+      <AppProvider>
+        <App />
+      </AppProvider>
     </ThirdwebProvider>
   </React.StrictMode>
 );
