@@ -116,7 +116,19 @@ type BuyCardProps = {
 type AppContextProps = {
   isMounting: boolean;
   isLoggedIn: boolean;
+  displayModal: boolean;
+  openModal: () => void;
+  closeModal: () => void;
   isWalletConnected?: boolean;
   userInfo?: QuyxUser;
   address?: string;
+  modalBody?: React.JSX.Element;
+  setModalBody?: React.SetStateAction<React.Dispatch<React.JSX.Element | undefined>>;
+};
+
+type IconProps = {
+  fill?: string;
+  className?: string;
+  width?: number;
+  height?: number;
 };

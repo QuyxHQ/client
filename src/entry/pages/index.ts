@@ -1,9 +1,11 @@
 export { default as About } from "./About";
+export { default as Bookmarks } from "./Bookmarks";
 export { default as CardDetails } from "./CardDetails";
 export { default as Dashboard } from "./Dashboard";
 export { default as EditCard } from "./EditCard";
 export { default as Home } from "./Home";
 export { default as Marketplace } from "./Marketplace";
 export { default as NewCard } from "./NewCard";
+export { default as NotFound } from "./NotFound";
 export { default as Pricing } from "./Pricing";
 export { default as Team } from "./Team";

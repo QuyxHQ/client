@@ -4,3 +4,8 @@
   margin: 0;
   font-family: "Montserrat Alternates", sans-serif;
 }
+
+body {
+  background-color: #010101;
+  color: #fff;
+}

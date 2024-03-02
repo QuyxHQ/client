@@ -11,9 +11,14 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
   const connectionStatus = useConnectionStatus();
 
   const [isMounting, setIsMounting] = useState<boolean>(true);
+  const [displayModal, setDisplayModal] = useState<boolean>(true);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isWalletConnected, setIsWalletConnected] = useState<boolean>();
   const [userInfo, setUserInfo] = useState<QuyxUser>();
+  const [modalBody, setModalBody] = useState<React.JSX.Element>();
+
+  const openModal = () => setDisplayModal(true);
+  const closeModal = () => setDisplayModal(false);
 
   useEffect(() => {
     if (connectionStatus == "connected") setIsWalletConnected(true);
@@ -46,6 +51,11 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
         isWalletConnected,
         address,
         signer,
+        displayModal,
+        modalBody,
+        openModal,
+        closeModal,
+        setModalBody,
       }}
     >
       {children}
