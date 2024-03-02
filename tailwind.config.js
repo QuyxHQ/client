@@ -11,7 +11,11 @@ module.exports = {
         center: true,
         padding: "1.5rem",
       },
+      lineHeight: {
+        '12': '3rem',
+        '14': '3.5rem',
     },
+  },
   },
   plugins: [],
 };

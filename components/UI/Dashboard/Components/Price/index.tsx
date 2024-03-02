@@ -7,7 +7,7 @@ const index = () => {
   return (
     <div>
       <div className="grid grid-col-1  md:grid-cols-2 gap-[3rem]">
-        <div className="w-full">
+        <div className="">
           <label
             htmlFor="Enter Price"
             className="block text-lg font-medium text-white mt-[18px]"
@@ -31,7 +31,7 @@ const index = () => {
             />
           </div>
         </div>
-        <div className="w-full">
+        <div className="">
           <label
             htmlFor="Enter Price"
             className="block text-lg font-medium text-white mt-[18px]"

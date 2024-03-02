@@ -111,7 +111,7 @@ const Tophero = () => {
   return (
     <>
       <div className="wrap">
-        <div className="flex container pt-40 align-center justify-between">
+        <div className="flex container pt-40 items-center justify-between">
           <div className="flex align-center gap-[5px] justify-between w-fit rounded-[500px] bg-transparent border px-[30px] py-[15px]">
             <Image
               alt="..."
@@ -135,7 +135,7 @@ const Tophero = () => {
           </div>
 
           <div>
-            <p className="text-white font-bold">Results Per Page</p>
+            <p className="text-white font-bold text-[12px] md:text-base">Results Per Page</p>
           </div>
         </div>
         <div className="container">
@@ -205,7 +205,7 @@ const Card: React.FC<Card> = (data) => {
             />
           </div>
         </div>
-        <div className="md:h-[15rem] h-[10rem] rounded-lg relative overflow-hidden">
+        <div className="md:h-[15rem] h-auto rounded-lg relative overflow-hidden">
           <Image
             src={image}
             alt=""

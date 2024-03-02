@@ -99,6 +99,9 @@
     padding: 12px 20px;
   }
 
+  #hero-section{
+  height:70vh;
+  }
   /* #hero-section {
     height: auto;
   } */

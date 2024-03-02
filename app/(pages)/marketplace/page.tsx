@@ -12,7 +12,7 @@ import AllCards from "../../../components/UI/Marketplace/AllCards";
 const Page = () => {
   return (
     <>
-      <main>
+      <main className="border">
         <Tophero />
         <Topseller />
         <FeaturedPro />

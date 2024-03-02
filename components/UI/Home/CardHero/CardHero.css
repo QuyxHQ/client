@@ -1,8 +1,8 @@
-.general{
+.Card_Anim{
     background: url("/Images/cards.png");
     background-repeat: no-repeat;
     background-size: cover;
-    min-height: 100vh;
+    /* min-height: 100vh; */
 }
 
 @media screen and (max-width: 767px) {

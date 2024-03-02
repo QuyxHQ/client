@@ -1,14 +1,14 @@
 import React from 'react'
 import Image from "next/image";
-import CardAnimationScetion from "../CardAnimation";
+import CardAnimationSection from "../CardAnimation";
 import "./CardHero.css"
 // import brand from "../public/Images/brand.svg"
 
 const index = () => {
   return (
     <>
-      <div className="general">
-        <CardAnimationScetion />
+      <div className="Card_Anim">
+        <CardAnimationSection />
       </div>
     </>
   );

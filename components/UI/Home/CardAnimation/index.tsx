@@ -43,16 +43,16 @@ const data: BiddingCard[] = [
 const CardAnimationScetion = () => {
   return (
     <>
-      <div className="sm:min-h-[10rem] md:min-h-[10rem]"></div>
+      <div className=" md:min-h-[10rem]"></div>
 
-      <div className="min-h-[100vh] relative text-white group">
+      <div className="h-auto md:min-h-[100vh] relative text-white group">
         {data.map((card, id) => (
           <div
             key={id}
             className="absolute top-0 left-0 w-full h-full flex items-center justify-center"
           >
             <div
-              className={`lg:w-[20rem] md:w-[18rem] w-[60vw] min-h-[28rem] duration-300 relative bg-gradient-to-b from-[#150b04] via-[#0b030c] to-[#0b030c] card-border-effect rounded-md md:skew-x-12 ${card?.additionalClass}`}
+              className={`md:flex hidden lg:w-[20rem] md:w-[18rem] w-[60vw] min-h-[28rem] duration-300 relative bg-gradient-to-b from-[#150b04] via-[#0b030c] to-[#0b030c] card-border-effect rounded-md md:skew-x-12 ${card?.additionalClass}`}
             >
               <div className="bg-gradient-to-b from-[#150b04] via-[#0b030c] to-[#0b030c] p-4 space-y-4 rounded-md">
                 <div className="flex items-center justify-between">

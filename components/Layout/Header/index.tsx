@@ -37,10 +37,10 @@ const Header = () => {
 
   return (
     <>
-      <nav className="fixed w-full text-white z-[500]">
+      <nav className="back bg-black fixed w-full text-white z-[500]">
         <div className="container">
           <div className="d-flex items-center">
-            <div className="flex gap-6  py-10 items-center md:flex-row justify-between">
+            <div className="flex gap-6 py-6 items-center md:flex-row justify-between">
               <div className="nav-brand">
                 <Link href={"/"}>
                   <Image
@@ -88,7 +88,7 @@ const Header = () => {
       </nav>
 
       <aside
-        className={`fixed overflow-hidden w-full duration-300 text-center right-0 top-0 bg-[#171717] text-white z-[1000] ${
+        className={`bg-red fixed overflow-hidden w-full duration-300 text-center right-0 top-0 bg-[#171717] text-white z-[1000] ${
           showSideBar ? "h-[100vh]" : "h-0"
         }`}
       >
@@ -99,7 +99,7 @@ const Header = () => {
             onClick={toggleModal}
           />
 
-          <ul className="flex flex-col gap-3">
+          <ul className="flex flex-col gap-3 items-center">
             {navLinks.map((link, id) => (
               <li
                 className={`${
