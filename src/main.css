@@ -9,3 +9,91 @@ body {
   background-color: #010101;
   color: #fff;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-radius: 100px !important;
+  font-size: 0.9rem;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.default-nav {
+  padding: 1.5rem 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+}
+
+.gradient-border {
+  background: linear-gradient(93deg, #140029 0%, #010101 100%);
+  padding: 0.1rem;
+  border-radius: 100px;
+}
+
+.default-nav ul {
+  background-color: rgba(255, 255, 255, 0.1);
+  list-style-type: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0.4rem 0.5rem;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.default-nav ul li a {
+  padding: 0.9rem 1.45rem;
+  display: block;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  color: #aaa;
+  font-weight: 400;
+  transition: 0.3s ease-in-out all;
+}
+
+.default-nav ul li a:hover {
+  color: #fff;
+}
+
+.default-nav ul li a.active {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.gradient-border {
+  background: linear-gradient(#140029, #140029) padding-box,
+    linear-gradient(to right, #9327ff, #ffa927) border-box !important;
+  border: 1px solid transparent !important;
+  border-radius: 100px !important;
+}
+
+.default-nav .gradient-border {
+  padding: 1rem 1.85rem;
+  color: #fff;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: unset !important;
+}
+
+.menu {
+  align-items: center;
+  justify-content: center;
+}
+
+.menu i {
+  font-size: 2rem;
+}
