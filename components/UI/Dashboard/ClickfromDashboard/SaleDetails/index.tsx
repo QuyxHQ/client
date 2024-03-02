@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import "@/components/UI/Dashboard/ProfileAISell/ProfileAISell.css";
+// import "@/components/UI/Dashboard/ProfileAISell/ProfileAISell.css";
 import "@/components/UI/Dashboard/WithoutCard/WithoutCard.css";
 import Toggle from "@/components/UI/Dashboard/Components/Toggle/Toggle";
 import Form from "@/components/UI/Dashboard/Components/Upload";

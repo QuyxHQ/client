@@ -153,7 +153,7 @@ const Tophero = () => {
           </div>
 
           {/* Left arrow */}
-          <div className="absolute -left-8 top-1/2">
+          <div className="absolute -left-8 top-1/2 bg-[#272727] rounded-full">
             <IoIosArrowBack
               //   icon={faChevronLeft}
               className="z-20 text-3xl text-white duration-200 cursor-pointer
@@ -163,7 +163,7 @@ const Tophero = () => {
           </div>
 
           {/* Right arrow */}
-          <div className="absolute -right-2 top-1/2">
+          <div className="absolute -right-2 top-1/2 bg-[#272727] rounded-full">
             <IoIosArrowForward
               // icon={faChevronRight}
               className="z-20 text-3xl text-white duration-200 cursor-pointer md:text-4xl text-shadow hover:opacity-75 dark:text-gray-200"
