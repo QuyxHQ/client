@@ -11,7 +11,7 @@ const DefaultNavbar = () => {
 
   return (
     <nav className="default-nav">
-      <div className="container">
+      <div className="container-fluid container-xl">
         <div className="row">
           <div className="col-12">
             <div className="d-flex align-items-center justify-content-between px-2">
@@ -33,12 +33,12 @@ const DefaultNavbar = () => {
               </ul>
 
               <div className="d-flex align-items-center" style={{ gap: "1.5rem" }}>
-                {location.pathname == "/" ? (
+                {location.pathname == "/marketplace" ? (
+                  <ConnectWallet className="gradient-border" btnTitle="Connect" />
+                ) : (
                   <AnchorLink to="/dashboard">
                     <button className="gradient-border d-none d-sm-flex">Launch App</button>
                   </AnchorLink>
-                ) : (
-                  <ConnectWallet className="gradient-border" btnTitle="Login web3" />
                 )}
 
                 <div className="d-block d-lg-none menu pointer">

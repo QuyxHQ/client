@@ -31,7 +31,7 @@ type QuyxUser = Base & {
 };
 
 type QuyxCard = Base & {
-  owner: string;
+  owner: QuyxUser;
   identifier: null | number;
   version: number;
   chainId: (typeof QUYX_NETWORKS)[number];

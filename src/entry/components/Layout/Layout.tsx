@@ -14,16 +14,12 @@ const Layout = ({ children }: { children: React.JSX.Element }) => {
         <Navbar />
       )}
 
-      <div className="container">
-        <div className="row">
-          <div className="col-12">{children}</div>
-        </div>
-      </div>
+      {children}
 
       {UNPROTECTED_ROUTES.includes(location.pathname) && location.pathname != "/marketplace" ? (
         <Footer />
       ) : (
-        <footer>Custom footer here</footer>
+        <footer className="custom mt-auto pb-5"></footer>
       )}
     </>
   );
