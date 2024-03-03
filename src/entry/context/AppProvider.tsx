@@ -21,7 +21,7 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
   const isNetworkSupported = useNetworkMismatch();
 
   const [isMounting, setIsMounting] = useState<boolean>(true);
-  const [displayModal, setDisplayModal] = useState<boolean>(true);
+  const [displayModal, setDisplayModal] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isWalletConnected, setIsWalletConnected] = useState<boolean>();
   const [userInfo, setUserInfo] = useState<QuyxUser>();

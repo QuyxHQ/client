@@ -126,7 +126,7 @@ type AppContextProps = {
   isNetworkSupported: boolean;
   switchChain: (chainId: number) => Promise<void>;
   modalBody?: React.JSX.Element;
-  setModalBody?: React.SetStateAction<React.Dispatch<React.JSX.Element | undefined>>;
+  setModalBody: (value: React.JSX.Element | undefined) => void;
 };
 
 type IconProps = {

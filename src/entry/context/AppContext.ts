@@ -9,6 +9,7 @@ const AppContext = createContext<AppContextProps & { signer?: ethers.Signer }>({
   closeModal() {},
   openModal() {},
   async switchChain() {},
+  setModalBody() {},
 });
 
 export default AppContext;

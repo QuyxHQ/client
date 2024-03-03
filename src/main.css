@@ -156,7 +156,7 @@ button {
 .default-nav .user button {
   background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 0 0.95rem;
+  padding: 0 0.92rem;
   color: #fff;
   font-weight: 500;
   display: flex;
@@ -733,9 +733,124 @@ footer.custom p {
 
 .featured-slider .slider {
   width: 100%;
+  padding-bottom: 0.1rem !important;
   flex-wrap: nowrap !important;
   overflow-x: auto;
   overflow-y: hidden;
   gap: 1.5rem;
   padding: 0 1rem;
+}
+
+.top-nav {
+  background-color: #abc9fc;
+  padding: 0.9rem 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgb(5, 39, 52);
+}
+
+.top-nav p {
+  line-height: 170%;
+}
+
+.top-nav a {
+  font-weight: 500;
+  border-bottom: 1.5px solid blue;
+  padding: 0 0.1rem;
+  color: blue;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal .modal-body {
+  background-color: #252525;
+  border: 1px solid #6a7181;
+  width: 88%;
+  max-width: 28rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+  animation-name: fromTop;
+  animation-duration: 0.5s;
+  -webkit-animation-name: fromTop;
+  -webkit-animation-duration: 0.5s;
+}
+
+.modal .modal-body .close {
+  border: 1px solid #6a7181;
+  font-size: 0.4rem;
+  right: -1rem;
+  top: -1rem;
+  padding: 0.55rem;
+  border-radius: 50%;
+  background-color: #252525;
+  cursor: pointer;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.connect-wallet-screen {
+  gap: 1rem;
+}
+
+.connect-wallet-screen .main svg {
+  margin-bottom: 1.5rem;
+}
+
+.connect-wallet-screen .main h1 {
+  font-size: 2.15rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  line-height: 140%;
+}
+
+.connect-wallet-screen .main p {
+  font-size: 0.95rem;
+  line-height: 220%;
+  color: #777;
+  width: 100%;
+  font-weight: 400;
+  max-width: 35rem;
+  margin-bottom: 2.7rem;
+}
+
+.connect-wallet-screen .buttons {
+  gap: 0.7rem;
+}
+
+.connect-wallet-screen .buttons button {
+  color: #fff;
+}
+
+.connect-wallet-screen .buttons .learn {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(100, 100, 111, 0.8);
+  padding: 1rem 1.6rem;
+}
+
+.connect-wallet-screen .gradient-border {
+  padding: 1rem 2.3rem;
+}
+
+.and-hr {
+  gap: 1rem;
+}
+
+.and-hr hr {
+  width: 4rem;
+  border: none;
+  height: 1px;
+  background-color: #fff;
 }
