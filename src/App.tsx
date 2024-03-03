@@ -6,10 +6,14 @@ import {
   Dashboard,
   EditCard,
   Home,
+  Logout,
   Marketplace,
   Middleware,
+  Modal,
+  NewCard,
   NotFound,
   Pricing,
+  Settings,
   Team,
 } from "./entry";
 import { Toaster } from "react-hot-toast";
@@ -55,10 +59,23 @@ const App = () => {
       path: "/bookmarks",
       element: <Middleware children={<Bookmarks />} />,
     },
+    {
+      path: "/settings",
+      element: <Middleware children={<Settings />} />,
+    },
+    {
+      path: "/logout",
+      element: <Middleware children={<Logout />} />,
+    },
+    {
+      path: "/new-card",
+      element: <Middleware children={<NewCard />} />,
+    },
   ]);
 
   return (
     <>
+      <Modal />
       <Toaster position="bottom-center" reverseOrder={false} />
       <RouterProvider router={router} />
     </>

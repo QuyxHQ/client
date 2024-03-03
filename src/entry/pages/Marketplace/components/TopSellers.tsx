@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
 import { VerifiedIcon } from "../../..";
 
 const TopSellers = () => {
-  const [data, _] = useState<Record<string, any>[]>([
+  const data = [
     { image: "/images/one.png", name: "nerdyDev", isVerified: true },
     { image: "/images/two.png", name: "calisto", isVerified: false },
     { image: "/images/one.png", name: "moyinthegrait", isVerified: true },
@@ -13,12 +12,7 @@ const TopSellers = () => {
     { image: "/images/one.png", name: "ventro", isVerified: false },
     { image: "/images/two.png", name: "cypher", isVerified: true, fill: "crimson" },
     { image: "/images/two.png", name: "rofih", isVerified: true },
-  ]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 2000);
-  }, []);
+  ];
 
   return (
     <section className="marketplace-section mb-5">
@@ -35,13 +29,9 @@ const TopSellers = () => {
         <div className="d-flex flex-column flex-md-row" style={{ gap: "1.8rem" }}>
           <div className="inner-div">
             <div className="row g-4">
-              {isLoading || !data
-                ? Array.from({ length: 4 }).map((_, i) => <RenderSkeleton key={`skeleton-${i}`} />)
-                : data
-                    .slice(0, Math.ceil(data.length / 2))
-                    .map((item, index) => (
-                      <Render key={`top-seller-${index}`} item={item} index={index} />
-                    ))}
+              {data.slice(0, Math.ceil(data.length / 2)).map((item, index) => (
+                <Render key={`top-seller-${index}`} item={item} index={index} />
+              ))}
             </div>
           </div>
 
@@ -53,17 +43,13 @@ const TopSellers = () => {
 
           <div className="inner-div">
             <div className="row g-4">
-              {isLoading || !data
-                ? Array.from({ length: 4 }).map((_, i) => <RenderSkeleton key={`skeleton-${i}`} />)
-                : data
-                    .slice(Math.ceil(data.length / 2), data.length)
-                    .map((item, index) => (
-                      <Render
-                        key={`top-seller-${index}`}
-                        item={item}
-                        index={index + Math.ceil(data.length / 2)}
-                      />
-                    ))}
+              {data.slice(Math.ceil(data.length / 2), data.length).map((item, index) => (
+                <Render
+                  key={`top-seller-${index}`}
+                  item={item}
+                  index={index + Math.ceil(data.length / 2)}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -93,18 +79,6 @@ const Render = ({ item, index }: { item: any; index: number }) => {
           </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-const RenderSkeleton = () => {
-  return (
-    <div className="top-sellers-single-loader d-flex align-items-center">
-      <div className="image">
-        <div className="skeleton"></div>
-      </div>
-
-      <p className="skeleton"></p>
     </div>
   );
 };

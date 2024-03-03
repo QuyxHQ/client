@@ -1,6 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import AppContext from "./AppContext";
-import { useAddress, useSigner, useConnectionStatus } from "@thirdweb-dev/react";
+import {
+  useAddress,
+  useSigner,
+  useConnectionStatus,
+  useChainId,
+  useSwitchChain,
+  useNetworkMismatch,
+} from "@thirdweb-dev/react";
 import { api } from "../../utils/class/quyx.class";
 
 export const useAppStore = () => useContext(AppContext);
@@ -9,6 +16,9 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
   const address = useAddress();
   const signer = useSigner();
   const connectionStatus = useConnectionStatus();
+  const chainId = useChainId();
+  const switchChain = useSwitchChain();
+  const isNetworkSupported = useNetworkMismatch();
 
   const [isMounting, setIsMounting] = useState<boolean>(true);
   const [displayModal, setDisplayModal] = useState<boolean>(true);
@@ -53,9 +63,12 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
         signer,
         displayModal,
         modalBody,
+        chainId,
+        isNetworkSupported,
         openModal,
         closeModal,
         setModalBody,
+        switchChain,
       }}
     >
       {children}

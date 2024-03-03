@@ -16,8 +16,8 @@ const AllCards = () => {
       <div className="col-12">
         <div className="row g-4">
           {cards.map((card, index) => (
-            <div className="col-12 col-md-6 col-lg-4">
-              <Card data={card} key={`hot-cards-${index}`} displayOwner />
+            <div key={`all-cards-${index}`} className="col-12 col-md-6 col-lg-4">
+              <Card data={card} displayOwner />
             </div>
           ))}
         </div>

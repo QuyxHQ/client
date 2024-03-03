@@ -122,6 +122,9 @@ type AppContextProps = {
   isWalletConnected?: boolean;
   userInfo?: QuyxUser;
   address?: string;
+  chainId?: number;
+  isNetworkSupported: boolean;
+  switchChain: (chainId: number) => Promise<void>;
   modalBody?: React.JSX.Element;
   setModalBody?: React.SetStateAction<React.Dispatch<React.JSX.Element | undefined>>;
 };

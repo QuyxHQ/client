@@ -8,6 +8,9 @@ const Layout = ({ children }: { children: React.JSX.Element }) => {
   return (
     <>
       {location.pathname == "/" ||
+      location.pathname == "/about" ||
+      location.pathname == "/team" ||
+      location.pathname == "/pricing" ||
       (!isWalletConnected && UNPROTECTED_ROUTES.includes(location.pathname)) ? (
         <DefaultNavbar />
       ) : (

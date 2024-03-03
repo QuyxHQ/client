@@ -23,12 +23,71 @@ button {
   font-size: 0.9rem;
 }
 
+.scroll-disabled {
+  overflow: hidden;
+}
+
 .pointer {
   cursor: pointer;
 }
 
+.mobile-navbar {
+  background-color: #000;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 100%;
+  z-index: 99;
+  animation-name: fromTop;
+  animation-duration: 0.3s;
+  -webkit-animation-name: fromTop;
+  -webkit-animation-duration: 0.3s;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-navbar ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.mobile-navbar ul li a {
+  color: #999;
+  padding: 0.3rem 0.5rem;
+}
+
+.mobile-navbar ul li a.active {
+  font-weight: 600;
+  color: #fff;
+  border-bottom: 2px solid #fff;
+}
+
+.mobile-navbar .close {
+  position: absolute;
+  cursor: pointer;
+  top: 2rem;
+  right: 2rem;
+  font-size: 0.6rem;
+}
+
+@keyframes fromTop {
+  0% {
+    top: -300px;
+  }
+  100% {
+    top: 0;
+  }
+}
+
 .default-nav {
-  padding: 1.2rem 0;
+  padding: 1.05rem 0;
   background-color: rgba(0, 0, 0, 0.85);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(4px);
@@ -45,7 +104,142 @@ button {
   border-radius: 100px;
 }
 
-.default-nav ul {
+.default-nav .button-create i {
+  font-size: 1.2rem;
+}
+
+.default-nav .search {
+  width: 100%;
+  max-width: 17rem;
+}
+
+.default-nav .search input {
+  width: 100%;
+  border: 1px solid #6a7181a4;
+  background-color: inherit;
+  padding: 1.05rem 1.5rem;
+  padding-left: 3.2rem;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: 0.3s ease-in-out all;
+  color: #ffff;
+}
+
+.default-nav .search input:focus {
+  border: 1px solid #9327ff;
+}
+
+.default-nav .search i {
+  font-size: 1.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 1.2rem;
+}
+
+.default-nav .icon.gradient-border {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.default-nav .icon i {
+  font-size: 1.35rem;
+}
+
+.default-nav .user {
+  gap: 0.5rem;
+}
+
+.default-nav .user button {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0 0.95rem;
+  color: #fff;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  height: 3rem;
+}
+
+.default-nav .user button > div {
+  gap: 0.65rem;
+}
+
+.default-nav .user > div {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.3rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.default-nav .user > div img {
+  display: block;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 50%;
+}
+
+.default-nav .user > div:hover .nav-navigate {
+  display: block;
+}
+
+.default-nav .nav-navigate {
+  display: none;
+  background-color: #000;
+  right: 0rem;
+  top: 3.25rem;
+  width: 13rem;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+  border: 1px solid #6a7181b5;
+  transition: 0.3s ease-in-out all;
+}
+
+.default-nav .nav-navigate ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.default-nav .nav-navigate ul li.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #6a7181b5;
+}
+
+.default-nav .nav-navigate ul li:first-child a {
+  border-radius: 10px 10px 0 0;
+}
+
+.default-nav .nav-navigate ul li:last-child a {
+  border-radius: 0 0 10px 10px;
+}
+
+.default-nav .nav-navigate ul li a {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.default-nav .nav-navigate ul li a i {
+  font-size: 1.3rem;
+  color: #aaa;
+}
+
+.default-nav .nav-navigate ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.default-nav ul.main-nav {
   background-color: rgba(255, 255, 255, 0.1);
   list-style-type: none;
   backdrop-filter: blur(10px);
@@ -55,7 +249,7 @@ button {
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.default-nav ul li a {
+.default-nav ul.main-nav li a {
   padding: 0.9rem 1.45rem;
   display: block;
   border-radius: 100px;
@@ -65,11 +259,11 @@ button {
   transition: 0.3s ease-in-out all;
 }
 
-.default-nav ul li a:hover {
+.default-nav ul.main-nav li a:hover {
   color: #fff;
 }
 
-.default-nav ul li a.active {
+.default-nav ul.main-nav li a.active {
   background-color: rgba(255, 255, 255, 0.2);
   color: #fff;
 }

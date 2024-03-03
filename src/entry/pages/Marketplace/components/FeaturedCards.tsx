@@ -13,10 +13,10 @@ const FeaturedCards = () => {
             <div className="header mb-4 d-flex align-items-center justify-content-between">
               <h2 className="title">Featured Cards</h2>
 
-              <div className="search position-relative">
-                <i className="position-absolute h h-lens" />
-                <input type="text" placeholder="Search.." />
-              </div>
+              <button className="d-flex align-items-center">
+                <span>See more</span>
+                <i className="h h-chevron-right" />
+              </button>
             </div>
           </div>
         </div>
@@ -29,13 +29,11 @@ const FeaturedCards = () => {
 
         <div className="slider row g-0" ref={slider}>
           {cards.map((card, index) => (
-            <div className="col-11 col-sm-8 col-md-5 col-lg-4 col-xl-3">
-              <Card
-                data={card}
-                key={`hot-cards-${index}`}
-                className="gradient-border"
-                displayOwner
-              />
+            <div
+              key={`featured-cards-${index}`}
+              className="col-11 col-sm-8 col-md-5 col-lg-4 col-xl-3"
+            >
+              <Card data={card} className="gradient-border" displayOwner />
             </div>
           ))}
         </div>
