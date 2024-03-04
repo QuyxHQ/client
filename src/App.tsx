@@ -6,7 +6,6 @@ import {
   Dashboard,
   EditCard,
   Home,
-  Logout,
   Marketplace,
   Middleware,
   Modal,
@@ -62,10 +61,6 @@ const App = () => {
     {
       path: "/settings",
       element: <Middleware children={<Settings />} />,
-    },
-    {
-      path: "/logout",
-      element: <Middleware children={<Logout />} />,
     },
     {
       path: "/new-card",

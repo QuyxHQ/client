@@ -23,6 +23,11 @@ button {
   font-size: 0.9rem;
 }
 
+button:disabled {
+  cursor: no-drop;
+  opacity: 0.4;
+}
+
 .scroll-disabled {
   overflow: hidden;
 }
@@ -777,8 +782,8 @@ footer.custom p {
   background-color: #252525;
   border: 1px solid #6a7181;
   width: 88%;
-  max-width: 28rem;
-  padding: 1.5rem;
+  max-width: 25rem;
+  padding: 0rem;
   border-radius: 10px;
   animation-name: fromTop;
   animation-duration: 0.5s;
@@ -788,10 +793,10 @@ footer.custom p {
 
 .modal .modal-body .close {
   border: 1px solid #6a7181;
-  font-size: 0.4rem;
+  font-size: 0.35rem;
   right: -1rem;
   top: -1rem;
-  padding: 0.55rem;
+  padding: 0.65rem;
   border-radius: 50%;
   background-color: #252525;
   cursor: pointer;
@@ -853,4 +858,371 @@ footer.custom p {
   border: none;
   height: 1px;
   background-color: #fff;
+}
+
+.siwe {
+  padding: 2rem 1.4rem;
+}
+
+.siwe h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.85rem;
+}
+
+.siwe p {
+  font-size: 0.95rem;
+  line-height: 175%;
+  margin-bottom: 3rem;
+  color: #aaa;
+}
+
+.siwe p a {
+  color: dodgerblue;
+  white-space: nowrap;
+  border-bottom: 1px solid dodgerblue;
+  padding: 0.15rem 0.15rem;
+}
+
+.siwe .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.siwe .buttons button {
+  padding: 1.2rem 1.4rem;
+  color: #fff;
+  font-weight: 500;
+}
+
+.siwe .buttons button:first-child {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.cl-toggle-switch {
+  position: relative;
+  margin-bottom: -0.3rem;
+}
+
+.cl-switch {
+  position: relative;
+  display: inline-block;
+}
+
+.cl-switch > input {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  z-index: -1;
+  position: absolute;
+  right: 6px;
+  top: -8px;
+  display: block;
+  margin: 0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: rgb(0, 0, 0, 0.38);
+  background-color: rgb(255, 255, 255, 0.38);
+  outline: none;
+  opacity: 0;
+  transform: scale(1);
+  pointer-events: none;
+  transition: opacity 0.3s 0.1s, transform 0.2s 0.1s;
+}
+/* Track */
+.cl-switch > span::before {
+  content: "";
+  float: right;
+  display: block;
+  margin: 5px 0 5px 10px;
+  border-radius: 7px;
+  width: 36px;
+  height: 14px;
+  background-color: rgb(0, 0, 0, 0.38);
+  background-color: rgb(255, 255, 255, 0.38);
+  transition: background-color 0.2s, opacity 0.2s;
+}
+/* Thumb */
+.cl-switch > span::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 16px;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  transition: background-color 0.2s, transform 0.2s;
+}
+/* Checked */
+.cl-switch > input:checked {
+  right: -10px;
+  background-color: #cc99ff;
+}
+
+.cl-switch > input:checked + span::before {
+  background-color: #cc99ff;
+}
+
+.cl-switch > input:checked + span::after {
+  background-color: #9327ff;
+  transform: translateX(16px);
+}
+/* Hover, Focus */
+.cl-switch:hover > input {
+  opacity: 0.04;
+}
+
+.cl-switch > input:focus {
+  opacity: 0.12;
+}
+
+.cl-switch:hover > input:focus {
+  opacity: 0.16;
+}
+/* Active */
+.cl-switch > input:active {
+  opacity: 1;
+  transform: scale(0);
+  transition: transform 0s, opacity 0s;
+}
+
+.cl-switch > input:active + span::before {
+  background-color: #8f8f8f;
+}
+
+.cl-switch > input:checked:active + span::before {
+  background-color: #cc99ff;
+}
+/* Disabled */
+.cl-switch > input:disabled {
+  opacity: 0;
+}
+
+.cl-switch > input:disabled + span::before {
+  background-color: #ddd;
+}
+
+.cl-switch > input:checked:disabled + span::before {
+  background-color: #bfdbda;
+}
+
+.cl-switch > input:checked:disabled + span::after {
+  background-color: #61b5b4;
+}
+
+.page {
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.page h1.page-title {
+  font-weight: 500;
+  font-size: calc(1vw + 1.4rem);
+}
+
+.page p {
+  font-size: 0.95rem;
+  color: #888;
+}
+
+.new-edit-card .tab {
+  border: 1px solid #6a7181a4;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  padding: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.new-edit-card .tab p {
+  width: 100%;
+  text-align: center;
+  padding: 0.9rem 0.3rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.15s ease-in-out background-color;
+}
+
+.new-edit-card .tab p.active {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  font-weight: 500;
+}
+
+.new-edit-card .tab-content-container {
+  border: 1px solid #6a7181a4;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.8rem;
+}
+
+.new-edit-card .tab-content-container > div {
+  height: 100%;
+  min-height: 18rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  gap: 0.8rem;
+}
+
+.new-edit-card .tab-content-container > div p {
+  font-size: 0.95rem;
+}
+
+.new-edit-card .tab-content-container > div span {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.new-edit-card .tab-content-container > div h4 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #cc99ff;
+}
+
+.new-edit-card .tab-content-container button {
+  background-color: rgb(255, 255, 255, 0.15);
+  color: #fff;
+  font-weight: 400;
+  padding: 1.15rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  justify-content: center;
+}
+
+.new-edit-card .tab-content-container button i {
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.form-group {
+  margin-bottom: 0.8rem;
+}
+
+.form-group label {
+  width: max-content;
+  display: block;
+  font-size: 0.9rem;
+  padding-left: 0.5rem;
+}
+
+.form-group label span {
+  color: #cc99ff;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  background-color: inherit;
+  border: 1px solid #6a7181a4;
+  padding: 1.3rem 1.4rem;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  resize: none;
+  outline: none;
+  color: #ffff;
+  margin: 0.9rem 0;
+  transition: 0.2s ease-in-out all;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border: 1px solid #9327ff;
+}
+
+.form-group .pill {
+  background-color: rgb(255, 255, 255, 0.2);
+  padding: 0.5rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: block;
+  width: max-content;
+  border-radius: 100px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+select,
+input[type="datetime-local"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 96%;
+  background-position-y: 50%;
+  padding-right: 1.4rem !important;
+  cursor: pointer;
+}
+
+.new-edit-card button.btn {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(100.09deg, #9327ff 0%, #ffa927 100%);
+  color: #fff;
+  font-weight: 500;
+  padding: 1.2rem 2.5rem;
+  width: 100%;
+  max-width: 10rem;
+  margin-top: 1rem;
+}
+
+.empty-res {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.9rem;
+  width: 95%;
+  max-width: 30rem;
+  margin: 0% auto;
+  padding: 2rem 0;
+}
+
+.empty-res h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.empty-res p {
+  opacity: 0.5;
+  font-size: 0.93rem;
+  line-height: 200%;
+  margin-bottom: 1.5rem;
+}
+
+.empty-res button {
+  background-color: rgb(255, 255, 255, 0.1);
+  border: 1px solid rgb(255, 255, 255, 0.38);
+  padding: 1.1rem 2rem;
+  font-weight: 500;
+  color: #fff;
 }

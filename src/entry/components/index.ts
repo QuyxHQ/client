@@ -3,6 +3,7 @@ export { default as Card } from "./Card";
 export { default as Chart } from "./Chart";
 export { default as ConnectBtn } from "./ConnectBtn";
 export { default as DefaultNavbar } from "./DefaultNavbar";
+export { default as EmptyIcon } from "./EmptyIcon";
 export { default as Footer } from "./Footer";
 export { default as GradientLogo } from "./GradientLogo";
 export { default as GradientLogo2 } from "./GradientLogo2";

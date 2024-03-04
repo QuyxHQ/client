@@ -10,16 +10,8 @@ class Api {
   //========= USER METHODS ===========================
   //==================================================
 
-  async prepareMessage({
-    address,
-    chainId,
-  }: {
-    address: string;
-    chainId: number;
-  }) {
-    const { data, error } = await this.apiSdk
-      .getInstanceWithoutAuth()
-      .get("/session/nonce");
+  async prepareMessage({ address, chainId }: { address: string; chainId: number }) {
+    const { data, error } = await this.apiSdk.getInstanceWithoutAuth().get("/session/nonce");
     if (error) {
       customToast({
         type: TOAST_STATUS.ERROR,
@@ -68,7 +60,9 @@ class Api {
       return false;
     }
 
-    const { accessToken, refreshToken } = data.data.tokens;
+    console.log(data);
+
+    const { accessToken, refreshToken } = data.data;
     localStorage.setItem("quyx_user_access_token", accessToken);
     localStorage.setItem("quyx_user_refresh_token", refreshToken);
 
@@ -76,22 +70,12 @@ class Api {
   }
 
   async current() {
-    const { data, error } = await this.apiSdk
-      .getInstance()
-      .get("/user/current");
+    const { data, error } = await this.apiSdk.getInstance().get("/user/current");
     if (error) return undefined;
     return data.data as QuyxUser;
   }
 
-  async edit({
-    pfp,
-    email,
-    username,
-  }: {
-    pfp: string;
-    email: string;
-    username: string;
-  }) {
+  async edit({ pfp, email, username }: { pfp: string; email: string; username: string }) {
     const { data, error } = await this.apiSdk
       .getInstance()
       .put("/user/edit", { username, email, pfp });
@@ -134,9 +118,7 @@ class Api {
   }
 
   async kycVerify({ otp }: { otp: string }) {
-    const { data, error } = await this.apiSdk
-      .getInstance()
-      .post("/kyc/verify", { otp });
+    const { data, error } = await this.apiSdk.getInstance().post("/kyc/verify", { otp });
 
     if (error || !data.status) {
       customToast({
@@ -156,22 +138,12 @@ class Api {
   }
 
   async getSingleUser({ param }: { param: string }) {
-    const { data, error } = await this.apiSdk
-      .getInstanceWithoutAuth()
-      .get(`/user/${param}`);
+    const { data, error } = await this.apiSdk.getInstanceWithoutAuth().get(`/user/${param}`);
     if (error) return undefined;
     return data.data as QuyxUser;
   }
 
-  async searchForUser({
-    q,
-    limit = 10,
-    page = 1,
-  }: {
-    q: string;
-    limit?: number;
-    page?: number;
-  }) {
+  async searchForUser({ q, limit = 10, page = 1 }: { q: string; limit?: number; page?: number }) {
     const { data, error } = await this.apiSdk
       .getInstanceWithoutAuth()
       .get(`/user/search?q=${q}&limit=${limit}&page=${page}`);
@@ -180,13 +152,7 @@ class Api {
     return data as ApiPaginationResponse<QuyxUser[]>;
   }
 
-  async getAppsConnectedTo({
-    limit = 10,
-    page = 1,
-  }: {
-    limit?: number;
-    page?: number;
-  }) {
+  async getAppsConnectedTo({ limit = 10, page = 1 }: { limit?: number; page?: number }) {
     const { data, error } = await this.apiSdk
       .getInstance()
       .get(`/user/apps-connected?&limit=${limit}&page=${page}`);
@@ -200,9 +166,7 @@ class Api {
   //==================================================
 
   async createRefLink({ card }: { card: string }) {
-    const { error, data } = await this.apiSdk
-      .getInstance()
-      .post("/referral", { card });
+    const { error, data } = await this.apiSdk.getInstance().post("/referral", { card });
     if (error || !data.status) {
       customToast({
         type: TOAST_STATUS.ERROR,
@@ -221,9 +185,7 @@ class Api {
   }
 
   async referralClickCountUpdate({ ref }: { ref: string }) {
-    const { error } = await this.apiSdk
-      .getInstanceWithoutAuth()
-      .put(`/referral/${ref}`);
+    const { error } = await this.apiSdk.getInstanceWithoutAuth().put(`/referral/${ref}`);
     if (error) return false;
     return true;
   }
@@ -262,9 +224,7 @@ class Api {
   //==================================================
 
   async addToBookmark({ card }: { card: string }) {
-    const { data, error } = await this.apiSdk
-      .getInstance()
-      .post("/bookmark", { card });
+    const { data, error } = await this.apiSdk.getInstance().post("/bookmark", { card });
     if (error || !data.status) {
       customToast({
         type: TOAST_STATUS.ERROR,
@@ -283,9 +243,7 @@ class Api {
   }
 
   async removeFromBookmark({ card }: { card: string }) {
-    const { data, error } = await this.apiSdk
-      .getInstance()
-      .delete(`/bookmark/${card}`);
+    const { data, error } = await this.apiSdk.getInstance().delete(`/bookmark/${card}`);
     if (error || !data.status) {
       customToast({
         type: TOAST_STATUS.ERROR,
@@ -317,9 +275,7 @@ class Api {
   //==================================================
 
   async userBids(limit = 10, page = 1) {
-    const { data, error } = await this.apiSdk
-      .getInstance()
-      .get(`/bid?limit=${limit}&page=${page}`);
+    const { data, error } = await this.apiSdk.getInstance().get(`/bid?limit=${limit}&page=${page}`);
 
     if (error) return undefined;
     return data as ApiPaginationResponse<QuyxBid[]>;
@@ -337,9 +293,7 @@ class Api {
     description: string | null;
     tags: string[] | null;
   }) {
-    const { data, error } = await this.apiSdk
-      .getInstance()
-      .post(`/card`, props);
+    const { data, error } = await this.apiSdk.getInstance().post(`/card`, props);
     if (error || !data.status) {
       customToast({
         type: TOAST_STATUS.ERROR,
@@ -368,10 +322,7 @@ class Api {
   }) {
     const { data, error } = await this.apiSdk
       .getInstance()
-      .put(
-        `/card/${props.chainId}/${props.card}`,
-        omit(props, ["chainId", "card"])
-      );
+      .put(`/card/${props.chainId}/${props.card}`, omit(props, ["chainId", "card"]));
 
     if (error || !data.status) {
       customToast({
@@ -441,9 +392,7 @@ class Api {
   ) {
     const { data, error } = await this.apiSdk
       .getInstanceWithoutAuth()
-      .get(
-        `/marketplace/tags/cards/${chainId}/${tag}?limit=${limit}&page=${page}`
-      );
+      .get(`/marketplace/tags/cards/${chainId}/${tag}?limit=${limit}&page=${page}`);
 
     if (error) return undefined;
     return data as ApiPaginationResponse<QuyxCard[]>;
@@ -467,13 +416,7 @@ class Api {
     return data as ApiResponse<QuyxUser[]>;
   }
 
-  async getTopCardsByVersion({
-    chainId,
-    limit = 10,
-  }: {
-    chainId: string;
-    limit: number;
-  }) {
+  async getTopCardsByVersion({ chainId, limit = 10 }: { chainId: string; limit: number }) {
     const { data, error } = await this.apiSdk
       .getInstanceWithoutAuth()
       .get(`/marketplace/top/cards/version/${chainId}/?limit=${limit}`);
@@ -482,13 +425,7 @@ class Api {
     return data as ApiResponse<QuyxCard[]>;
   }
 
-  async getTopCardsByBid({
-    chainId,
-    limit = 10,
-  }: {
-    chainId: string;
-    limit: number;
-  }) {
+  async getTopCardsByBid({ chainId, limit = 10 }: { chainId: string; limit: number }) {
     const { data, error } = await this.apiSdk
       .getInstanceWithoutAuth()
       .get(`/marketplace/top/cards/bids/${chainId}/?limit=${limit}`);

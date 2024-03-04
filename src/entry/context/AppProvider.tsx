@@ -8,7 +8,7 @@ import {
   useSwitchChain,
   useNetworkMismatch,
 } from "@thirdweb-dev/react";
-import { api } from "../../utils/class/quyx.class";
+import { api } from "../../utils/class/api.class";
 
 export const useAppStore = () => useContext(AppContext);
 

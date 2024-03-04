@@ -59,7 +59,7 @@ const LoginWallet = () => {
 
         <h1>Sign in with Ethereum</h1>
         <p>
-          One more thing! we need you to sign a message to proof ownership of wallet. Click on
+          One more thing! we need you to sign a message before granting you access to Quyx. Click on
           "Proceed" to contine
         </p>
 
