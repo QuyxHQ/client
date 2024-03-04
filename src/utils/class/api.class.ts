@@ -75,7 +75,7 @@ class Api {
     return data.data as QuyxUser;
   }
 
-  async edit({ pfp, email, username }: { pfp: string; email: string; username: string }) {
+  async edit({ pfp, email, username }: { pfp: string | null; email: string; username: string }) {
     const { data, error } = await this.apiSdk
       .getInstance()
       .put("/user/edit", { username, email, pfp });
@@ -89,16 +89,11 @@ class Api {
       return false;
     }
 
-    customToast({
-      type: TOAST_STATUS.SUCCESS,
-      message: data.message ?? "info updated successfully!",
-    });
-
     return true;
   }
 
   async kycInit() {
-    const { data, error } = await this.apiSdk.getInstance().post("/kyc/init");
+    const { data, error } = await this.apiSdk.getInstance().post("/user/kyc/init");
 
     if (error || !data.status) {
       customToast({
@@ -118,7 +113,7 @@ class Api {
   }
 
   async kycVerify({ otp }: { otp: string }) {
-    const { data, error } = await this.apiSdk.getInstance().post("/kyc/verify", { otp });
+    const { data, error } = await this.apiSdk.getInstance().post("/user/kyc/verify", { otp });
 
     if (error || !data.status) {
       customToast({
@@ -441,6 +436,27 @@ class Api {
 
     if (error) return undefined;
     return data as ApiPaginationResponse<QuyxCard[]>;
+  }
+
+  //==================================================
+  //========= MISC ===================================
+  //==================================================
+
+  async uploadImage({ base64Image }: { base64Image: string }) {
+    const { data, error } = await this.apiSdk
+      .getInstanceWithoutAuth()
+      .post("/upload-image", { base64: base64Image });
+
+    if (error) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: data.message ?? "unable to upload image",
+      });
+
+      return null;
+    }
+
+    return data.data.uri as string;
   }
 }
 

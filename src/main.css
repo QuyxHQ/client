@@ -909,6 +909,7 @@ footer.custom p {
 .cl-switch {
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
 
 .cl-switch > input {
@@ -1157,6 +1158,27 @@ footer.custom p {
   border-radius: 100px;
 }
 
+.form-group .copy-box {
+  background-color: #252525;
+  border: 1px solid rgb(255, 255, 255, 0.2);
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0.8rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.form-group .copy-box i {
+  font-size: 1.1rem;
+}
+
+.form-group button {
+  padding: 1.1rem 2.5rem;
+  color: #fff;
+  font-weight: 500;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -1202,7 +1224,7 @@ input[type="datetime-local"] {
   text-align: center;
   gap: 0.9rem;
   width: 95%;
-  max-width: 30rem;
+  max-width: 25rem;
   margin: 0% auto;
   padding: 2rem 0;
 }
@@ -1225,4 +1247,92 @@ input[type="datetime-local"] {
   padding: 1.1rem 2rem;
   font-weight: 500;
   color: #fff;
+}
+
+.alert {
+  display: flex;
+  align-items: center;
+  background-color: rgba(220, 20, 60, 0.143);
+  border: 1px solid crimson;
+  color: rgb(249, 123, 148);
+  padding: 1.4rem;
+  border-radius: 10px;
+  gap: 1.2rem;
+  margin-bottom: 1.8rem;
+}
+
+.alert.warning {
+  background-color: rgba(218, 165, 32, 0.143);
+  border: 1px solid goldenrod;
+  color: rgb(234, 191, 82);
+}
+
+.alert .write {
+  padding: 0.5rem 0;
+}
+
+.alert .write h3 {
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.alert .write p {
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+}
+
+.alert .form-group {
+  margin-bottom: 0.4rem;
+}
+
+.alert .form-group label {
+  color: #fff;
+}
+
+.alert button {
+  padding: 0;
+  background-color: inherit;
+  color: #fff;
+  font-weight: 500;
+  border: 1px solid #aaaaaaa8;
+  border-radius: 8px !important;
+  padding: 1rem 1.6rem;
+  font-size: 0.8rem;
+}
+
+.alert i {
+  font-size: 1.7rem;
+}
+
+.alert p {
+  font-size: 0.95rem;
+  line-height: 180%;
+}
+
+.settings-image {
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+}
+
+.settings-image img {
+  display: block;
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  background-color: #555;
+}
+
+.settings-image .position-absolute {
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  cursor: pointer;
 }

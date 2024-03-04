@@ -19,3 +19,7 @@ export function truncateAddress({
 
   return truncated;
 }
+
+export function isURL(string: string) {
+  return /^(ftp|http|https):\/\/[^ "]+$/.test(string);
+}

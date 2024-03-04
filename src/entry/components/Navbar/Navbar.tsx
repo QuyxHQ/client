@@ -2,13 +2,18 @@ import { AnchorLink, ConnectBtn, GradientLogo } from "..";
 import { useAppStore } from "../../context/AppProvider";
 
 const Navbar = () => {
-  const { isWalletConnected } = useAppStore();
+  const { isWalletConnected, userInfo } = useAppStore();
 
   const navigation = [
     {
       title: "Dashboard",
       icon: "user",
       to: "/dashboard",
+    },
+    {
+      title: "Marketplace",
+      icon: "grid",
+      to: "/marketplace",
     },
     {
       title: "Bookmarks",
@@ -103,7 +108,10 @@ const Navbar = () => {
                     </button>
 
                     <div className="position-relative">
-                      <img src="/images/one.png" alt="Morick" />
+                      <img
+                        src={userInfo?.pfp ? userInfo.pfp : "/images/default-user.png"}
+                        alt={userInfo?.username}
+                      />
 
                       <div className="position-absolute nav-navigate">
                         <ul>
