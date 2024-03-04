@@ -1,7 +1,29 @@
-import { AnchorLink, Card, EmptyIcon } from "../..";
-import cards from "../../../utils/json/cards.demo.json";
+import { Card, EmptyIcon } from "../..";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { api } from "../../../utils/class/api.class";
+import { useEffect, useRef } from "react";
+import { useIntersection } from "@mantine/hooks";
 
 const Bookmarks = () => {
+  const { data, fetchNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
+    queryKey: ["query"],
+    queryFn: async ({ pageParam = 1 }) => {
+      const response = await api.getBookmarks({ page: pageParam });
+      return response;
+    },
+    initialPageParam: 1,
+    getNextPageParam: (_, __, lastPageParam) => lastPageParam + 1,
+  });
+
+  const lastCardRef = useRef<HTMLElement>(null);
+  const { ref, entry } = useIntersection({ root: lastCardRef.current, threshold: 1 });
+
+  useEffect(() => {
+    if (entry?.isIntersecting) fetchNextPage();
+  }, [entry]);
+
+  const bookmarks = data?.pages.flatMap((item) => item);
+
   return (
     <section className="mb-5">
       <div className="container-fluid container-xl">
@@ -10,30 +32,50 @@ const Bookmarks = () => {
             <div className="px-2">
               <div className="page">
                 <h1 className="page-title">Bookmarks</h1>
-                <p>0 saved item/s</p>
+                <p>-- saved item/s</p>
               </div>
 
               <div className="col-12">
-                <div className="empty-res">
-                  <EmptyIcon />
-
-                  <h3>It's so empty over here</h3>
-                  <p>
-                    Check out our marketplace, you might see a thing or ten you will be interested
-                    in
-                  </p>
-                  <AnchorLink to="/marketplace">
-                    <button>Explore marketplace</button>
-                  </AnchorLink>
-                </div>
-
-                {/* <div className="row g-4">
-                  {cards.map((card, index) => (
-                    <div key={`all-cards-${index}`} className="col-12 col-md-6 col-lg-4">
-                      <Card data={card} displayOwner />
+                <div className="row g-4">
+                  {isLoading ? (
+                    <div className="col-12">
+                      <div className="d-flex align-items-center justify-content-center loader-box">
+                        <span className="loader-span" />
+                      </div>
                     </div>
-                  ))}
-                </div> */}
+                  ) : bookmarks && bookmarks.length > 0 ? (
+                    <>
+                      {bookmarks.map((bookmark, i) =>
+                        bookmark ? (
+                          <div
+                            key={`result-page-index-${i}`}
+                            ref={i === bookmarks.length ? ref : undefined}
+                            className="col-12 col-md-6 col-lg-4"
+                          >
+                            <Card key={bookmark._id} data={bookmark.card} displayOwner />
+                          </div>
+                        ) : null
+                      )}
+
+                      {isFetchingNextPage ? (
+                        <div className="col-12">
+                          <div className="d-flex align-items-center justify-content-center py-5">
+                            <span className="loader-span-sm" />
+                          </div>
+                        </div>
+                      ) : null}
+                    </>
+                  ) : (
+                    <div className="col-12">
+                      <div className="empty-res">
+                        <EmptyIcon />
+
+                        <h3>Bookmark is empty</h3>
+                        <p>Once you bookmark a card, it will appear here</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>

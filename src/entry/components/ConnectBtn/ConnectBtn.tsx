@@ -6,8 +6,13 @@ const ConnectBtn = () => {
   const { openModal, setModalBody } = useAppStore();
 
   function promptSignIn() {
-    setModalBody(<SIWE />);
-    openModal();
+    const accessToken = localStorage.getItem("quyx_user_access_token");
+    const refreshToken = localStorage.getItem("quyx_user_refresh_token");
+
+    if (!accessToken || !refreshToken) {
+      setModalBody(<SIWE />);
+      openModal();
+    }
   }
 
   return <ConnectWallet className="gradient-border" btnTitle="Connect" onConnect={promptSignIn} />;

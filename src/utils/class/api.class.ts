@@ -153,7 +153,7 @@ class Api {
       .get(`/user/apps-connected?&limit=${limit}&page=${page}`);
 
     if (error) return undefined;
-    return data as ApiPaginationResponse<QuyxApp[]>;
+    return data.data as QuyxApp[];
   }
 
   //==================================================
@@ -202,7 +202,7 @@ class Api {
       .get(`${endpoint}?limit=${limit}&page=${page}`);
 
     if (error) return undefined;
-    return data as ApiPaginationResponse<QuyxReferral[]>;
+    return data.data as QuyxReferral[];
   }
 
   async getSingleRef({ ref }: { ref: string }) {
@@ -262,7 +262,7 @@ class Api {
       .get(`/bookmark?limit=${limit}&page=${page}`);
 
     if (error) return undefined;
-    return data as ApiPaginationResponse<QuyxBookmark[]>;
+    return data.data as QuyxBookmark[];
   }
 
   //==================================================
@@ -273,7 +273,7 @@ class Api {
     const { data, error } = await this.apiSdk.getInstance().get(`/bid?limit=${limit}&page=${page}`);
 
     if (error) return undefined;
-    return data as ApiPaginationResponse<QuyxBid[]>;
+    return data.data as QuyxBid[];
   }
 
   //==================================================
@@ -356,7 +356,7 @@ class Api {
       .get(`${endpoint}/${chainId}/${address}?limit=${limit}&page=${page}`);
 
     if (error) return undefined;
-    return data as ApiPaginationResponse<QuyxCard[]>;
+    return data.data as QuyxCard[];
   }
 
   async getCard({ chainId, card }: { chainId: string; card: string }) {
@@ -390,7 +390,7 @@ class Api {
       .get(`/marketplace/tags/cards/${chainId}/${tag}?limit=${limit}&page=${page}`);
 
     if (error) return undefined;
-    return data as ApiPaginationResponse<QuyxCard[]>;
+    return data.data as QuyxCard[];
   }
 
   async getTrendingTag5({ chainId }: { chainId: string }) {
@@ -435,7 +435,7 @@ class Api {
       .get(`/marketplace/cards/${chainId}?limit=${limit}&page=${page}`);
 
     if (error) return undefined;
-    return data as ApiPaginationResponse<QuyxCard[]>;
+    return data.data as QuyxCard[];
   }
 
   //==================================================

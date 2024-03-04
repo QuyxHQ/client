@@ -99,7 +99,7 @@ type Base = {
   updatedAt: string;
 };
 
-const QUYX_CHAINS = ["5", "84531", "97"] as const;
+const QUYX_CHAINS = ["56", "97"] as const;
 
 type ListCardProps = {
   cardIdentifier: number;

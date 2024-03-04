@@ -155,7 +155,7 @@ const NewCard = () => {
                             type="datetime-local"
                             name="auctionEnds"
                             id="auctionEnds"
-                            value={auctionEnds || ""}
+                            value={auctionEnds ?? new Date().toISOString().substring(0, 16)}
                             onChange={(e) => setAuctionEnds(e.target.value)}
                           />
                         </div>
@@ -166,7 +166,7 @@ const NewCard = () => {
                   {isForSale ? (
                     <div className="col-12">
                       <div className="row">
-                        <div className="col-12 col-md-6">
+                        <div className="col-12 col-md-6 mb-3 mb-md-0">
                           <div className="form-group">
                             <label htmlFor="listingPrice">Listing Price</label>
                             <input
@@ -174,7 +174,7 @@ const NewCard = () => {
                               name="listingPrice"
                               id="listingPrice"
                               value={String(listingPrice)}
-                              onChange={(e) => setListingPrice(parseInt(e.target.value))}
+                              onChange={(e) => setListingPrice(Number(e.target.value))}
                               placeholder="0.00"
                             />
                             <span className="pill">ETH</span>
