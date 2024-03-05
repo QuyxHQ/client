@@ -1,4 +1,4 @@
-import { Card } from "../../..";
+import { AnchorLink, Card } from "../../..";
 
 type Props = { tag?: string; cards?: QuyxCard[] };
 
@@ -10,10 +10,12 @@ const HotInTag = ({ tag, cards }: Props) => {
           Hot in <span>{tag || "----"} 🔥</span>
         </h2>
 
-        <button className="d-flex align-items-center">
-          <span>See more</span>
-          <i className="h h-chevron-right" />
-        </button>
+        <AnchorLink to={`/tag/${tag}`}>
+          <button className="d-flex align-items-center">
+            <span>See more</span>
+            <i className="h h-chevron-right" />
+          </button>
+        </AnchorLink>
       </div>
 
       <div className="col-12">

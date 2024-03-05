@@ -31,7 +31,7 @@ const NewCard = () => {
       if (!userInfo) return;
       if (!userInfo.hasCompletedKYC && !displayModal) {
         setModalBody(
-          <div className="kyc-modal p-4">
+          <div className="kyc-modal py-4 px-3">
             <h2>Pending KYC</h2>
 
             <div className="alert">

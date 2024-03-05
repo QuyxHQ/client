@@ -3,6 +3,7 @@ import {
   About,
   Bookmarks,
   CardDetails,
+  CardsUnderTag,
   Dashboard,
   EditCard,
   Home,
@@ -13,7 +14,9 @@ import {
   NotFound,
   Pricing,
   Settings,
+  Tags,
   Team,
+  User,
 } from "./entry";
 import { Toaster } from "react-hot-toast";
 import { Bought, Created, ForSale, OwnerOf, Sold } from "./entry/pages/Dashboard/views";
@@ -86,6 +89,18 @@ const App = () => {
     {
       path: "/new-card",
       element: <Middleware children={<NewCard />} />,
+    },
+    {
+      path: "/tags",
+      element: <Middleware children={<Tags />} />,
+    },
+    {
+      path: "/tag/:tag",
+      element: <Middleware children={<CardsUnderTag />} />,
+    },
+    {
+      path: "/user/:username",
+      element: <Middleware children={<User />} />,
     },
   ]);
 
