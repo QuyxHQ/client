@@ -6,21 +6,14 @@ const Card = ({
   data,
   className,
   displayBadge,
-  matchOwner,
   displayOwner,
 }: {
   data: QuyxCard;
   className?: string;
   displayBadge?: boolean;
-  matchOwner?: string;
   displayOwner?: boolean;
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  function isOwner() {
-    if (!matchOwner) return false;
-    return data.owner.address == matchOwner;
-  }
 
   async function addToBookmark(_id: string) {
     if (isLoading) return;
@@ -42,8 +35,6 @@ const Card = ({
 
           <button>Report this</button>
         </div>
-      ) : matchOwner && !isOwner() ? (
-        <div></div>
       ) : (
         <div className="h-100 main d-flex flex-column justify-content-between">
           <div className="d-flex flex-column top">
@@ -51,7 +42,10 @@ const Card = ({
               <div className="owner d-flex align-items-center justify-content-between">
                 <div className="d-flex first align-items-center">
                   <div>
-                    <img src={data.owner.pfp!} alt={data.owner.username} />
+                    <img
+                      src={data.owner.pfp ?? "/images/default-user.png"}
+                      alt={data.owner.username}
+                    />
                   </div>
 
                   <h3 className="d-flex align-items-center">

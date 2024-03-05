@@ -308,7 +308,7 @@ img {
   border: 1px solid #6a7181a4;
   background-color: inherit;
   padding: 1.3rem 1.5rem;
-  padding-left: 3.2rem;
+  padding-left: 3.5rem;
   border-radius: 100px;
   font-size: 0.9rem;
   outline: none;
@@ -324,7 +324,7 @@ img {
   font-size: 1.3rem;
   top: 50%;
   transform: translateY(-50%);
-  left: 1.2rem;
+  left: 1.4rem;
 }
 
 .marketplace-section .header button {

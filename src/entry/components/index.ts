@@ -1,5 +1,6 @@
 export { default as AnchorLink } from "./AnchorLink";
 export { default as Card } from "./Card";
+export { default as CardLoader } from "./CardLoader";
 export { default as Chart } from "./Chart";
 export { default as ConnectBtn } from "./ConnectBtn";
 export { default as DefaultNavbar } from "./DefaultNavbar";

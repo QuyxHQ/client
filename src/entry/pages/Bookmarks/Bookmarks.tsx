@@ -1,4 +1,4 @@
-import { Card, EmptyIcon } from "../..";
+import { Card, CardLoader, EmptyIcon } from "../..";
 import { api } from "../../../utils/class/api.class";
 import useQuery from "../../hooks/useQuery";
 import { MOCK_EMPTY_API_RESPONSE } from "../../../utils/constants";
@@ -17,7 +17,7 @@ const Bookmarks = () => {
         <div className="row">
           <div className="col-12 mb-4">
             <div className="px-2">
-              <div className="page mb-4 pb-2">
+              <div className="page mb-4 pb-3">
                 <h1 className="page-title">Bookmarks</h1>
                 <p>{isLoading ? "--" : total} saved item/s</p>
               </div>
@@ -25,11 +25,7 @@ const Bookmarks = () => {
               <div className="col-12">
                 <div className="row g-4">
                   {isLoading ? (
-                    <div className="col-12">
-                      <div className="d-flex align-items-center justify-content-center loader-box">
-                        <span className="loader-span" />
-                      </div>
-                    </div>
+                    <CardLoader />
                   ) : data.length > 0 ? (
                     <>
                       {data.map((bookmark, i) =>
@@ -39,7 +35,7 @@ const Bookmarks = () => {
                             ref={i === data.length - 1 ? ref : undefined}
                             className="col-12 col-md-6 col-lg-4"
                           >
-                            <Card key={bookmark._id} data={bookmark.card} displayOwner />
+                            <Card data={bookmark.card} displayOwner />
                           </div>
                         ) : null
                       )}

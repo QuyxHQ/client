@@ -1,3 +1,5 @@
+import { BinanceTestnet } from "@thirdweb-dev/chains";
+
 export const UNPROTECTED_ROUTES = ["/", "/about", "/marketplace", "/pricing", "/team", "/card"];
 
 export const MOCK_EMPTY_API_RESPONSE = {
@@ -11,3 +13,5 @@ export const MOCK_EMPTY_API_RESPONSE = {
     total: 0,
   },
 };
+
+export const DEFAULT_CHAIN = BinanceTestnet;

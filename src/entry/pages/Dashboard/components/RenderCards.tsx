@@ -1,4 +1,4 @@
-import { Card, EmptyIcon } from "../../..";
+import { Card, CardLoader, EmptyIcon } from "../../..";
 import { api } from "../../../../utils/class/api.class";
 import { MOCK_EMPTY_API_RESPONSE } from "../../../../utils/constants";
 import { useAppStore } from "../../../context/AppProvider";
@@ -20,11 +20,7 @@ const RenderCards = ({ mode }: { mode?: Mode }) => {
     <div className="col-12">
       <div className="row g-4">
         {isLoading ? (
-          <div className="col-12">
-            <div className="d-flex align-items-center justify-content-center loader-box">
-              <span className="loader-span" />
-            </div>
-          </div>
+          <CardLoader />
         ) : data.length > 0 ? (
           <>
             {data.map((card, i) =>
