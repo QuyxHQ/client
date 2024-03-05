@@ -1,12 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
-  About,
   Bookmarks,
   CardDetails,
   CardsUnderTag,
   Dashboard,
   EditCard,
-  Home,
   Marketplace,
   Middleware,
   Modal,
@@ -34,7 +32,7 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Middleware children={<Home />} />,
+      element: <Middleware children={<Marketplace />} />,
       errorElement: <NotFound />,
     },
     {
@@ -60,10 +58,6 @@ const App = () => {
     {
       path: "/dashboard/sale",
       element: <Middleware children={<ForSale />} />,
-    },
-    {
-      path: "/about",
-      element: <Middleware children={<About />} />,
     },
     {
       path: "/marketplace",

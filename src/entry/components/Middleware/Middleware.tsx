@@ -1,12 +1,60 @@
-import { ConnectBtn, GradientLogo2, Layout, SIWE } from "..";
-import { UNPROTECTED_ROUTES } from "../../../utils/constants";
+import { useEffect } from "react";
+import { ConnectBtn, GradientLogo2, Layout, Logo, SIWE } from "..";
+import { DEFAULT_CHAIN, UNPROTECTED_ROUTES } from "../../../utils/constants";
 import { useAppStore } from "../../context/AppProvider";
 
 const Middleware = ({ children }: { children: React.JSX.Element }) => {
-  const { isWalletConnected, isMounting, isLoggedIn } = useAppStore();
+  const {
+    isWalletConnected,
+    isMounting,
+    isLoggedIn,
+    isNetworkSupported,
+    openModal,
+    setModalBody,
+    displayModal,
+    switchChain,
+    closeModal,
+  } = useAppStore();
+
+  useEffect(() => {
+    (function () {
+      if (!isNetworkSupported) {
+        setModalBody(
+          <div className="kyc-modal py-4 px-3">
+            <h2>Wrong Chain</h2>
+
+            <div className="alert">
+              <div>
+                <i className="h h-alert-triangle" />
+              </div>
+              <p>
+                Heads up! You are connected to the wrong chain...click the button below to switch
+                chain
+              </p>
+            </div>
+
+            <div className="buttons">
+              <button
+                className="gradient-border"
+                onClick={() => switchChain(DEFAULT_CHAIN.chainId)}
+              >
+                Switch Chain
+              </button>
+            </div>
+          </div>
+        );
+        openModal(false);
+      } else closeModal();
+    })();
+  }, [displayModal, isNetworkSupported]);
 
   return isMounting || typeof isWalletConnected == "undefined" ? (
-    "mounting..."
+    <div
+      className="middleware-loader d-flex align-items-center justify-content-center w-100"
+      style={{ height: "100vh" }}
+    >
+      <Logo width={60} height={60} fill="#666" />
+    </div>
   ) : !isWalletConnected && !UNPROTECTED_ROUTES.includes(location.pathname) ? (
     <ConnectWallet />
   ) : !isLoggedIn && !UNPROTECTED_ROUTES.includes(location.pathname) ? (

@@ -8,7 +8,7 @@ const DefaultNavbar = () => {
 
   const navigation = [
     { title: "Home", to: "/" },
-    { title: "About", to: "/about" },
+    { title: "About", to: "/#about" },
     { title: "Marketplace", to: "/marketplace" },
     { title: "Docs", to: "//docs.quyx.xyz", target: "_blank" },
   ];

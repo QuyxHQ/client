@@ -1959,3 +1959,24 @@ input[type="datetime-local"] {
   font-size: 0.95rem;
   color: #888;
 }
+
+.middleware-loader {
+  overflow: hidden;
+}
+
+.middleware-loader svg {
+  animation: zoom 2.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes zoom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

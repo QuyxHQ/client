@@ -1,4 +1,3 @@
-export { default as About } from "./About";
 export { default as Bookmarks } from "./Bookmarks";
 export { default as CardDetails } from "./CardDetails";
 export { default as CardsUnderTag } from "./CardsUnderTag";

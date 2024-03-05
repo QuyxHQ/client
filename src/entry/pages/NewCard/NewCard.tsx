@@ -93,7 +93,7 @@ const NewCard = () => {
       pfp: _pfp,
       chainId: String(chainId),
       bio,
-      description: description ? description : null,
+      description: description.length > 0 ? description : null,
       tags: null,
     });
 
@@ -116,7 +116,7 @@ const NewCard = () => {
             cardIdentifier: cardId,
             isAuction: isAuction ? isAuction : false,
             listingPrice: ethers.utils.parseEther(String(listingPrice)).toString(),
-            maxNumberOfBids: String(maxNumberOfBids),
+            maxNumberOfBids: String(maxNumberOfBids ? maxNumberOfBids : 0),
           });
         }
       }

@@ -103,7 +103,7 @@ const Navbar = () => {
                           ></path>
                         </svg>
 
-                        <span className="d-none d-sm-block d-md-none d-lg-block">-.-- tBNB</span>
+                        <span className="d-none d-sm-block d-md-none d-lg-block">0.00 tBNB</span>
                       </div>
                     </button>
 
