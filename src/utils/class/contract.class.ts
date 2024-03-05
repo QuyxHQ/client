@@ -71,16 +71,33 @@ export default class Contract {
     return this.toNumber(price);
   }
 
+  async getCardIdFromTx(tx: any) {
+    try {
+      const receipt = await tx.wait();
+      const cardId = receipt.events[0].args.cardId;
+
+      return parseInt(cardId.toString(), 16);
+    } catch (e: any) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: e.message ?? "unable to complete request",
+      });
+
+      console.error(e);
+      return false;
+    }
+  }
+
   async newCard(tempToken: string) {
     try {
-      await this.contract.newCard(tempToken);
+      const tx = await this.contract.newCard(tempToken);
 
       customToast({
         type: TOAST_STATUS.SUCCESS,
         message: "card created successfully!",
       });
 
-      return true;
+      return tx;
     } catch (e: any) {
       customToast({
         type: TOAST_STATUS.ERROR,

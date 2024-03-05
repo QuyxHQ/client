@@ -162,6 +162,23 @@ class Api {
     return data as ApiPaginationResponse<QuyxApp[]>;
   }
 
+  async logout() {
+    const { error, data } = await this.apiSdk.getInstance().delete("/session");
+    if (error) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: data.message ?? "unable to log user out",
+      });
+
+      return false;
+    }
+
+    localStorage.removeItem("quyx_user_access_token");
+    localStorage.removeItem("quyx_user_refresh_token");
+
+    return true;
+  }
+
   //==================================================
   //======== REFERRAL METHODS ========================
   //==================================================

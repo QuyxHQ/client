@@ -117,12 +117,13 @@ type AppContextProps = {
   isMounting: boolean;
   isLoggedIn: boolean;
   displayModal: boolean;
-  openModal: () => void;
+  openModal: (canClose?: boolean) => void;
   closeModal: () => void;
   isWalletConnected?: boolean;
   userInfo?: QuyxUser;
   address?: string;
   chainId?: number;
+  canCloseModal: boolean;
   QUYX_METADATA?: QUYX_METADATA_OBJ;
   isNetworkSupported: boolean;
   switchChain: (chainId: number) => Promise<void>;

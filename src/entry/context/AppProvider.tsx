@@ -27,15 +27,31 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
   const [isWalletConnected, setIsWalletConnected] = useState<boolean>();
   const [userInfo, setUserInfo] = useState<QuyxUser>();
   const [modalBody, setModalBody] = useState<React.JSX.Element>();
+  const [canCloseModal, setCanCloseModal] = useState<boolean>(true);
   const [QUYX_METADATA, setQuyxMetadata] = useState<QUYX_METADATA_OBJ>();
 
-  const openModal = () => setDisplayModal(true);
+  const openModal = (canClose = true) => {
+    setCanCloseModal(canClose);
+    setDisplayModal(true);
+  };
+
   const closeModal = () => setDisplayModal(false);
 
   useEffect(() => {
     if (connectionStatus == "connected") setIsWalletConnected(true);
     if (connectionStatus == "disconnected") setIsWalletConnected(false);
   }, [connectionStatus]);
+
+  useEffect(() => {
+    (async function () {
+      if (!address || !userInfo || !isLoggedIn) return;
+
+      if (address != userInfo.address) {
+        const resp = await api.logout();
+        if (resp) window.location.reload();
+      }
+    })();
+  }, [address, userInfo]);
 
   useEffect(() => {
     (async function () {
@@ -103,6 +119,7 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
         chainId,
         isNetworkSupported,
         QUYX_METADATA,
+        canCloseModal,
         openModal,
         closeModal,
         setModalBody,

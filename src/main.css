@@ -25,7 +25,7 @@ button {
 
 button:disabled {
   cursor: no-drop;
-  opacity: 0.4;
+  opacity: 0.7;
 }
 
 img {
@@ -1109,8 +1109,8 @@ footer.custom p {
   position: absolute;
   width: 2.4rem;
   height: 2.4rem;
-  background-color: rgba(220, 20, 60, 1);
-  border: 1.5px solid #fff;
+  background-color: rgba(220, 20, 60, 0.6);
+  border: 1px solid #fff;
   color: #fff;
   border-radius: 50%;
   font-size: 0.38rem;
@@ -1255,10 +1255,10 @@ input[type="datetime-local"] {
     linear-gradient(100.09deg, #9327ff 0%, #ffa927 100%);
   color: #fff;
   font-weight: 500;
-  padding: 1.2rem 2.5rem;
-  width: 100%;
-  max-width: 10rem;
+  padding: 1.2rem 3rem;
+  width: max-content;
   margin-top: 1rem;
+  white-space: nowrap;
 }
 
 .empty-res {
@@ -1439,7 +1439,7 @@ input[type="datetime-local"] {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.65rem;
 }
 
 .dash-top .inner {
@@ -1447,7 +1447,7 @@ input[type="datetime-local"] {
 }
 
 .dash-top .user .address {
-  border-bottom: 1.2px solid #888;
+  border-bottom: 1.5px solid #888;
   padding-bottom: 0.2rem;
   color: #888;
   font-weight: 400;
@@ -1657,4 +1657,26 @@ input[type="datetime-local"] {
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+}
+
+.kyc-modal h2 {
+  margin-bottom: 1.3rem;
+  text-align: center;
+  font-weight: 600;
+  padding: 0.3rem 0;
+}
+
+.kyc-modal .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.kyc-modal .buttons button {
+  padding: 1.1rem 1.5rem;
+  color: #fff;
+}
+
+.kyc-modal .buttons button:last-child {
+  background-color: rgb(255, 255, 255, 0.1);
 }

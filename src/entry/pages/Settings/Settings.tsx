@@ -37,7 +37,7 @@ const Settings = () => {
     setIsLoading(true);
 
     let currentPfp = pfp;
-    if (!isURL(currentPfp)) {
+    if (currentPfp && !isURL(currentPfp)) {
       // upload it...
       const resp = await api.uploadImage({ base64Image: currentPfp.split(",")[1] });
       if (!resp) return;

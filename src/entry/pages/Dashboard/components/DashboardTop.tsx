@@ -22,7 +22,7 @@ const DashboardTop = () => {
                 <div>
                   <h4 className="name">
                     <span>{userInfo?.username}</span>
-                    {!userInfo?.hasBlueTick ? <VerifiedIcon /> : null}
+                    {userInfo?.hasBlueTick ? <VerifiedIcon /> : null}
                   </h4>
 
                   <p className="address">{truncateAddress({ address: address! })}</p>

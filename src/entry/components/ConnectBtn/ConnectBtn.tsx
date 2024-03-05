@@ -15,7 +15,14 @@ const ConnectBtn = () => {
     }
   }
 
-  return <ConnectWallet className="gradient-border" btnTitle="Connect" onConnect={promptSignIn} />;
+  return (
+    <ConnectWallet
+      className="gradient-border"
+      btnTitle="Connect"
+      onConnect={promptSignIn}
+      switchToActiveChain
+    />
+  );
 };
 
 export default ConnectBtn;

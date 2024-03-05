@@ -6,6 +6,7 @@ const AppContext = createContext<AppContextProps & { signer?: ethers.Signer }>({
   isLoggedIn: false,
   displayModal: false,
   isNetworkSupported: false,
+  canCloseModal: true,
   closeModal() {},
   openModal() {},
   async switchChain() {},

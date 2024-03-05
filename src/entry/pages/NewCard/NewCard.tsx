@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../../utils/class/api.class";
 import { useAppStore } from "../../context/AppProvider";
 import Contract from "../../../utils/class/contract.class";
 import { isURL } from "../../../utils/helper";
 import { UploadMedia } from "../..";
+import { useNavigate } from "react-router-dom";
+import { ethers } from "ethers";
 
 const NewCard = () => {
-  const { chainId, signer } = useAppStore();
+  const { chainId, signer, userInfo, openModal, displayModal, setModalBody, closeModal } =
+    useAppStore();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
@@ -19,18 +22,71 @@ const NewCard = () => {
   const [listingPrice, setListingPrice] = useState<number | null>(null);
   const [maxNumberOfBids, setMaxNumberOfBids] = useState<number | null>(null);
   const [auctionEnds, setAuctionEnds] = useState<string | null>(null);
+  const [loadingText, setLoadingText] = useState<string>("Processing");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    (function () {
+      if (!userInfo) return;
+      if (!userInfo.hasCompletedKYC && !displayModal) {
+        setModalBody(
+          <div className="kyc-modal p-4">
+            <h2>Pending KYC</h2>
+
+            <div className="alert">
+              <div>
+                <i className="h h-alert-triangle" />
+              </div>
+              <p>
+                Heads up! Let's get you all setup, get your <strong>KYC</strong> done before you can
+                start creating cards
+              </p>
+            </div>
+
+            <div className="buttons">
+              <button
+                className="gradient-border w-100"
+                onClick={() => {
+                  navigate("/settings");
+                  closeModal();
+                }}
+              >
+                Proceed to KYC
+              </button>
+
+              <button
+                className="w-100"
+                onClick={() => {
+                  navigate(-1);
+                  setTimeout(() => closeModal(), 10);
+                }}
+              >
+                Go back
+              </button>
+            </div>
+          </div>
+        );
+
+        openModal(false);
+      }
+    })();
+  }, [displayModal]);
 
   async function uploadCard() {
     if (isLoading) return;
     setIsLoading(true);
 
     let _pfp = pfp;
-    if (!isURL(_pfp)) {
+    if (_pfp && !isURL(_pfp)) {
       // upload it...
+      setLoadingText("Uploading PFP");
       const resp = await api.uploadImage({ base64Image: _pfp.split(",")[1] });
       if (!resp) return;
       _pfp = resp;
     }
+
+    setLoadingText("Creating card");
 
     const resp = await api.createCard({
       username,
@@ -46,8 +102,26 @@ const NewCard = () => {
       const { tempToken } = resp;
       const contract = new Contract("97", signer);
 
-      const contractResp = await contract.newCard(tempToken);
-      if (contractResp) alert("king!");
+      setLoadingText("Minting on blockchain");
+
+      const tx = await contract.newCard(tempToken);
+      if (tx && isForSale) {
+        setLoadingText("Decoding transaction");
+
+        const cardId = await contract.getCardIdFromTx(tx);
+        if (cardId) {
+          setLoadingText("Listing card");
+
+          await contract.listCard({
+            cardIdentifier: cardId,
+            isAuction: isAuction ? isAuction : false,
+            listingPrice: ethers.utils.parseEther(String(listingPrice)).toString(),
+            maxNumberOfBids: String(maxNumberOfBids),
+          });
+        }
+      }
+
+      return;
     }
 
     setIsLoading(false);
@@ -67,85 +141,6 @@ const NewCard = () => {
                 <div className="col-12">
                   <div className="row g-4 g-xl-5">
                     <UploadMedia setPfp={setPfp} pfp={pfp} />
-                    {/* <div className="col-12 col-md-6 col-lg-5 col-xl-4">
-                      <div className="tab">
-                        <p className={tab == "one" ? "active" : ""} onClick={() => setTab("one")}>
-                          Upload media
-                        </p>
-
-                        <p className={tab == "two" ? "active" : ""} onClick={() => setTab("two")}>
-                          nfts collection
-                        </p>
-                      </div>
-
-                      <div className="tab-content-container">
-                        {tab == "one" ? (
-                          <>
-                            <div className="media">
-                              {pfp ? (
-                                <div className="image">
-                                  <img src={pfp} className="w-100" />
-
-                                  <div onClick={() => setPfp("")}>
-                                    <i className="h h-trash-2" />
-                                  </div>
-                                </div>
-                              ) : (
-                                <>
-                                  <p>Drag and drop media</p>
-                                  <h4>Browse files</h4>
-                                  <span>max size 20mb</span>
-                                </>
-                              )}
-                            </div>
-
-                            <input
-                              className="d-none"
-                              type="file"
-                              accept="image/*"
-                              name="image"
-                              onChange={handleImageChange}
-                              ref={fileRef}
-                            />
-
-                            <button onClick={() => fileRef.current.click()}>
-                              <span>Choose from device</span>
-                              <i className="h h-smartphone" />
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <div className="nft">
-                              {pfp ? (
-                                <div className="image">
-                                  <img src={pfp} className="w-100" />
-
-                                  <div onClick={() => setPfp("")}>
-                                    <i className="h h-trash-2" />
-                                  </div>
-                                </div>
-                              ) : (
-                                <>
-                                  <p>no nft selected yet!</p>
-                                  <h4>Choose nft</h4>
-                                  <span>max: 1 nft</span>
-                                </>
-                              )}
-                            </div>
-
-                            <button
-                              onClick={() => {
-                                setModalBody(<NFTs pfp={pfp} setPfp={setPfp} />);
-                                openModal();
-                              }}
-                            >
-                              <span>Choose from collection</span>
-                              <i className="h h-refresh-acw" />
-                            </button>
-                          </>
-                        )}
-                      </div>
-                    </div> */}
 
                     <div className="col-12 col-md-6">
                       <div className="form-group">
@@ -284,7 +279,7 @@ const NewCard = () => {
 
                 <div className="col-12">
                   <button className="btn" onClick={uploadCard} disabled={isLoading}>
-                    {isLoading ? "Processing.." : "Create"}
+                    {isLoading ? loadingText : "Create"}
                   </button>
                 </div>
               </div>
