@@ -11,7 +11,6 @@ const Middleware = ({ children }: { children: React.JSX.Element }) => {
     isNetworkSupported,
     openModal,
     setModalBody,
-    displayModal,
     switchChain,
     closeModal,
   } = useAppStore();
@@ -44,9 +43,11 @@ const Middleware = ({ children }: { children: React.JSX.Element }) => {
           </div>
         );
         openModal(false);
-      } else closeModal();
+      }
+
+      if (isNetworkSupported) closeModal();
     })();
-  }, [displayModal, isNetworkSupported]);
+  }, [isNetworkSupported]);
 
   return isMounting || typeof isWalletConnected == "undefined" ? (
     <div
