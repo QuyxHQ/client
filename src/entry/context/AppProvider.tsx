@@ -9,6 +9,7 @@ import {
   useNetworkMismatch,
 } from "@thirdweb-dev/react";
 import { api } from "../../utils/class/api.class";
+import Contract from "../../utils/class/contract.class";
 
 export const useAppStore = () => useContext(AppContext);
 
@@ -18,7 +19,7 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
   const connectionStatus = useConnectionStatus();
   const chainId = useChainId();
   const switchChain = useSwitchChain();
-  const isNetworkSupported = useNetworkMismatch();
+  const isNetworkSupported = !useNetworkMismatch();
 
   const [isMounting, setIsMounting] = useState<boolean>(true);
   const [displayModal, setDisplayModal] = useState<boolean>(false);
@@ -26,6 +27,7 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
   const [isWalletConnected, setIsWalletConnected] = useState<boolean>();
   const [userInfo, setUserInfo] = useState<QuyxUser>();
   const [modalBody, setModalBody] = useState<React.JSX.Element>();
+  const [QUYX_METADATA, setQuyxMetadata] = useState<QUYX_METADATA_OBJ>();
 
   const openModal = () => setDisplayModal(true);
   const closeModal = () => setDisplayModal(false);
@@ -34,6 +36,38 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
     if (connectionStatus == "connected") setIsWalletConnected(true);
     if (connectionStatus == "disconnected") setIsWalletConnected(false);
   }, [connectionStatus]);
+
+  useEffect(() => {
+    (async function () {
+      if (!isNetworkSupported || !chainId) return;
+
+      const contract = new Contract(String(chainId) as (typeof QUYX_CHAINS)[number], signer);
+      const [isPaused, maxCardPerAddress, extraCardPrice, protocolFeePercent, referralFeePercent] =
+        await Promise.all([
+          contract.isContractPaused(),
+          contract.getMaxCardByAddress(),
+          contract.getExtraCardPrice(),
+          contract.getProtocolFeePercent(),
+          contract.getReferralFeePercent(),
+        ]);
+
+      let data: QUYX_METADATA_OBJ = {
+        isPaused,
+        maxCardPerAddress,
+        extraCardPrice,
+        protocolFeePercent,
+        referralFeePercent,
+      };
+
+      if (address) {
+        const cardsOf = await contract.getCardOf(address);
+        data = { ...data, user: { cardsCount: cardsOf.length } };
+      }
+
+      localStorage.setItem("__QUYX__META__", JSON.stringify(data));
+      setQuyxMetadata(data);
+    })();
+  }, [chainId, isNetworkSupported, signer, address]);
 
   useEffect(() => {
     (async function () {
@@ -47,6 +81,9 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
         setUserInfo(_userInfo);
         setIsLoggedIn(_userInfo ? true : false);
       }
+
+      const quyx_local_metadata = localStorage.getItem("__QUYX__META__");
+      if (quyx_local_metadata) setQuyxMetadata(JSON.parse(quyx_local_metadata));
 
       setIsMounting(false);
     })();
@@ -65,6 +102,7 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
         modalBody,
         chainId,
         isNetworkSupported,
+        QUYX_METADATA,
         openModal,
         closeModal,
         setModalBody,

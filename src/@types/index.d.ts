@@ -99,7 +99,7 @@ type Base = {
   updatedAt: string;
 };
 
-const QUYX_CHAINS = ["56", "97"] as const;
+const QUYX_CHAINS = ["97"] as const;
 
 type ListCardProps = {
   cardIdentifier: number;
@@ -123,6 +123,7 @@ type AppContextProps = {
   userInfo?: QuyxUser;
   address?: string;
   chainId?: number;
+  QUYX_METADATA?: QUYX_METADATA_OBJ;
   isNetworkSupported: boolean;
   switchChain: (chainId: number) => Promise<void>;
   modalBody?: React.JSX.Element;
@@ -144,4 +145,18 @@ type AnchorLinkProps = {
   handleClick?: () => void;
   title?: string;
   target?: string;
+};
+
+type useQueryProps<T> = {
+  queryFn: (page: number, options?: { [key: string]: any }) => Promise<ApiPaginationResponse<T[]>>;
+  options?: { [key: string]: any };
+};
+
+type QUYX_METADATA_OBJ = {
+  isPaused: boolean;
+  maxCardPerAddress: number;
+  extraCardPrice: number;
+  protocolFeePercent: number;
+  referralFeePercent: number;
+  user?: { cardsCount: number };
 };

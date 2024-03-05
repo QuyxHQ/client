@@ -1,31 +1,29 @@
-import { ethers } from "ethers";
+import { ethers, BigNumber } from "ethers";
 import abi from "../json/abi.json";
 import { TOAST_STATUS, customToast } from "../toast.utils";
 
-const chainIdToContractAddress: Record<(typeof QUYX_CHAINS)[number], string> = {
-  "5": "0x....",
-  "84531": "0x...",
-  "97": "0x...",
-};
-
 export default class Contract {
   private contract: ethers.Contract;
+  public static chainIdToContractAddress: Record<(typeof QUYX_CHAINS)[number], string> = {
+    "97": "0x7ae6d600587eC7d6f91Fb06bb3f84DA098Aa2f4A",
+  };
 
   constructor(chainId: (typeof QUYX_CHAINS)[number], signer?: ethers.Signer) {
-    this.contract = new ethers.Contract(
-      chainIdToContractAddress[chainId],
-      abi,
-      signer
-    );
+    this.contract = new ethers.Contract(Contract.chainIdToContractAddress[chainId], abi, signer);
   }
 
   private toNumber(wei: ethers.BigNumberish) {
-    return parseInt(ethers.utils.formatEther(wei));
+    return parseFloat(ethers.utils.formatUnits(wei, 18));
   }
 
   async isContractPaused() {
-    const isPaused = await this.contract.isPaused;
+    const isPaused = await this.contract.isPaused();
     return isPaused as boolean;
+  }
+
+  async getCardOf(address: string) {
+    const cards = await this.contract.cardsOf(address);
+    return cards as string[];
   }
 
   async getBalance(address: string) {
@@ -54,12 +52,22 @@ export default class Contract {
   }
 
   async getMaxCardByAddress() {
-    const value = await this.contract.MAX_CARD_PER_ADDRESS;
+    const value = await this.contract.MAX_CARD_PER_ADDRESS();
     return parseInt(value);
   }
 
+  async getProtocolFeePercent() {
+    const value = await this.contract.protocolFeePercent();
+    return this.toNumber((value as BigNumber).div(ethers.constants.One));
+  }
+
+  async getReferralFeePercent() {
+    const value = await this.contract.referralFeePercent();
+    return this.toNumber((value as BigNumber).div(ethers.constants.One));
+  }
+
   async getExtraCardPrice() {
-    const price = await this.contract.EXTRA_CARD_PRICE;
+    const price = await this.contract.EXTRA_CARD_PRICE();
     return this.toNumber(price);
   }
 
@@ -105,22 +113,11 @@ export default class Contract {
     }
   }
 
-  async listCard({
-    cardIdentifier,
-    isAuction,
-    listingPrice,
-    maxNumberOfBids,
-  }: ListCardProps) {
+  async listCard({ cardIdentifier, isAuction, listingPrice, maxNumberOfBids }: ListCardProps) {
     try {
       const end = Date.now();
 
-      await this.contract.listCard(
-        cardIdentifier,
-        isAuction,
-        listingPrice,
-        maxNumberOfBids,
-        end
-      );
+      await this.contract.listCard(cardIdentifier, isAuction, listingPrice, maxNumberOfBids, end);
 
       customToast({
         type: TOAST_STATUS.SUCCESS,
@@ -160,10 +157,7 @@ export default class Contract {
     }
   }
 
-  async buyCard({
-    cardIdentifier,
-    referredBy = ethers.constants.AddressZero,
-  }: BuyCardProps) {
+  async buyCard({ cardIdentifier, referredBy = ethers.constants.AddressZero }: BuyCardProps) {
     try {
       await this.contract.buyCard(cardIdentifier, referredBy);
 
@@ -184,10 +178,7 @@ export default class Contract {
     }
   }
 
-  async placeBid({
-    cardIdentifier,
-    referredBy = ethers.constants.AddressZero,
-  }: BuyCardProps) {
+  async placeBid({ cardIdentifier, referredBy = ethers.constants.AddressZero }: BuyCardProps) {
     try {
       await this.contract.placeBid(cardIdentifier, referredBy);
 

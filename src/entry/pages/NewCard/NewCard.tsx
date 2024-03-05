@@ -1,17 +1,57 @@
 import { useState } from "react";
+import { api } from "../../../utils/class/api.class";
+import { useAppStore } from "../../context/AppProvider";
+import Contract from "../../../utils/class/contract.class";
+import { isURL } from "../../../utils/helper";
+import { UploadMedia } from "../..";
 
 const NewCard = () => {
+  const { chainId, signer } = useAppStore();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
   const [bio, setBio] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [pfp, setPfp] = useState<string>("");
-  const [tags, setTags] = useState<string>("");
+  // const [tags, setTags] = useState<string>("");
   const [isForSale, setIsForSale] = useState<boolean>(false);
   const [isAuction, setIsAuction] = useState<boolean | null>(null);
   const [listingPrice, setListingPrice] = useState<number | null>(null);
   const [maxNumberOfBids, setMaxNumberOfBids] = useState<number | null>(null);
   const [auctionEnds, setAuctionEnds] = useState<string | null>(null);
-  const [tab, setTab] = useState<"one" | "two">("one");
+
+  async function uploadCard() {
+    if (isLoading) return;
+    setIsLoading(true);
+
+    let _pfp = pfp;
+    if (!isURL(_pfp)) {
+      // upload it...
+      const resp = await api.uploadImage({ base64Image: _pfp.split(",")[1] });
+      if (!resp) return;
+      _pfp = resp;
+    }
+
+    const resp = await api.createCard({
+      username,
+      pfp: _pfp,
+      chainId: String(chainId),
+      bio,
+      description: description ? description : null,
+      tags: null,
+    });
+
+    if (resp) {
+      // then call the blockchain fn with the temptoken
+      const { tempToken } = resp;
+      const contract = new Contract("97", signer);
+
+      const contractResp = await contract.newCard(tempToken);
+      if (contractResp) alert("king!");
+    }
+
+    setIsLoading(false);
+  }
 
   return (
     <div className="container-fluid container-xl mb-5">
@@ -26,7 +66,8 @@ const NewCard = () => {
               <div className="row g-3">
                 <div className="col-12">
                   <div className="row g-4 g-xl-5">
-                    <div className="col-12 col-md-6 col-lg-5 col-xl-4">
+                    <UploadMedia setPfp={setPfp} pfp={pfp} />
+                    {/* <div className="col-12 col-md-6 col-lg-5 col-xl-4">
                       <div className="tab">
                         <p className={tab == "one" ? "active" : ""} onClick={() => setTab("one")}>
                           Upload media
@@ -41,12 +82,33 @@ const NewCard = () => {
                         {tab == "one" ? (
                           <>
                             <div className="media">
-                              <p>Drag and drop media</p>
-                              <h4>Browse files</h4>
-                              <span>max size 20mb</span>
+                              {pfp ? (
+                                <div className="image">
+                                  <img src={pfp} className="w-100" />
+
+                                  <div onClick={() => setPfp("")}>
+                                    <i className="h h-trash-2" />
+                                  </div>
+                                </div>
+                              ) : (
+                                <>
+                                  <p>Drag and drop media</p>
+                                  <h4>Browse files</h4>
+                                  <span>max size 20mb</span>
+                                </>
+                              )}
                             </div>
 
-                            <button>
+                            <input
+                              className="d-none"
+                              type="file"
+                              accept="image/*"
+                              name="image"
+                              onChange={handleImageChange}
+                              ref={fileRef}
+                            />
+
+                            <button onClick={() => fileRef.current.click()}>
                               <span>Choose from device</span>
                               <i className="h h-smartphone" />
                             </button>
@@ -54,19 +116,36 @@ const NewCard = () => {
                         ) : (
                           <>
                             <div className="nft">
-                              <p>no nft selected yet!</p>
-                              <h4>Choose nft</h4>
-                              <span>max 1</span>
+                              {pfp ? (
+                                <div className="image">
+                                  <img src={pfp} className="w-100" />
+
+                                  <div onClick={() => setPfp("")}>
+                                    <i className="h h-trash-2" />
+                                  </div>
+                                </div>
+                              ) : (
+                                <>
+                                  <p>no nft selected yet!</p>
+                                  <h4>Choose nft</h4>
+                                  <span>max: 1 nft</span>
+                                </>
+                              )}
                             </div>
 
-                            <button>
+                            <button
+                              onClick={() => {
+                                setModalBody(<NFTs pfp={pfp} setPfp={setPfp} />);
+                                openModal();
+                              }}
+                            >
                               <span>Choose from collection</span>
                               <i className="h h-refresh-acw" />
                             </button>
                           </>
                         )}
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="col-12 col-md-6">
                       <div className="form-group">
@@ -204,7 +283,9 @@ const NewCard = () => {
                 </div>
 
                 <div className="col-12">
-                  <button className="btn">Create</button>
+                  <button className="btn" onClick={uploadCard} disabled={isLoading}>
+                    {isLoading ? "Processing.." : "Create"}
+                  </button>
                 </div>
               </div>
             </div>

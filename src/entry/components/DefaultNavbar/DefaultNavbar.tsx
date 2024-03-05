@@ -26,7 +26,7 @@ const DefaultNavbar = () => {
           <div className="row">
             <div className="col-12">
               <div className="d-flex align-items-center justify-content-between px-2">
-                <AnchorLink to="/">
+                <AnchorLink to="/" className="pt-1">
                   <GradientLogo height={33} width={98} />
                 </AnchorLink>
 

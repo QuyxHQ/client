@@ -1,17 +1,17 @@
-import { DashboardTop, RenderCards, Tabs } from "./components";
+import { DashboardTop, RenderCards, Tabs } from "../components";
 
-const Dashboard = () => {
+const ForSale = () => {
   return (
     <div className="container-fluid container-xl mt-1">
       <div className="row">
         <div className="col-12">
           <DashboardTop />
           <Tabs />
-          <RenderCards />
+          <RenderCards mode="sale" />
         </div>
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default ForSale;

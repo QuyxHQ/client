@@ -16,6 +16,7 @@ import {
   Team,
 } from "./entry";
 import { Toaster } from "react-hot-toast";
+import { Bought, Created, ForSale, OwnerOf, Sold } from "./entry/pages/Dashboard/views";
 
 import "./main.css";
 
@@ -29,6 +30,26 @@ const App = () => {
     {
       path: "/dashboard",
       element: <Middleware children={<Dashboard />} />,
+    },
+    {
+      path: "/dashboard/owner",
+      element: <Middleware children={<OwnerOf />} />,
+    },
+    {
+      path: "/dashboard/created",
+      element: <Middleware children={<Created />} />,
+    },
+    {
+      path: "/dashboard/bought",
+      element: <Middleware children={<Bought />} />,
+    },
+    {
+      path: "/dashboard/sold",
+      element: <Middleware children={<Sold />} />,
+    },
+    {
+      path: "/dashboard/sale",
+      element: <Middleware children={<ForSale />} />,
     },
     {
       path: "/about",

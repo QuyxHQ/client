@@ -1,38 +1,25 @@
 import { Card, EmptyIcon } from "../..";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "../../../utils/class/api.class";
-import { useEffect, useRef } from "react";
-import { useIntersection } from "@mantine/hooks";
+import useQuery from "../../hooks/useQuery";
+import { MOCK_EMPTY_API_RESPONSE } from "../../../utils/constants";
 
 const Bookmarks = () => {
-  const { data, fetchNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
-    queryKey: ["query"],
-    queryFn: async ({ pageParam = 1 }) => {
-      const response = await api.getBookmarks({ page: pageParam });
-      return response;
+  const { isLoading, isFetchingNextPage, data, ref, total } = useQuery({
+    queryFn: async function (page) {
+      const resp = await api.getBookmarks({ page, limit: 12 });
+      return resp ? resp : MOCK_EMPTY_API_RESPONSE;
     },
-    initialPageParam: 1,
-    getNextPageParam: (_, __, lastPageParam) => lastPageParam + 1,
   });
-
-  const lastCardRef = useRef<HTMLElement>(null);
-  const { ref, entry } = useIntersection({ root: lastCardRef.current, threshold: 1 });
-
-  useEffect(() => {
-    if (entry?.isIntersecting) fetchNextPage();
-  }, [entry]);
-
-  const bookmarks = data?.pages.flatMap((item) => item);
 
   return (
     <section className="mb-5">
       <div className="container-fluid container-xl">
         <div className="row">
-          <div className="col-12">
+          <div className="col-12 mb-4">
             <div className="px-2">
-              <div className="page">
+              <div className="page mb-4 pb-2">
                 <h1 className="page-title">Bookmarks</h1>
-                <p>-- saved item/s</p>
+                <p>{isLoading ? "--" : total} saved item/s</p>
               </div>
 
               <div className="col-12">
@@ -43,13 +30,13 @@ const Bookmarks = () => {
                         <span className="loader-span" />
                       </div>
                     </div>
-                  ) : bookmarks && bookmarks.length > 0 ? (
+                  ) : data.length > 0 ? (
                     <>
-                      {bookmarks.map((bookmark, i) =>
+                      {data.map((bookmark, i) =>
                         bookmark ? (
                           <div
-                            key={`result-page-index-${i}`}
-                            ref={i === bookmarks.length ? ref : undefined}
+                            key={`bookmark-index-${i}`}
+                            ref={i === data.length - 1 ? ref : undefined}
                             className="col-12 col-md-6 col-lg-4"
                           >
                             <Card key={bookmark._id} data={bookmark.card} displayOwner />
@@ -59,7 +46,7 @@ const Bookmarks = () => {
 
                       {isFetchingNextPage ? (
                         <div className="col-12">
-                          <div className="d-flex align-items-center justify-content-center py-5">
+                          <div className="d-flex align-items-center justify-content-center py-3">
                             <span className="loader-span-sm" />
                           </div>
                         </div>

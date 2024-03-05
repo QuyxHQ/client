@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { AnchorLink, VerifiedIcon } from "..";
+import { api } from "../../../utils/class/api.class";
 
 const Card = ({
   data,
@@ -13,9 +15,18 @@ const Card = ({
   matchOwner?: string;
   displayOwner?: boolean;
 }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   function isOwner() {
     if (!matchOwner) return false;
     return data.owner.address == matchOwner;
+  }
+
+  async function addToBookmark(_id: string) {
+    if (isLoading) return;
+    setIsLoading(true);
+    await api.addToBookmark({ card: _id });
+    setIsLoading(false);
   }
 
   return (
@@ -74,7 +85,11 @@ const Card = ({
           <div className="price d-flex align-items-center justify-content-between">
             {data.isForSale ? <h4>{data.listingPrice} ETH</h4> : null}
 
-            <button className="d-flex align-items-center">
+            <button
+              className="d-flex align-items-center"
+              disabled={isLoading}
+              onClick={() => addToBookmark(data._id)}
+            >
               <span>Save</span>
               <i className="h h-bookmark" />
             </button>

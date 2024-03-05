@@ -23,3 +23,8 @@ export function truncateAddress({
 export function isURL(string: string) {
   return /^(ftp|http|https):\/\/[^ "]+$/.test(string);
 }
+
+export function getCountForDashboard(data: { chainId: string; count: number }[], toMatch: number) {
+  const _data = data.find((item) => item.chainId == String(toMatch));
+  return _data ? _data.count : 0;
+}

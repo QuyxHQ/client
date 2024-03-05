@@ -75,6 +75,12 @@ class Api {
     return data.data as QuyxUser;
   }
 
+  async getUserNFTs() {
+    const { data, error } = await this.apiSdk.getInstance().get("/user/nfts");
+    if (error) return undefined;
+    return data.data as { name?: string | null; image: string }[];
+  }
+
   async edit({ pfp, email, username }: { pfp: string | null; email: string; username: string }) {
     const { data, error } = await this.apiSdk
       .getInstance()
@@ -133,7 +139,7 @@ class Api {
   }
 
   async getSingleUser({ param }: { param: string }) {
-    const { data, error } = await this.apiSdk.getInstanceWithoutAuth().get(`/user/${param}`);
+    const { data, error } = await this.apiSdk.getInstanceWithoutAuth().get(`/user/single/${param}`);
     if (error) return undefined;
     return data.data as QuyxUser;
   }
@@ -153,7 +159,7 @@ class Api {
       .get(`/user/apps-connected?&limit=${limit}&page=${page}`);
 
     if (error) return undefined;
-    return data.data as QuyxApp[];
+    return data as ApiPaginationResponse<QuyxApp[]>;
   }
 
   //==================================================
@@ -202,7 +208,7 @@ class Api {
       .get(`${endpoint}?limit=${limit}&page=${page}`);
 
     if (error) return undefined;
-    return data.data as QuyxReferral[];
+    return data as ApiPaginationResponse<QuyxReferral[]>;
   }
 
   async getSingleRef({ ref }: { ref: string }) {
@@ -262,7 +268,7 @@ class Api {
       .get(`/bookmark?limit=${limit}&page=${page}`);
 
     if (error) return undefined;
-    return data.data as QuyxBookmark[];
+    return data as ApiPaginationResponse<QuyxBookmark[]>;
   }
 
   //==================================================
@@ -273,7 +279,7 @@ class Api {
     const { data, error } = await this.apiSdk.getInstance().get(`/bid?limit=${limit}&page=${page}`);
 
     if (error) return undefined;
-    return data.data as QuyxBid[];
+    return data as ApiPaginationResponse<QuyxBid[]>;
   }
 
   //==================================================
@@ -297,11 +303,6 @@ class Api {
 
       return null;
     }
-
-    customToast({
-      type: TOAST_STATUS.SUCCESS,
-      message: data.message,
-    });
 
     return data.data as QuyxCard;
   }
@@ -356,7 +357,7 @@ class Api {
       .get(`${endpoint}/${chainId}/${address}?limit=${limit}&page=${page}`);
 
     if (error) return undefined;
-    return data.data as QuyxCard[];
+    return data as ApiPaginationResponse<QuyxCard[]>;
   }
 
   async getCard({ chainId, card }: { chainId: string; card: string }) {
@@ -390,7 +391,7 @@ class Api {
       .get(`/marketplace/tags/cards/${chainId}/${tag}?limit=${limit}&page=${page}`);
 
     if (error) return undefined;
-    return data.data as QuyxCard[];
+    return data as ApiPaginationResponse<QuyxCard[]>;
   }
 
   async getTrendingTag5({ chainId }: { chainId: string }) {
@@ -435,7 +436,7 @@ class Api {
       .get(`/marketplace/cards/${chainId}?limit=${limit}&page=${page}`);
 
     if (error) return undefined;
-    return data.data as QuyxCard[];
+    return data as ApiPaginationResponse<QuyxCard[]>;
   }
 
   //==================================================
