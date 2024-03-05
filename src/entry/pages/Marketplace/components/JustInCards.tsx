@@ -52,7 +52,7 @@ const JustInCards = () => {
 
         <div className="slider row g-0" ref={slider}>
           {isLoading ? (
-            <CardLoader />
+            <CardLoader col="col-11 col-sm-8 col-md-5 col-lg-4 col-xl-3" />
           ) : (
             jusInCards?.map((card, index) => (
               <div

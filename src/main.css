@@ -433,7 +433,7 @@ img {
 
 @keyframes pulse {
   50% {
-    opacity: 0.5;
+    opacity: 0.7;
   }
 }
 
@@ -453,8 +453,7 @@ img {
   position: relative;
 }
 
-.quyx-card,
-.quyx-card-2 {
+.quyx-card {
   border: 1px solid #6a7181b5;
   border-radius: 15px !important;
   padding: 1.3rem;
@@ -466,8 +465,7 @@ img {
   gap: 0.5rem;
 }
 
-.quyx-card img,
-.quyx-card-2 img {
+.quyx-card img {
   width: 100%;
   display: block;
   border-radius: 15px;
@@ -1679,4 +1677,285 @@ input[type="datetime-local"] {
 
 .kyc-modal .buttons button:last-child {
   background-color: rgb(255, 255, 255, 0.1);
+}
+
+.card-loader {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #6a718176;
+  border-radius: 15px !important;
+  padding: 1.3rem;
+  background-color: #000;
+}
+
+.card-loader .user-box {
+  gap: 1rem;
+  margin-bottom: 1.15rem;
+}
+
+.card-loader .user-box .image {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+.card-loader .user-box p {
+  width: 100%;
+  max-width: 10rem;
+  height: 1rem;
+  border-radius: 100px;
+}
+
+.card-loader > .image {
+  width: 100%;
+  height: 15rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.card-loader > .title {
+  width: 93%;
+  height: 1rem;
+  border-radius: 100px;
+  margin-bottom: 1.5rem;
+}
+
+.card-loader .text {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card-loader .text p {
+  width: 80%;
+  height: 1rem;
+  border-radius: 100px;
+}
+
+.card-loader .text p:nth-child(2) {
+  width: 50%;
+}
+
+.card-loader .text p:nth-child(3) {
+  width: 60%;
+}
+
+.single-page-loader .image {
+  width: 100%;
+  height: 20rem;
+  border-radius: 15px;
+}
+
+.single-page-loader .div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  margin-bottom: 3rem;
+}
+
+.single-page-loader .div p {
+  width: 100%;
+  max-width: 25rem;
+  height: 1.1rem;
+  border-radius: 100px;
+}
+
+.single-page-loader .div p:last-child {
+  width: 90%;
+  max-width: 20rem;
+}
+
+.single-page-card .user-fns {
+  gap: 1rem;
+}
+
+.single-page-card .user-fns button {
+  display: flex;
+  padding: 0.9rem 1.6rem;
+  gap: 0.6rem;
+  min-width: 7rem;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.single-page-card .user-fns button i {
+  font-size: 1.3rem;
+}
+
+.single-page-card .user-fns > button {
+  background-color: rgb(255, 255, 255, 0.15);
+  border: 1px solid rgb(255, 255, 255, 0.2);
+}
+
+.single-page-card .user-fns a > button {
+  background-color: inherit;
+  padding: 0;
+}
+
+.single-page-card .user-fns > div {
+  gap: 1rem;
+}
+
+.single-page-card .user-fns > div button.delete {
+  color: red;
+  padding: 0;
+  min-width: unset;
+  background-color: transparent;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s ease-in-out all;
+}
+
+.single-page-card .user-fns > div button.delete:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.single-page-card .user-details {
+  gap: 1.5rem;
+}
+
+.single-page-card .user-details .user {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 1rem;
+}
+
+.single-page-card .user-details .user > div {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  background-color: rgb(255, 255, 255, 0.1);
+  border: 1px solid #6a7181a8;
+  padding: 0.45rem;
+  border-radius: 100px;
+}
+
+.single-page-card .user-details .user img {
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 50%;
+  background-color: #555;
+}
+
+.single-page-card .user-details .user p {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.single-page-card .user-details .user h4 {
+  font-weight: 600;
+  padding-right: 1.1rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.single-page-card .user-details a {
+  white-space: nowrap;
+  border-bottom: 1px solid #fff;
+  padding: 0.15rem 0.1rem;
+}
+
+.single-page-card .main .position-relative {
+  border: 1px solid #6a7181cd;
+  border-radius: 10px;
+  padding: 0;
+}
+
+.single-page-card .main .position-relative img {
+  width: 100%;
+  min-height: 20rem;
+  background-color: #555;
+  border-radius: 10px;
+  display: block;
+}
+
+.single-page-card .main .position-relative button {
+  top: 1.2rem;
+  left: 1.2rem;
+  background-color: rgb(0, 0, 0, 0.6);
+  color: #fff;
+  border: 1px solid #6a718176;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.3rem;
+  font-weight: 600;
+}
+
+.single-page-card .main .position-relative button i {
+  font-size: 1.2rem;
+}
+
+.single-page-card .main .item {
+  border: 1px solid #6a7181ce;
+  border-radius: 10px;
+  padding: 1.5rem 1.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 40rem;
+}
+
+.single-page-card .main .item h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.single-page-card .main .item p {
+  font-size: 0.95rem;
+  color: #888;
+  line-height: 180%;
+}
+
+.down-single-card {
+  gap: 1rem;
+}
+
+.down-single-card h4 {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #ffd599;
+}
+
+.down-single-card button {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 500;
+  padding: 1.15rem 2rem;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(100.09deg, #9327ff 0%, #ffa927 100%);
+  color: #fff;
+}
+
+.down-single-card button.green {
+  background-color: #2f5b24;
+}
+
+.down-single-card button i {
+  font-size: 1.3rem;
+}
+
+.auction-stats {
+  padding-top: 1rem;
+  gap: 1.5rem;
+}
+
+.auction-stats h5 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+.auction-stats p {
+  font-size: 0.95rem;
+  color: #888;
 }

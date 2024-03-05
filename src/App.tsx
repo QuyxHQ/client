@@ -20,6 +20,13 @@ import {
 } from "./entry";
 import { Toaster } from "react-hot-toast";
 import { Bought, Created, ForSale, OwnerOf, Sold } from "./entry/pages/Dashboard/views";
+import {
+  Bought as UBought,
+  Created as UCreated,
+  ForSale as UForSale,
+  OwnerOf as UOwnerOf,
+  Sold as USold,
+} from "./entry/pages/User/views";
 
 import "./main.css";
 
@@ -101,6 +108,26 @@ const App = () => {
     {
       path: "/user/:username",
       element: <Middleware children={<User />} />,
+    },
+    {
+      path: "/user/owner/:username",
+      element: <Middleware children={<UOwnerOf />} />,
+    },
+    {
+      path: "/user/created/:username",
+      element: <Middleware children={<UCreated />} />,
+    },
+    {
+      path: "/user/bought/:username",
+      element: <Middleware children={<UBought />} />,
+    },
+    {
+      path: "/user/sold/:username",
+      element: <Middleware children={<USold />} />,
+    },
+    {
+      path: "/user/sale/:username",
+      element: <Middleware children={<UForSale />} />,
     },
   ]);
 

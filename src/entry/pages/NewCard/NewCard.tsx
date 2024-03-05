@@ -251,7 +251,7 @@ const NewCard = () => {
                               onChange={(e) => setListingPrice(Number(e.target.value))}
                               placeholder="0.00"
                             />
-                            <span className="pill">ETH</span>
+                            <span className="pill">tBNB</span>
                           </div>
                         </div>
 

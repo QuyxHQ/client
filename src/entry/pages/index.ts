@@ -10,7 +10,6 @@ export { default as NewCard } from "./NewCard";
 export { default as NotFound } from "./NotFound";
 export { default as Pricing } from "./Pricing";
 export { default as Settings } from "./Settings";
-export { default as SingleTag } from "./SingleTag";
 export { default as Tags } from "./Tags";
 export { default as Team } from "./Team";
 export { default as User } from "./User";

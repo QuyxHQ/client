@@ -42,24 +42,28 @@ const Card = ({
               <div className="owner d-flex align-items-center justify-content-between">
                 <div className="d-flex first align-items-center">
                   <div>
-                    <img
-                      src={data.owner.pfp ?? "/images/default-user.png"}
-                      alt={data.owner.username}
-                    />
+                    <AnchorLink to={`/user/${data.username}`}>
+                      <img
+                        src={data.owner.pfp ?? "/images/default-user.png"}
+                        alt={data.owner.username}
+                      />
+                    </AnchorLink>
                   </div>
 
-                  <h3 className="d-flex align-items-center">
-                    <span>{data.owner.username}</span>
+                  <AnchorLink to={`/user/${data.username}`}>
+                    <h3 className="d-flex align-items-center">
+                      <span>{data.owner.username}</span>
 
-                    {data.owner.hasBlueTick ? <VerifiedIcon /> : null}
-                  </h3>
+                      {data.owner.hasBlueTick ? <VerifiedIcon /> : null}
+                    </h3>
+                  </AnchorLink>
                 </div>
 
                 <i className="h h-more-horizontal" />
               </div>
             ) : null}
             <div className="position-relative">
-              <AnchorLink to={`/card/${data._id}`}>
+              <AnchorLink to={`/card/${data.identifier}`}>
                 <img src={data.pfp} alt={data.username} />
               </AnchorLink>
 
@@ -72,12 +76,16 @@ const Card = ({
                 </span>
               ) : null}
             </div>
-            <h3 className="card-title">{data.username}</h3>
+
+            <AnchorLink to={`/card/${data.identifier}`}>
+              <h3 className="card-title">{data.username}</h3>
+            </AnchorLink>
+
             <p className="intro">{data.description ?? data.bio}</p>
           </div>
 
           <div className="price d-flex align-items-center justify-content-between">
-            {data.isForSale ? <h4>{data.listingPrice} ETH</h4> : null}
+            {data.isForSale ? <h4>{data.listingPrice} tBNB</h4> : null}
 
             <button
               className="d-flex align-items-center"

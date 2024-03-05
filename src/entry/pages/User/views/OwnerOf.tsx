@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { api } from "../../../utils/class/api.class";
-import { DashboardTop, RenderCards, Tabs } from "./components";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { api } from "../../../../utils/class/api.class";
+import { DashboardTop, Tabs, RenderCards } from "../components";
 
-const User = () => {
+const OwnerOf = () => {
   const { username } = useParams() as { username: string };
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [userInfo, setUserInfo] = useState<QuyxUser>();
@@ -32,7 +32,7 @@ const User = () => {
             <>
               <DashboardTop userInfo={userInfo!} address={userInfo?.address!} />
               <Tabs username={userInfo?.username!} />
-              <RenderCards address={userInfo?.address!} />
+              <RenderCards address={userInfo?.address!} mode="owner" />
             </>
           )}
         </div>
@@ -41,4 +41,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default OwnerOf;
