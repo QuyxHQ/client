@@ -1,0 +1,14 @@
+.cover{
+    background: url("/Images/cards.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: auto;
+}
+
+#Heading {
+  /* background: linear-gradient(92deg, #9327ff 1.06%, #ffa927 100%);
+  background-clip: text;
+  -webkit-background-clip: text; For Safari/Chrome
+  color: transparent; */
+  font-size: 4rem;
+}

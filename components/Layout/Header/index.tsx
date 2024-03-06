@@ -37,7 +37,7 @@ const Header = () => {
 
   return (
     <>
-      <nav className="back bg-black fixed w-full text-white z-[500]">
+      <nav className="back fixed w-full text-white z-[500]">
         <div className="container">
           <div className="d-flex items-center">
             <div className="flex gap-6 py-6 items-center md:flex-row justify-between">

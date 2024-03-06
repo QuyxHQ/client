@@ -1,6 +1,10 @@
+import About from "@/components/UI/AboutUs";
+
 const Page = () => {
     return ( 
-        <div>about page</div>
+        <main>
+            <About/>
+        </main>
      );
 }
  

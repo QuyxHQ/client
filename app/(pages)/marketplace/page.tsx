@@ -8,7 +8,6 @@ import AllCards from "../../../components/UI/Marketplace/AllCards";
 
 
 
-
 const Page = () => {
   return (
     <>
