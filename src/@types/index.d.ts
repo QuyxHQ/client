@@ -45,7 +45,7 @@ type QuyxCard = Base & {
   isAuction: boolean | null;
   listingPrice: number | null;
   maxNumberOfBids: number | null;
-  auctionEnds: Date | null;
+  auctionEnds: string | null;
   tags: string[] | null;
   isFlagged: boolean;
   isDeleted: boolean;
@@ -106,6 +106,7 @@ type ListCardProps = {
   isAuction: boolean;
   listingPrice: string;
   maxNumberOfBids: string;
+  end?: number;
 };
 
 type BuyCardProps = {
@@ -125,6 +126,7 @@ type AppContextProps = {
   chainId?: number;
   canCloseModal: boolean;
   QUYX_METADATA?: QUYX_METADATA_OBJ;
+  balance?: number;
   isNetworkSupported: boolean;
   switchChain: (chainId: number) => Promise<void>;
   modalBody?: React.JSX.Element;

@@ -10,6 +10,7 @@ import {
 } from "@thirdweb-dev/react";
 import { api } from "../../utils/class/api.class";
 import Contract from "../../utils/class/contract.class";
+import { ethers } from "ethers";
 
 export const useAppStore = () => useContext(AppContext);
 
@@ -29,6 +30,7 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
   const [modalBody, setModalBody] = useState<React.JSX.Element>();
   const [canCloseModal, setCanCloseModal] = useState<boolean>(true);
   const [QUYX_METADATA, setQuyxMetadata] = useState<QUYX_METADATA_OBJ>();
+  const [balance, setBalance] = useState<number>();
 
   const openModal = (canClose = true) => {
     setCanCloseModal(canClose);
@@ -36,6 +38,15 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
   };
 
   const closeModal = () => setDisplayModal(false);
+
+  useEffect(() => {
+    (async function () {
+      if (!signer) return;
+
+      const balance = await signer.getBalance();
+      setBalance(parseInt(balance.toString()) / parseInt(ethers.constants.WeiPerEther.toString()));
+    })();
+  }, [signer]);
 
   useEffect(() => {
     if (connectionStatus == "connected") setIsWalletConnected(true);
@@ -120,6 +131,7 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
         isNetworkSupported,
         QUYX_METADATA,
         canCloseModal,
+        balance,
         openModal,
         closeModal,
         setModalBody,

@@ -11,7 +11,7 @@ const RenderCards = ({ mode }: { mode?: Mode }) => {
   const { isLoading, isFetchingNextPage, data, ref } = useQuery({
     options: { address, chainId: String(chainId), mode },
     queryFn: async function (page, options) {
-      const resp = await api.getUserCards(options as any, { page });
+      const resp = await api.getUserCards(options as any, { page, limit: 12 });
       return resp ? resp : MOCK_EMPTY_API_RESPONSE;
     },
   });
@@ -27,10 +27,10 @@ const RenderCards = ({ mode }: { mode?: Mode }) => {
               card ? (
                 <div
                   key={`result-page-index-${i}`}
-                  ref={i === data.length ? ref : undefined}
+                  ref={i === data.length - 1 ? ref : undefined}
                   className="col-12 col-md-6 col-lg-4"
                 >
-                  <Card key={card._id} data={card} />
+                  <Card data={card} />
                 </div>
               ) : null
             )}

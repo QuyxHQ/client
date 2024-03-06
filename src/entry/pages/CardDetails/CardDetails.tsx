@@ -4,15 +4,36 @@ import { api } from "../../../utils/class/api.class";
 import { useAppStore } from "../../context/AppProvider";
 import { DEFAULT_CHAIN } from "../../../utils/constants";
 import { AnchorLink, VerifiedIcon } from "../..";
+import Contract from "../../../utils/class/contract.class";
 
 const CardDetails = () => {
-  const { chainId, userInfo } = useAppStore();
+  const { chainId, userInfo, signer } = useAppStore();
   const { card } = useParams() as { card: string };
+
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [data, setData] = useState<QuyxCard>();
+  const [isBookmarkBtnLoading, setIsBookmarkBtnLoading] = useState<boolean>(false);
+  const [isDeleteBtnLoading, setIsDeleteBtnLoading] = useState<boolean>(false);
 
-  const navigate = useNavigate();
+  async function addToBookmark(_id: string) {
+    if (isBookmarkBtnLoading) return;
+    setIsBookmarkBtnLoading(true);
+    await api.addToBookmark({ card: _id });
+    setIsBookmarkBtnLoading(false);
+  }
+
+  async function deleteCard() {
+    if (!userInfo || !data || data.owner._id != userInfo._id) return;
+    if (!confirm("Are you sure you want to delete card?")) return;
+
+    setIsDeleteBtnLoading(true);
+    const contract = new Contract(String(chainId ? chainId : DEFAULT_CHAIN.chainId) as any, signer);
+    const resp = await contract.deleteCard(data.identifier!);
+    if (resp) return navigate(-1);
+    setIsDeleteBtnLoading(false);
+  }
 
   useEffect(() => {
     (async function () {
@@ -56,8 +77,16 @@ const CardDetails = () => {
                           </button>
                         </AnchorLink>
 
-                        <button className="delete">
-                          <i className="h h-trash-1" />
+                        <button
+                          className="delete"
+                          disabled={isDeleteBtnLoading}
+                          onClick={deleteCard}
+                        >
+                          {isDeleteBtnLoading ? (
+                            <span className="loader-span-sm"></span>
+                          ) : (
+                            <i className="h h-trash-1" />
+                          )}
                         </button>
                       </div>
                     </div>
@@ -118,7 +147,7 @@ const CardDetails = () => {
                                   </button>
                                 )}
 
-                                <h4>0.4 tBNB</h4>
+                                <h4>0.4 BNB</h4>
                               </div>
                             ) : null}
                           </div>

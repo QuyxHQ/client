@@ -30,7 +30,7 @@ const RenderCards = ({ mode, address }: { mode?: Mode; address: string }) => {
                   ref={i === data.length ? ref : undefined}
                   className="col-12 col-md-6 col-lg-4"
                 >
-                  <Card key={card._id} data={card} />
+                  <Card data={card} />
                 </div>
               ) : null
             )}

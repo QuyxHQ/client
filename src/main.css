@@ -25,7 +25,7 @@ button {
 
 button:disabled {
   cursor: no-drop;
-  opacity: 0.7;
+  opacity: 0.75;
 }
 
 img {
@@ -207,6 +207,7 @@ img {
   box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
   border: 1px solid #6a7181b5;
   transition: 0.3s ease-in-out all;
+  z-index: 9;
 }
 
 .default-nav .nav-navigate ul {
@@ -275,6 +276,74 @@ img {
 .default-nav ul.main-nav li a.active {
   background-color: rgba(255, 255, 255, 0.2);
   color: #fff;
+}
+
+.search-result-creator {
+  display: none;
+  background-color: #000;
+  border: 1px solid #6a7181ad;
+  border-radius: 10px;
+  top: 3.8rem;
+  z-index: 8;
+  right: 0.5rem;
+  width: 18rem;
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+}
+
+.search-result-creator .text {
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+.search-result-creator .text strong {
+  font-weight: 600;
+}
+
+.search-result-creator ul {
+  list-style-type: none;
+}
+
+.search-result-creator li {
+  padding: 0.5rem;
+  border-bottom: 1px solid #6a7181ad;
+}
+
+.search-result-creator li:last-child {
+  border-bottom: none;
+}
+
+.search-result-creator li a {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.5rem;
+}
+
+.search-result-creator li a:hover {
+  background-color: rgb(255, 255, 255, 0.1);
+  border-radius: 7px;
+}
+
+.search-result-creator li a img {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-color: #555;
+}
+
+.search-result-creator li a h4 {
+  display: flex;
+  gap: 0.4rem;
+  font-weight: 500;
+  font-size: 0.93rem;
+  padding-right: 1rem;
+}
+
+.search-result-creator li a h4 span {
+  white-space: nowrap;
+  max-width: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .gradient-border {
@@ -499,7 +568,13 @@ img {
   background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #fff;
-  padding: 0.75rem 1.4rem;
+  padding: 0.8rem 1.4rem;
+}
+
+.quyx-card .price button span.loader-span-sm {
+  width: 17px;
+  height: 17px;
+  margin: 0rem 1rem;
 }
 
 .quyx-card .price button i {
@@ -514,29 +589,22 @@ img {
 }
 
 .quyx-card .flagged {
-  border: 1px solid red;
+  border: 2px solid red;
   background-color: #000;
   color: red;
-  padding: 0.75rem 0.9rem;
+  padding: 0.65rem;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
   bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 1rem;
   border-radius: 100px;
   cursor: pointer;
 }
 
-.quyx-card .flagged span {
-  font-weight: 500;
-  font-size: 0.9rem;
-  white-space: nowrap;
-}
-
 .quyx-card .flagged i {
-  font-size: 1.4rem;
+  font-size: 1.1rem;
 }
 
 .quyx-card .owner {
@@ -551,6 +619,60 @@ img {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
+  background-color: #555;
+}
+
+.quyx-card .owner .more:hover .card-more {
+  display: block;
+}
+
+.quyx-card .card-more {
+  display: none;
+  z-index: 8;
+  background-color: #000;
+  border: 1px solid #6a7181bf;
+  right: 0.4rem;
+  border-radius: 9px;
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+}
+
+.quyx-card .card-more .loader-span-sm {
+  width: 16px;
+  height: 16px;
+  border-top-color: #999;
+}
+
+.quyx-card .card-more ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.4rem;
+}
+
+.quyx-card .card-more ul li a {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.85rem;
+  border-radius: 7px;
+  padding: 0.7rem;
+  padding-right: 1.3rem;
+  cursor: pointer;
+}
+
+.quyx-card .card-more ul li a.disabled {
+  cursor: no-drop;
+  opacity: 0.8;
+}
+
+.quyx-card .card-more ul li a:hover {
+  background-color: rgb(255, 255, 255, 0.2);
+}
+
+.quyx-card .card-more ul li a i {
+  font-size: 1.1rem;
+  color: #999;
 }
 
 .quyx-card .owner h3 {
@@ -559,7 +681,7 @@ img {
   font-size: 1.1rem;
 }
 
-.quyx-card .owner i {
+.quyx-card .owner .more > i {
   font-size: 2.2rem;
   cursor: pointer;
 }
@@ -705,6 +827,7 @@ footer.custom p {
 
 .featured-slider {
   gap: 0.8rem;
+  scroll-behavior: smooth;
 }
 
 .featured-slider .slider-btn {
@@ -1193,8 +1316,8 @@ footer.custom p {
 
 .form-group .pill {
   background-color: rgb(255, 255, 255, 0.2);
-  padding: 0.5rem 1.1rem;
-  font-size: 0.85rem;
+  padding: 0.6rem 1.1rem;
+  font-size: 0.8rem;
   font-weight: 500;
   display: block;
   width: max-content;
@@ -1253,10 +1376,19 @@ input[type="datetime-local"] {
     linear-gradient(100.09deg, #9327ff 0%, #ffa927 100%);
   color: #fff;
   font-weight: 500;
-  padding: 1.2rem 3rem;
+  padding: 1.2rem 2rem;
   width: max-content;
   margin-top: 1rem;
   white-space: nowrap;
+}
+
+.new-edit-card button.btn div {
+  gap: 0.8rem;
+}
+
+.new-edit-card button.btn span {
+  width: 16px;
+  height: 16px;
 }
 
 .empty-res {
@@ -1307,6 +1439,12 @@ input[type="datetime-local"] {
   background-color: rgba(218, 165, 32, 0.143);
   border: 1px solid goldenrod;
   color: rgb(234, 191, 82);
+}
+
+.alert.info {
+  background-color: rgba(30, 143, 255, 0.128);
+  border: 1px solid dodgerblue;
+  color: dodgerblue;
 }
 
 .alert .write {
@@ -1809,6 +1947,11 @@ input[type="datetime-local"] {
   align-items: center;
   justify-content: center;
   transition: 0.3s ease-in-out all;
+}
+
+.single-page-card .user-fns > div button.delete span {
+  width: 18px;
+  height: 18px;
 }
 
 .single-page-card .user-fns > div button.delete:hover {

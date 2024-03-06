@@ -76,35 +76,27 @@ export default class Contract {
       const receipt = await tx.wait();
       const cardId = receipt.events[0].args.cardId;
 
-      return parseInt(cardId.toString(), 16);
+      return parseInt(cardId.toString());
     } catch (e: any) {
       customToast({
         type: TOAST_STATUS.ERROR,
-        message: e.message ?? "unable to complete request",
+        message: e?.data?.message ?? "unable to complete request",
       });
 
-      console.error(e);
       return false;
     }
   }
 
-  async newCard(tempToken: string) {
+  async newCard(tempToken: string, value?: string) {
     try {
-      const tx = await this.contract.newCard(tempToken);
-
-      customToast({
-        type: TOAST_STATUS.SUCCESS,
-        message: "card created successfully!",
-      });
-
+      const tx = await this.contract.newCard(tempToken, value ? { value } : undefined);
       return tx;
     } catch (e: any) {
       customToast({
         type: TOAST_STATUS.ERROR,
-        message: e.message ?? "unable to complete request",
+        message: e?.data?.message ?? "unable to complete request",
       });
 
-      console.error(e);
       return false;
     }
   }
@@ -122,33 +114,30 @@ export default class Contract {
     } catch (e: any) {
       customToast({
         type: TOAST_STATUS.ERROR,
-        message: e.message ?? "unable to complete request",
+        message: e?.data?.message ?? "unable to complete request",
       });
 
-      console.error(e);
       return false;
     }
   }
 
-  async listCard({ cardIdentifier, isAuction, listingPrice, maxNumberOfBids }: ListCardProps) {
+  async listCard({ cardIdentifier, isAuction, listingPrice, maxNumberOfBids, end }: ListCardProps) {
     try {
-      const end = Date.now();
-
-      await this.contract.listCard(cardIdentifier, isAuction, listingPrice, maxNumberOfBids, end);
-
-      customToast({
-        type: TOAST_STATUS.SUCCESS,
-        message: "card listed successfully!",
-      });
+      await this.contract.listCard(
+        cardIdentifier,
+        isAuction,
+        listingPrice,
+        maxNumberOfBids,
+        end ? end : new Date().getTime()
+      );
 
       return true;
     } catch (e: any) {
       customToast({
         type: TOAST_STATUS.ERROR,
-        message: e.message ?? "unable to complete request",
+        message: e?.data?.message ?? "unable to complete request",
       });
 
-      console.error(e);
       return false;
     }
   }
@@ -166,17 +155,19 @@ export default class Contract {
     } catch (e: any) {
       customToast({
         type: TOAST_STATUS.ERROR,
-        message: e.message ?? "unable to complete request",
+        message: e?.data?.message ?? "unable to complete request",
       });
 
-      console.error(e);
       return false;
     }
   }
 
-  async buyCard({ cardIdentifier, referredBy = ethers.constants.AddressZero }: BuyCardProps) {
+  async buyCard(
+    { cardIdentifier, referredBy = ethers.constants.AddressZero }: BuyCardProps,
+    value?: string
+  ) {
     try {
-      await this.contract.buyCard(cardIdentifier, referredBy);
+      await this.contract.buyCard(cardIdentifier, referredBy, value ? { value } : undefined);
 
       customToast({
         type: TOAST_STATUS.SUCCESS,
@@ -187,17 +178,19 @@ export default class Contract {
     } catch (e: any) {
       customToast({
         type: TOAST_STATUS.ERROR,
-        message: e.message ?? "unable to complete request",
+        message: e?.data?.message ?? "unable to complete request",
       });
 
-      console.error(e);
       return false;
     }
   }
 
-  async placeBid({ cardIdentifier, referredBy = ethers.constants.AddressZero }: BuyCardProps) {
+  async placeBid(
+    { cardIdentifier, referredBy = ethers.constants.AddressZero }: BuyCardProps,
+    value?: string
+  ) {
     try {
-      await this.contract.placeBid(cardIdentifier, referredBy);
+      await this.contract.placeBid(cardIdentifier, referredBy, value ? { value } : undefined);
 
       customToast({
         type: TOAST_STATUS.SUCCESS,
@@ -208,10 +201,9 @@ export default class Contract {
     } catch (e: any) {
       customToast({
         type: TOAST_STATUS.ERROR,
-        message: e.message ?? "unable to complete request",
+        message: e?.data?.message ?? "unable to complete request",
       });
 
-      console.error(e);
       return false;
     }
   }
@@ -229,10 +221,9 @@ export default class Contract {
     } catch (e: any) {
       customToast({
         type: TOAST_STATUS.ERROR,
-        message: e.message ?? "unable to complete request",
+        message: e?.data?.message ?? "unable to complete request",
       });
 
-      console.error(e);
       return false;
     }
   }
@@ -250,10 +241,9 @@ export default class Contract {
     } catch (e: any) {
       customToast({
         type: TOAST_STATUS.ERROR,
-        message: e.message ?? "unable to complete request",
+        message: e?.data?.message ?? "unable to complete request",
       });
 
-      console.error(e);
       return false;
     }
   }
@@ -271,10 +261,9 @@ export default class Contract {
     } catch (e: any) {
       customToast({
         type: TOAST_STATUS.ERROR,
-        message: e.message ?? "unable to complete request",
+        message: e?.data?.message ?? "unable to complete request",
       });
 
-      console.error(e);
       return false;
     }
   }

@@ -5,12 +5,14 @@ import {
   CardsUnderTag,
   Dashboard,
   EditCard,
+  Home,
   Marketplace,
   Middleware,
   Modal,
   NewCard,
   NotFound,
   Pricing,
+  Search,
   Settings,
   Tags,
   Team,
@@ -32,7 +34,7 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Middleware children={<Marketplace />} />,
+      element: <Middleware children={<Home />} />,
       errorElement: <NotFound />,
     },
     {
@@ -122,6 +124,10 @@ const App = () => {
     {
       path: "/user/sale/:username",
       element: <Middleware children={<UForSale />} />,
+    },
+    {
+      path: "/search",
+      element: <Middleware children={<Search />} />,
     },
   ]);
 

@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { DEFAULT_CHAIN } from "../../../utils/constants";
 import Contract from "../../../utils/class/contract.class";
 import { ethers } from "ethers";
+import { customToast, TOAST_STATUS } from "../../../utils/toast.utils";
 
 const EditCard = () => {
   const { chainId, signer } = useAppStore();
@@ -20,12 +21,12 @@ const EditCard = () => {
   const [bio, setBio] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [pfp, setPfp] = useState<string>("");
-  // const [tags, setTags] = useState<string>("");
+  const [tags, setTags] = useState<string>("");
   const [isForSale, setIsForSale] = useState<boolean>(false);
   const [isAuction, setIsAuction] = useState<boolean | null>(null);
   const [listingPrice, setListingPrice] = useState<number | null>(null);
   const [maxNumberOfBids, setMaxNumberOfBids] = useState<number | null>(null);
-  const [auctionEnds, setAuctionEnds] = useState<string | null>(null);
+  const [auctionEnds, setAuctionEnds] = useState<string>(new Date().toISOString().substring(0, 16));
   const [loadingText, setLoadingText] = useState<string>("Processing");
 
   const navigate = useNavigate();
@@ -55,11 +56,65 @@ const EditCard = () => {
       setIsAuction(data.isAuction);
       setListingPrice(data.listingPrice);
       setMaxNumberOfBids(data.maxNumberOfBids);
-      setAuctionEnds(data.auctionEnds as unknown as string);
+      setAuctionEnds(data.auctionEnds || new Date().toISOString().substring(0, 16));
     }
   }, [data]);
 
   async function updateCard() {
+    if (data && data.isForSale) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: "editing of cards that are for sale is not allowed",
+      });
+
+      return;
+    }
+
+    if (!pfp) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: "pfp cannot be empty",
+      });
+
+      return;
+    }
+
+    if (!username) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: "username cannot be empty",
+      });
+
+      return;
+    }
+
+    if (!bio) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: "bio cannot be empty",
+      });
+
+      return;
+    }
+
+    if (isForSale && (!listingPrice || listingPrice == 0)) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: "listing price cannot be empty",
+      });
+
+      return;
+    }
+
+    if (isAuction && new Date(auctionEnds).getTime() < new Date().getTime()) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: "auction end date cannot be empty",
+      });
+
+      return;
+    }
+
     setIsBtnLoading(true);
 
     let _pfp = pfp;
@@ -71,7 +126,7 @@ const EditCard = () => {
       _pfp = resp;
     }
 
-    setLoadingText("Updating card");
+    setLoadingText("Processing");
 
     await api.editCard({
       username,
@@ -79,19 +134,28 @@ const EditCard = () => {
       chainId: String(chainId),
       card: String(data?.identifier),
       bio,
-      description: description.length == 0 ? null : description,
-      tags: null,
+      description: description ? description : null,
+      tags: tags ? tags.split(",") : null,
     });
 
     if (isForSale && !data?.isForSale) {
-      setLoadingText("Listing card");
+      setLoadingText("listing card");
 
-      const contract = new Contract("97", signer);
+      const contract = new Contract(
+        String(chainId ? chainId : DEFAULT_CHAIN.chainId) as any,
+        signer
+      );
+
       await contract.listCard({
         cardIdentifier: data?.identifier!,
         isAuction: isAuction ? isAuction : false,
         listingPrice: ethers.utils.parseEther(String(listingPrice)).toString(),
-        maxNumberOfBids: String(maxNumberOfBids ? maxNumberOfBids : 0),
+        maxNumberOfBids: isAuction
+          ? maxNumberOfBids
+            ? String(maxNumberOfBids)
+            : ethers.constants.MaxUint256.toString()
+          : "0",
+        end: isAuction ? new Date(auctionEnds!).getTime() : undefined,
       });
     }
 
@@ -173,6 +237,7 @@ const EditCard = () => {
                             <label className="cl-switch">
                               <input
                                 type="checkbox"
+                                defaultChecked={isForSale}
                                 onChange={(e) => setIsForSale(e.target.checked)}
                               />
                               <span />
@@ -210,7 +275,7 @@ const EditCard = () => {
                                   type="datetime-local"
                                   name="auctionEnds"
                                   id="auctionEnds"
-                                  value={auctionEnds ?? new Date().toISOString().substring(0, 16)}
+                                  value={auctionEnds}
                                   onChange={(e) => setAuctionEnds(e.target.value)}
                                 />
                               </div>
@@ -228,11 +293,11 @@ const EditCard = () => {
                                     type="number"
                                     name="listingPrice"
                                     id="listingPrice"
-                                    value={String(listingPrice)}
+                                    value={String(listingPrice || "")}
                                     onChange={(e) => setListingPrice(Number(e.target.value))}
                                     placeholder="0.00"
                                   />
-                                  <span className="pill">tBNB</span>
+                                  <span className="pill">BNB</span>
                                 </div>
                               </div>
 
@@ -246,7 +311,7 @@ const EditCard = () => {
                                       type="number"
                                       name="maxNumberOfBids"
                                       id="maxNumberOfBids"
-                                      value={String(maxNumberOfBids)}
+                                      value={String(maxNumberOfBids || "")}
                                       onChange={(e) => setMaxNumberOfBids(parseInt(e.target.value))}
                                       placeholder="bids placed won't pass this"
                                     />
@@ -260,7 +325,14 @@ const EditCard = () => {
 
                       <div className="col-12">
                         <button className="btn" onClick={updateCard} disabled={isBtnLoading}>
-                          {isBtnLoading ? loadingText : "Save changes"}
+                          {isBtnLoading ? (
+                            <div className="d-flex align-items-center">
+                              <span className="loader-span-sm"></span>
+                              <p>{loadingText}</p>
+                            </div>
+                          ) : (
+                            <div className="px-2">Save</div>
+                          )}
                         </button>
                       </div>
                     </div>

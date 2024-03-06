@@ -1,8 +1,16 @@
-import { AnchorLink, ConnectBtn, GradientLogo } from "..";
+import { useEffect, useRef, useState } from "react";
+import { AnchorLink, ConnectBtn, GradientLogo, VerifiedIcon } from "..";
 import { useAppStore } from "../../context/AppProvider";
+import debounce from "lodash.debounce";
+import { api } from "../../../utils/class/api.class";
 
 const Navbar = () => {
-  const { isWalletConnected, userInfo } = useAppStore();
+  const { isWalletConnected, userInfo, balance } = useAppStore();
+  const [displaySearchRes, setDisplaySearchRes] = useState<boolean>(false);
+  const [q, setQ] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [users, setUsers] = useState<QuyxUser[]>();
+  const searchBoxRef = useRef<any>(null);
 
   const navigation = [
     {
@@ -50,6 +58,32 @@ const Navbar = () => {
     },
   ];
 
+  async function searchForCreator(q: string) {
+    const resp = await api.searchForUser({ q, limit: 20, page: 1 });
+    if (resp) setUsers(resp.data);
+    setIsLoading(false);
+  }
+
+  const debouncedFetchData = debounce(searchForCreator, 1500);
+
+  useEffect(() => {
+    if (q && q.length >= 3) {
+      setIsLoading(true);
+      debouncedFetchData(q);
+    }
+  }, [q]);
+
+  useEffect(() => {
+    function handleClickOutside(e: any) {
+      if (searchBoxRef.current && !searchBoxRef.current.contains(e.target)) {
+        setDisplaySearchRes(false);
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   return (
     <nav className="default-nav">
       <div className="container-fluid container-xl">
@@ -71,9 +105,65 @@ const Navbar = () => {
                   </button>
                 </AnchorLink>
 
-                <div className="d-none d-md-block search position-relative">
-                  <i className="position-absolute h h-lens" />
-                  <input type="text" placeholder="Search.." />
+                <div className="d-none d-md-block position-relative" ref={searchBoxRef}>
+                  <div className="search position-relative">
+                    <i className="position-absolute h h-lens" />
+                    <input
+                      type="text"
+                      placeholder="Search creators"
+                      value={q}
+                      onChange={(e) => setQ(e.target.value)}
+                      onFocus={() => setDisplaySearchRes(true)}
+                    />
+                  </div>
+
+                  <div
+                    className={`position-absolute search-result-creator d-none ${
+                      displaySearchRes ? "d-md-block" : "d-none"
+                    }`}
+                  >
+                    {q.length < 3 ? (
+                      <div className="py-5 my-2 d-flex justify-content-center">
+                        <p className="text px-5 text-center">Start typing....</p>
+                      </div>
+                    ) : isLoading ? (
+                      <div className="py-5 my-2 d-flex justify-content-center">
+                        <div className="loader-span-sm"></div>
+                      </div>
+                    ) : !users ? (
+                      <div className="py-5 my-2 d-flex justify-content-center">
+                        <p className="text">
+                          <strong>Oops!</strong> Unable to complete search
+                        </p>
+                      </div>
+                    ) : users.length == 0 ? (
+                      <div className="py-5 my-2 d-flex justify-content-center">
+                        <p className="text">
+                          no user found for <strong>`{q}`</strong>
+                        </p>
+                      </div>
+                    ) : (
+                      <ul>
+                        {users.map((user, index) => (
+                          <li key={`creator-search-${index}`}>
+                            <AnchorLink to={`/user/${user.username}`}>
+                              <div>
+                                <img
+                                  src={user.pfp ?? "/images/default-user.png"}
+                                  alt={user.username}
+                                />
+                              </div>
+
+                              <h4>
+                                <span>{user.username}</span>
+                                {user.hasBlueTick ? <VerifiedIcon /> : null}
+                              </h4>
+                            </AnchorLink>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
 
                 <AnchorLink to="/new-card" className="d-flex d-md-none">
@@ -103,7 +193,9 @@ const Navbar = () => {
                           ></path>
                         </svg>
 
-                        <span className="d-none d-sm-block d-md-none d-lg-block">0.00 tBNB</span>
+                        <span className="d-none d-sm-block d-md-none d-lg-block">
+                          {balance ? balance.toFixed(3) : "-.--"} BNB
+                        </span>
                       </div>
                     </button>
 

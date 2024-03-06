@@ -6,22 +6,33 @@ import { isURL } from "../../../utils/helper";
 import { UploadMedia } from "../..";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
+import { TOAST_STATUS, customToast } from "../../../utils/toast.utils";
+import { DEFAULT_CHAIN } from "../../../utils/constants";
 
 const NewCard = () => {
-  const { chainId, signer, userInfo, openModal, displayModal, setModalBody, closeModal } =
-    useAppStore();
+  const {
+    chainId,
+    signer,
+    userInfo,
+    openModal,
+    displayModal,
+    setModalBody,
+    closeModal,
+    QUYX_METADATA,
+    balance,
+  } = useAppStore();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
   const [bio, setBio] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [pfp, setPfp] = useState<string>("");
-  // const [tags, setTags] = useState<string>("");
+  const [tags, setTags] = useState<string>("");
   const [isForSale, setIsForSale] = useState<boolean>(false);
   const [isAuction, setIsAuction] = useState<boolean | null>(null);
   const [listingPrice, setListingPrice] = useState<number | null>(null);
   const [maxNumberOfBids, setMaxNumberOfBids] = useState<number | null>(null);
-  const [auctionEnds, setAuctionEnds] = useState<string | null>(null);
+  const [auctionEnds, setAuctionEnds] = useState<string>(new Date().toISOString().substring(0, 16));
   const [loadingText, setLoadingText] = useState<string>("Processing");
 
   const navigate = useNavigate();
@@ -75,6 +86,51 @@ const NewCard = () => {
 
   async function uploadCard() {
     if (isLoading) return;
+    if (!pfp) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: "pfp cannot be empty",
+      });
+
+      return;
+    }
+
+    if (!username) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: "username cannot be empty",
+      });
+
+      return;
+    }
+
+    if (!bio) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: "bio cannot be empty",
+      });
+
+      return;
+    }
+
+    if (isForSale && (!listingPrice || listingPrice == 0)) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: "listing price cannot be empty",
+      });
+
+      return;
+    }
+
+    if (isAuction && new Date(auctionEnds).getTime() < new Date().getTime()) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: "auction end date cannot be empty",
+      });
+
+      return;
+    }
+
     setIsLoading(true);
 
     let _pfp = pfp;
@@ -86,42 +142,56 @@ const NewCard = () => {
       _pfp = resp;
     }
 
-    setLoadingText("Creating card");
+    setLoadingText("Preparing card");
 
     const resp = await api.createCard({
       username,
       pfp: _pfp,
       chainId: String(chainId),
       bio,
-      description: description.length > 0 ? description : null,
-      tags: null,
+      description: description ? description : null,
+      tags: tags ? tags.split(",") : null,
     });
 
     if (resp) {
       // then call the blockchain fn with the temptoken
       const { tempToken } = resp;
-      const contract = new Contract("97", signer);
+      const contract = new Contract(
+        String(chainId ? chainId : DEFAULT_CHAIN.chainId) as any,
+        signer
+      );
 
-      setLoadingText("Minting on blockchain");
+      setLoadingText("minting onchain");
 
-      const tx = await contract.newCard(tempToken);
+      const tx = await contract.newCard(
+        tempToken,
+        QUYX_METADATA &&
+          QUYX_METADATA.user &&
+          QUYX_METADATA.user.cardsCount >= QUYX_METADATA.maxCardPerAddress
+          ? ethers.utils.parseEther(String(QUYX_METADATA.extraCardPrice)).toString()
+          : undefined
+      );
+
       if (tx && isForSale) {
-        setLoadingText("Decoding transaction");
+        setLoadingText("decoding");
 
         const cardId = await contract.getCardIdFromTx(tx);
         if (cardId) {
-          setLoadingText("Listing card");
+          setLoadingText("listing card");
 
           await contract.listCard({
             cardIdentifier: cardId,
             isAuction: isAuction ? isAuction : false,
             listingPrice: ethers.utils.parseEther(String(listingPrice)).toString(),
-            maxNumberOfBids: String(maxNumberOfBids ? maxNumberOfBids : 0),
+            maxNumberOfBids: isAuction
+              ? maxNumberOfBids
+                ? String(maxNumberOfBids)
+                : ethers.constants.MaxUint256.toString()
+              : "0",
+            end: isAuction ? new Date(auctionEnds!).getTime() : undefined,
           });
         }
       }
-
-      return;
     }
 
     setIsLoading(false);
@@ -229,7 +299,7 @@ const NewCard = () => {
                             type="datetime-local"
                             name="auctionEnds"
                             id="auctionEnds"
-                            value={auctionEnds ?? new Date().toISOString().substring(0, 16)}
+                            value={auctionEnds}
                             onChange={(e) => setAuctionEnds(e.target.value)}
                           />
                         </div>
@@ -247,11 +317,11 @@ const NewCard = () => {
                               type="number"
                               name="listingPrice"
                               id="listingPrice"
-                              value={String(listingPrice)}
-                              onChange={(e) => setListingPrice(Number(e.target.value))}
+                              value={String(listingPrice || "")}
+                              onChange={(e) => setListingPrice(parseFloat(e.target.value))}
                               placeholder="0.00"
                             />
-                            <span className="pill">tBNB</span>
+                            <span className="pill">BNB</span>
                           </div>
                         </div>
 
@@ -265,7 +335,7 @@ const NewCard = () => {
                                 type="number"
                                 name="maxNumberOfBids"
                                 id="maxNumberOfBids"
-                                value={String(maxNumberOfBids)}
+                                value={String(maxNumberOfBids || "")}
                                 onChange={(e) => setMaxNumberOfBids(parseInt(e.target.value))}
                                 placeholder="bids placed won't pass this"
                               />
@@ -278,8 +348,51 @@ const NewCard = () => {
                 </div>
 
                 <div className="col-12">
-                  <button className="btn" onClick={uploadCard} disabled={isLoading}>
-                    {isLoading ? loadingText : "Create"}
+                  {QUYX_METADATA &&
+                  QUYX_METADATA.user &&
+                  QUYX_METADATA.user.cardsCount >= QUYX_METADATA.maxCardPerAddress ? (
+                    <div style={{ width: "100%", maxWidth: "30rem" }}>
+                      <div className="alert info">
+                        <i className="h h-info" />
+                        <p>
+                          Heads up! as you have reached the maximum number of cards you can create (
+                          {QUYX_METADATA?.maxCardPerAddress}), you will have to pay&nbsp;
+                          <strong>{QUYX_METADATA?.extraCardPrice} BNB</strong> to create a new card
+                        </p>
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {balance && QUYX_METADATA && balance <= QUYX_METADATA.extraCardPrice ? (
+                    <div style={{ width: "100%", maxWidth: "30rem" }}>
+                      <div className="alert">
+                        <i className="h h-alert-triangle" />
+                        <p>
+                          Oops! wallet balance is less than&nbsp;
+                          <strong>{QUYX_METADATA?.extraCardPrice} BNB</strong>, card creation won't
+                          go through
+                        </p>
+                      </div>
+                    </div>
+                  ) : null}
+
+                  <button
+                    className="btn"
+                    onClick={uploadCard}
+                    disabled={
+                      balance && QUYX_METADATA && balance <= QUYX_METADATA.extraCardPrice
+                        ? true
+                        : isLoading
+                    }
+                  >
+                    {isLoading ? (
+                      <div className="d-flex align-items-center">
+                        <span className="loader-span-sm"></span>
+                        <p>{loadingText}</p>
+                      </div>
+                    ) : (
+                      <div className="px-2">Create</div>
+                    )}
                   </button>
                 </div>
               </div>
