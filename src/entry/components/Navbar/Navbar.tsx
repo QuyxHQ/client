@@ -11,6 +11,17 @@ const Navbar = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [users, setUsers] = useState<QuyxUser[]>();
   const searchBoxRef = useRef<any>(null);
+  const [isLogoutLoading, setIsLogoutLoading] = useState<boolean>(false);
+
+  async function logout() {
+    if (isLogoutLoading) return;
+    setIsLogoutLoading(true);
+
+    const resp = await api.logout();
+    if (resp) window.location.reload();
+
+    setIsLogoutLoading(false);
+  }
 
   const navigation = [
     {
@@ -50,11 +61,6 @@ const Navbar = () => {
     },
     {
       isDivider: true,
-    },
-    {
-      title: "Logout",
-      icon: "logout",
-      to: "/logout",
     },
   ];
 
@@ -220,6 +226,18 @@ const Navbar = () => {
                               </li>
                             )
                           )}
+
+                          <li>
+                            <a onClick={() => logout()} className={isLoading ? "disabled" : ""}>
+                              {isLogoutLoading ? (
+                                <span className="loader-span-sm"></span>
+                              ) : (
+                                <i className="h h-logout" />
+                              )}
+
+                              <span>Logout</span>
+                            </a>
+                          </li>
                         </ul>
                       </div>
                     </div>

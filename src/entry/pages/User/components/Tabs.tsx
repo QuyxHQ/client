@@ -1,6 +1,9 @@
+import { useLocation } from "react-router-dom";
 import { AnchorLink } from "../../..";
 
 const Tabs = ({ username }: { username: string }) => {
+  const location = useLocation();
+
   const tabs = [
     { title: "All", to: `/user/${username}` },
     { title: "Owner Of", to: `/user/owner/${username}` },

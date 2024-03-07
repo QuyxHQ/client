@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { AnchorLink, ConnectBtn, GradientLogo, Logo, MenuIcon } from "..";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const DefaultNavbar = () => {
   const [displayNavbar, setDisplayNavbar] = useState<boolean>(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const navigation = [
     { title: "Home", to: "/" },

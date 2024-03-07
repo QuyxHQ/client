@@ -62,7 +62,7 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
         if (resp) window.location.reload();
       }
     })();
-  }, [address, userInfo]);
+  }, [address, userInfo, isLoggedIn]);
 
   useEffect(() => {
     (async function () {

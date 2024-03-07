@@ -1,9 +1,12 @@
 import { useEffect } from "react";
-import { ConnectBtn, GradientLogo2, Layout, Logo, SIWE } from "..";
+import { ConnectBtn, Layout, Logo, SIWE } from "..";
 import { DEFAULT_CHAIN, UNPROTECTED_ROUTES } from "../../../utils/constants";
 import { useAppStore } from "../../context/AppProvider";
+import { useLocation } from "react-router-dom";
 
 const Middleware = ({ children }: { children: React.JSX.Element }) => {
+  const location = useLocation();
+
   const {
     isWalletConnected,
     isMounting,
@@ -49,6 +52,45 @@ const Middleware = ({ children }: { children: React.JSX.Element }) => {
     })();
   }, [isNetworkSupported]);
 
+  useEffect(() => {
+    (function () {
+      if (!isWalletConnected) return;
+      if (!isLoggedIn && !UNPROTECTED_ROUTES.includes(location.pathname)) {
+        setModalBody(<SIWE />);
+        openModal();
+      }
+    })();
+  }, [isWalletConnected, isLoggedIn, location]);
+
+  useEffect(() => {
+    (function () {
+      if (isMounting) return;
+
+      if (isWalletConnected == false && !UNPROTECTED_ROUTES.includes(location.pathname)) {
+        setModalBody(
+          <div className="siwe">
+            <h3>Connect wallet</h3>
+            <p>
+              Let's get you all fixed up to get the best out of Quyx. Get onboard with quyx with
+              your web3 wallet
+            </p>
+
+            <div className="buttons">
+              <a href="https://ethereum.org/en/wallets" target="_blank" className="w-100">
+                <button className="w-100" onClick={closeModal}>
+                  Learn more
+                </button>
+              </a>
+
+              <ConnectBtn />
+            </div>
+          </div>
+        );
+        openModal();
+      }
+    })();
+  }, [isWalletConnected, location, isMounting]);
+
   return isMounting || typeof isWalletConnected == "undefined" ? (
     <div
       className="middleware-loader d-flex align-items-center justify-content-center w-100"
@@ -56,76 +98,8 @@ const Middleware = ({ children }: { children: React.JSX.Element }) => {
     >
       <Logo width={60} height={60} fill="#666" />
     </div>
-  ) : !isWalletConnected && !UNPROTECTED_ROUTES.includes(location.pathname) ? (
-    <ConnectWallet />
-  ) : !isLoggedIn && !UNPROTECTED_ROUTES.includes(location.pathname) ? (
-    <LoginWallet />
   ) : (
     <Layout children={children} />
-  );
-};
-
-const ConnectWallet = () => {
-  return (
-    <div
-      className="connect-wallet-screen w-100 d-flex flex-column flex-md-row align-items-md-center justify-content-center px-2"
-      style={{ height: "100dvh" }}
-    >
-      <div className="main d-flex flex-column px-2">
-        <div className="d-flex align-items-center and-hr">
-          <hr />
-          <GradientLogo2 width={50} height={50} />
-        </div>
-
-        <h1>Connect wallet</h1>
-        <p>
-          In order to get started with Quyx, you are required to connect to the service with a web3
-          wallet
-        </p>
-
-        <div className="buttons d-flex align-items-center">
-          <button className="learn">Learn more</button>
-          <ConnectBtn />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const LoginWallet = () => {
-  const { setModalBody, openModal } = useAppStore();
-
-  return (
-    <div
-      className="connect-wallet-screen w-100 d-flex flex-column flex-md-row align-items-md-center justify-content-center px-2"
-      style={{ height: "100dvh" }}
-    >
-      <div className="main d-flex flex-column px-2">
-        <div className="d-flex align-items-center and-hr">
-          <hr />
-          <GradientLogo2 width={50} height={50} />
-        </div>
-
-        <h1>Sign in with Ethereum</h1>
-        <p>
-          One more thing! we need you to sign a message before granting you access to Quyx. Click on
-          "Proceed" to contine
-        </p>
-
-        <div className="buttons d-flex align-items-center">
-          <button className="learn">Learn more</button>
-          <button
-            className="gradient-border"
-            onClick={() => {
-              setModalBody(<SIWE />);
-              openModal();
-            }}
-          >
-            Proceed
-          </button>
-        </div>
-      </div>
-    </div>
   );
 };
 
