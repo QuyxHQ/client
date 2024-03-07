@@ -5,7 +5,7 @@ import { TOAST_STATUS, customToast } from "../toast.utils";
 export default class Contract {
   private contract: ethers.Contract;
   public static chainIdToContractAddress: Record<(typeof QUYX_CHAINS)[number], string> = {
-    "97": "0x7ae6d600587eC7d6f91Fb06bb3f84DA098Aa2f4A",
+    "97": "0xF9875719FFCe7a4cf36647b02Fa34283B3Be0827",
   };
 
   constructor(chainId: (typeof QUYX_CHAINS)[number], signer?: ethers.Signer) {
