@@ -1,16 +1,11 @@
-import { useState } from "react";
-import { Card, CardLoader, EmptyIcon } from "../../..";
+import { AnchorLink, Card, CardLoader, EmptyIcon } from "../../..";
 import { api } from "../../../../utils/class/api.class";
 import { DEFAULT_CHAIN, MOCK_EMPTY_API_RESPONSE } from "../../../../utils/constants";
 import { useAppStore } from "../../../context/AppProvider";
 import useQuery from "../../../hooks/useQuery";
-import { useNavigate } from "react-router-dom";
 
 const AllCards = () => {
   const { chainId } = useAppStore();
-  const [q, setQ] = useState<string>("");
-
-  const navigate = useNavigate();
 
   const { isLoading, isFetchingNextPage, data, ref } = useQuery({
     queryFn: async function (page) {
@@ -23,17 +18,19 @@ const AllCards = () => {
     },
   });
 
-  function submitSearchForm(e: any) {
-    e.preventDefault();
-    if (q) navigate(`/search?q=${q}`);
-  }
-
   return (
     <section className="marketplace-section py-4">
       <div className="header mb-4 d-flex align-items-center justify-content-between">
         <h2 className="title">All Cards</h2>
 
-        <form
+        <AnchorLink to="/cards">
+          <button className="d-flex align-items-center">
+            <span>See more</span>
+            <i className="h h-chevron-right" />
+          </button>
+        </AnchorLink>
+
+        {/* <form
           action="/search"
           method="get"
           onSubmit={submitSearchForm}
@@ -46,7 +43,7 @@ const AllCards = () => {
             value={q}
             onChange={(e) => setQ(e.target.value)}
           />
-        </form>
+        </form> */}
       </div>
 
       <div className="col-12">

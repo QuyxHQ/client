@@ -14,7 +14,7 @@ export { default as Middleware } from "./Middleware";
 export { default as Modal } from "./Modal";
 export { default as Navbar } from "./Navbar";
 export { default as NFTs } from "./NFTs";
-export { default as PlugIcon } from "./PlugIcon";
 export { default as SIWE } from "./SIWE";
+export { default as TagsInput } from "./Tags";
 export { default as UploadMedia } from "./UploadMedia";
 export { default as VerifiedIcon } from "./VerifiedIcon";

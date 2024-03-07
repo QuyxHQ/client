@@ -99,7 +99,23 @@ const Render = ({ item, index }: { item: QuyxUser; index: number }) => {
 };
 
 const RenderLoader = () => {
-  return <div>Hello</div>;
+  return (
+    <div className="col-12">
+      <div className="row g-4">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={`top-sellers-${i}`} className="col-12 col-md-6">
+            <div className="d-flex align-items-center top-sellers-single-loader">
+              <div className="image">
+                <div className="skeleton"></div>
+              </div>
+
+              <p className="skeleton"></p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default TopSellers;

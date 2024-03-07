@@ -12,11 +12,12 @@ import {
   NewCard,
   NotFound,
   Pricing,
-  Search,
+  Report,
   Settings,
   Tags,
   Team,
   User,
+  Cards,
 } from "./entry";
 import { Toaster } from "react-hot-toast";
 import { Bought, Created, ForSale, OwnerOf, Sold } from "./entry/pages/Dashboard/views";
@@ -126,8 +127,12 @@ const App = () => {
       element: <Middleware children={<UForSale />} />,
     },
     {
-      path: "/search",
-      element: <Middleware children={<Search />} />,
+      path: "/report",
+      element: <Middleware children={<Report />} />,
+    },
+    {
+      path: "/cards",
+      element: <Middleware children={<Cards />} />,
     },
   ]);
 

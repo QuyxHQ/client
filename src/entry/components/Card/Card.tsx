@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnchorLink, VerifiedIcon } from "..";
 import { api } from "../../../utils/class/api.class";
 import { useAppStore } from "../../context/AppProvider";
 import Contract from "../../../utils/class/contract.class";
 import { DEFAULT_CHAIN } from "../../../utils/constants";
+import { formatTime } from "../../../utils/helper";
 
 const Card = ({
   data,
@@ -16,14 +17,53 @@ const Card = ({
   displayBadge?: boolean;
   displayOwner?: boolean;
 }) => {
-  const { userInfo, signer, chainId, openModal, setModalBody } = useAppStore();
+  const { userInfo, signer, chainId, openModal, setModalBody, isLoggedIn } = useAppStore();
+  const [isFetchingBookmarkStat, setIsFetchingBookmarkStat] = useState<boolean>(true);
+  const [isInBookmark, setIsInBookmark] = useState<boolean>(false);
+  const [elapsedTime, setElapsedTime] = useState(0);
   const [isBookmarkBtnLoading, setIsBookmarkBtnLoading] = useState<boolean>(false);
   const [isDeleteBtnLoading, setIsDeleteBtnLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!data.identifier) {
+      const targetDate = new Date(data.createdAt);
+
+      const interval = setInterval(() => {
+        const currentTime = new Date().getTime();
+        const elapsedTimeMs = currentTime - targetDate.getTime();
+        setElapsedTime(elapsedTimeMs);
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    (async function () {
+      if (!userInfo || !isLoggedIn) return setIsFetchingBookmarkStat(false);
+      const resp = await api.isInBookmark({ card: data._id });
+      setIsInBookmark(resp);
+      setIsFetchingBookmarkStat(false);
+    })();
+  }, [userInfo, isLoggedIn]);
 
   async function addToBookmark(_id: string) {
     if (isBookmarkBtnLoading) return;
     setIsBookmarkBtnLoading(true);
-    await api.addToBookmark({ card: _id });
+
+    const resp = await api.addToBookmark({ card: _id });
+    if (resp) setIsInBookmark(true);
+
+    setIsBookmarkBtnLoading(false);
+  }
+
+  async function removeFromBookmark(_id: string) {
+    if (isBookmarkBtnLoading) return;
+    setIsBookmarkBtnLoading(true);
+
+    const resp = await api.removeFromBookmark({ card: _id });
+    if (resp) setIsInBookmark(false);
+
     setIsBookmarkBtnLoading(false);
   }
 
@@ -39,7 +79,7 @@ const Card = ({
   }
 
   return (
-    <div className={`quyx-card ${className}`}>
+    <div className={`quyx-card ${className} position-relative`}>
       {data.isDeleted ? (
         <div className="deleted">
           <div className="loader-cont">
@@ -53,6 +93,18 @@ const Card = ({
         </div>
       ) : (
         <div className="h-100 main d-flex flex-column justify-content-between">
+          {data.identifier ? null : (
+            <div className="position-absolute blocked">
+              <span className="loader-span"></span>
+              <p>Confirming card onchain</p>
+
+              <div className="timer">
+                <i className="h h-clock-1" />
+                <span>{elapsedTime == 0 ? "----" : formatTime(elapsedTime)}</span>
+              </div>
+            </div>
+          )}
+
           <div className="d-flex flex-column top">
             {displayOwner ? (
               <div className="owner d-flex align-items-center justify-content-between">
@@ -106,18 +158,19 @@ const Card = ({
                               <span>Delete</span>
                             </a>
                           </>
-                        ) : null}
-
-                        <AnchorLink to={`/report?card=${data.identifier}&chain=${data.chainId}`}>
-                          <i className="h h-flag" />
-                          <span>Report</span>
-                        </AnchorLink>
+                        ) : (
+                          <AnchorLink to={`/report?card=${data.identifier}&chain=${data.chainId}`}>
+                            <i className="h h-flag" />
+                            <span>Report</span>
+                          </AnchorLink>
+                        )}
                       </li>
                     </ul>
                   </div>
                 </div>
               </div>
             ) : null}
+
             <div className="position-relative">
               <AnchorLink to={`/card/${data.identifier}`}>
                 <img src={data.pfp} alt={data.username} />
@@ -143,6 +196,16 @@ const Card = ({
             </AnchorLink>
 
             <p className="intro">{data.description ?? data.bio}</p>
+
+            {data.tags ? (
+              <div className="tags mb-2">
+                {data.tags.map((item, i) => (
+                  <AnchorLink to={`/tag/${item}`} key={`tags-${data._id}-${i}`}>
+                    <span>{item}</span>
+                  </AnchorLink>
+                ))}
+              </div>
+            ) : null}
           </div>
 
           <div className="price d-flex align-items-center justify-content-between">
@@ -150,11 +213,22 @@ const Card = ({
 
             <button
               className="d-flex align-items-center"
-              disabled={isBookmarkBtnLoading}
-              onClick={() => addToBookmark(data._id)}
+              disabled={isBookmarkBtnLoading || isFetchingBookmarkStat}
+              onClick={() => {
+                if (isInBookmark) removeFromBookmark(data._id);
+                else addToBookmark(data._id);
+              }}
             >
-              {isBookmarkBtnLoading ? (
+              {isBookmarkBtnLoading || isFetchingBookmarkStat ? (
                 <span className="loader-span-sm" />
+              ) : isInBookmark ? (
+                <div
+                  style={{ marginLeft: "-0.15rem", marginRight: "-0.15rem", gap: "0.3rem" }}
+                  className="d-flex align-items-center"
+                >
+                  <span>Unsave</span>
+                  <i className="h h-trash-2" />
+                </div>
               ) : (
                 <>
                   <span>Save</span>

@@ -24,6 +24,8 @@ const Marketplace = () => {
         chainId: String(chainId ? chainId : DEFAULT_CHAIN.chainId),
       });
 
+      console.log(resp);
+
       if (resp) setData(resp.data);
       setIsLoading(false);
     })();

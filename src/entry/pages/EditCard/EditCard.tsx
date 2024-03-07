@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { api } from "../../../utils/class/api.class";
 import { useAppStore } from "../../context/AppProvider";
 import { isURL } from "../../../utils/helper";
-import { UploadMedia } from "../..";
+import { TagsInput, UploadMedia } from "../..";
 import { useNavigate, useParams } from "react-router-dom";
 import { DEFAULT_CHAIN } from "../../../utils/constants";
 import Contract from "../../../utils/class/contract.class";
@@ -21,7 +21,7 @@ const EditCard = () => {
   const [bio, setBio] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [pfp, setPfp] = useState<string>("");
-  const [tags, setTags] = useState<string>("");
+  const [tags, setTags] = useState<string[]>([]);
   const [isForSale, setIsForSale] = useState<boolean>(false);
   const [isAuction, setIsAuction] = useState<boolean | null>(null);
   const [listingPrice, setListingPrice] = useState<number | null>(null);
@@ -52,6 +52,7 @@ const EditCard = () => {
       setBio(data.bio);
       setDescription(data.description ?? "");
       setPfp(data.pfp);
+      setTags(data.tags || []);
       setIsForSale(data.isForSale);
       setIsAuction(data.isAuction);
       setListingPrice(data.listingPrice);
@@ -135,7 +136,7 @@ const EditCard = () => {
       card: String(data?.identifier),
       bio,
       description: description ? description : null,
-      tags: tags ? tags.split(",") : null,
+      tags: tags.length > 0 ? tags : null,
     });
 
     if (isForSale && !data?.isForSale) {
@@ -156,6 +157,16 @@ const EditCard = () => {
             : ethers.constants.MaxUint256.toString()
           : "0",
         end: isAuction ? new Date(auctionEnds!).getTime() : undefined,
+      });
+
+      customToast({
+        type: TOAST_STATUS.SUCCESS,
+        message: "card updated & listed successfully!",
+      });
+    } else {
+      customToast({
+        type: TOAST_STATUS.SUCCESS,
+        message: "card updated successfully!",
       });
     }
 
@@ -222,6 +233,10 @@ const EditCard = () => {
                                 onChange={(e) => setDescription(e.target.value)}
                                 placeholder="info about this card"
                               />
+                            </div>
+
+                            <div className="form-group">
+                              <TagsInput tags={tags} setTags={setTags} />
                             </div>
                           </div>
                         </div>

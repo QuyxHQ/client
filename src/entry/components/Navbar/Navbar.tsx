@@ -68,9 +68,10 @@ const Navbar = () => {
 
   useEffect(() => {
     if (q && q.length >= 3) {
+      setDisplaySearchRes(true);
       setIsLoading(true);
       debouncedFetchData(q);
-    }
+    } else setDisplaySearchRes(false);
   }, [q]);
 
   useEffect(() => {
@@ -113,7 +114,7 @@ const Navbar = () => {
                       placeholder="Search creators"
                       value={q}
                       onChange={(e) => setQ(e.target.value)}
-                      onFocus={() => setDisplaySearchRes(true)}
+                      onFocus={() => (q.length >= 3 ? setDisplaySearchRes(true) : {})}
                     />
                   </div>
 

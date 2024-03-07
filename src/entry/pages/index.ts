@@ -1,5 +1,6 @@
 export { default as Bookmarks } from "./Bookmarks";
 export { default as CardDetails } from "./CardDetails";
+export { default as Cards } from "./Cards";
 export { default as CardsUnderTag } from "./CardsUnderTag";
 export { default as Dashboard } from "./Dashboard";
 export { default as EditCard } from "./EditCard";
@@ -8,7 +9,7 @@ export { default as Marketplace } from "./Marketplace";
 export { default as NewCard } from "./NewCard";
 export { default as NotFound } from "./NotFound";
 export { default as Pricing } from "./Pricing";
-export { default as Search } from "./Search";
+export { default as Report } from "./Report";
 export { default as Settings } from "./Settings";
 export { default as Tags } from "./Tags";
 export { default as Team } from "./Team";

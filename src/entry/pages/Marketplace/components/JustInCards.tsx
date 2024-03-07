@@ -1,5 +1,5 @@
 import useCustomSlider from "../../../hooks/useSlider";
-import { Card, CardLoader } from "../../..";
+import { AnchorLink, Card, CardLoader } from "../../..";
 import { useEffect, useState } from "react";
 import { api } from "../../../../utils/class/api.class";
 import { DEFAULT_CHAIN } from "../../../../utils/constants";
@@ -33,6 +33,13 @@ const JustInCards = () => {
           <div className="col-12">
             <div className="header mb-4 d-flex align-items-center justify-content-between">
               <h2 className="title">Just In</h2>
+
+              <AnchorLink to="/tags">
+                <button className="d-flex align-items-center">
+                  <span>All tags</span>
+                  <i className="h h-chevron-right" />
+                </button>
+              </AnchorLink>
             </div>
           </div>
         </div>

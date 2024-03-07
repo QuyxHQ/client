@@ -3,7 +3,7 @@ import { api } from "../../../utils/class/api.class";
 import { useAppStore } from "../../context/AppProvider";
 import Contract from "../../../utils/class/contract.class";
 import { isURL } from "../../../utils/helper";
-import { UploadMedia } from "../..";
+import { TagsInput, UploadMedia } from "../..";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 import { TOAST_STATUS, customToast } from "../../../utils/toast.utils";
@@ -27,7 +27,7 @@ const NewCard = () => {
   const [bio, setBio] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [pfp, setPfp] = useState<string>("");
-  const [tags, setTags] = useState<string>("");
+  const [tags, setTags] = useState<string[]>([]);
   const [isForSale, setIsForSale] = useState<boolean>(false);
   const [isAuction, setIsAuction] = useState<boolean | null>(null);
   const [listingPrice, setListingPrice] = useState<number | null>(null);
@@ -150,7 +150,7 @@ const NewCard = () => {
       chainId: String(chainId),
       bio,
       description: description ? description : null,
-      tags: tags ? tags.split(",") : null,
+      tags: tags.length > 0 ? tags : null,
     });
 
     if (resp) {
@@ -190,7 +190,17 @@ const NewCard = () => {
               : "0",
             end: isAuction ? new Date(auctionEnds!).getTime() : undefined,
           });
+
+          customToast({
+            type: TOAST_STATUS.SUCCESS,
+            message: "card created & listed successfully!",
+          });
         }
+      } else {
+        customToast({
+          type: TOAST_STATUS.SUCCESS,
+          message: "card created successfully!",
+        });
       }
     }
 
@@ -250,6 +260,10 @@ const NewCard = () => {
                           onChange={(e) => setDescription(e.target.value)}
                           placeholder="info about this card"
                         />
+                      </div>
+
+                      <div className="form-group">
+                        <TagsInput tags={tags} setTags={setTags} />
                       </div>
                     </div>
                   </div>

@@ -95,6 +95,7 @@ const RenderSelectedImage = (props: {
 
       <div onClick={() => props.setPfp("")}>
         <i className="h h-trash-2" />
+        <span>Remove image</span>
       </div>
     </div>
   ) : (

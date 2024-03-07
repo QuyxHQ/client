@@ -260,6 +260,13 @@ class Api {
     return true;
   }
 
+  async isInBookmark({ card }: { card: string }) {
+    const { data, error } = await this.apiSdk.getInstance().get(`/bookmark/${card}`);
+    if (error || !data.status) return false;
+
+    return data.data.isBookmarked as boolean;
+  }
+
   async removeFromBookmark({ card }: { card: string }) {
     const { data, error } = await this.apiSdk.getInstance().delete(`/bookmark/${card}`);
     if (error || !data.status) {
@@ -346,11 +353,6 @@ class Api {
       return false;
     }
 
-    customToast({
-      type: TOAST_STATUS.SUCCESS,
-      message: data.message,
-    });
-
     return true;
   }
 
@@ -390,13 +392,13 @@ class Api {
   //============= MARKETPLACE METHODS ================
   //==================================================
 
-  async getTags({ chainId }: { chainId: string }) {
+  async getTags({ chainId }: { chainId: string }, { limit = 10, page = 1 }) {
     const { data, error } = await this.apiSdk
       .getInstanceWithoutAuth()
-      .get(`/marketplace/tags/all/${chainId}`);
+      .get(`/marketplace/tags/all/${chainId}?limit=${limit}&page=${page}`);
 
     if (error) return undefined;
-    return data.data as string[];
+    return data as ApiPaginationResponse<{ _id: string; count: number }[]>;
   }
 
   async getCardsByTag(

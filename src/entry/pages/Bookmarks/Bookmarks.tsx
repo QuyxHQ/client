@@ -19,7 +19,7 @@ const Bookmarks = () => {
             <div className="px-2">
               <div className="page mb-4 pb-3">
                 <h1 className="page-title">Bookmarks</h1>
-                <p>{isLoading ? "--" : total} saved item/s</p>
+                <p>{isLoading ? "--" : total} saved card/s</p>
               </div>
 
               <div className="col-12">
