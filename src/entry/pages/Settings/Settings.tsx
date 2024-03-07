@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useAppStore } from "../../context/AppProvider";
 import { api } from "../../../utils/class/api.class";
-import { isURL } from "../../../utils/helper";
+import { copyToClipboard, isURL } from "../../../utils/helper";
 
 const Settings = () => {
   const { userInfo, address } = useAppStore();
@@ -194,7 +194,11 @@ const Settings = () => {
                         <label htmlFor="address">Wallet address</label>
                         <div className="copy position-relative">
                           <input type="text" name="address" id="address" value={address} readOnly />
-                          <div className="copy-box position-absolute">
+
+                          <div
+                            className="copy-box position-absolute"
+                            onClick={() => copyToClipboard(address ?? "")}
+                          >
                             <i className="h h-copy" />
                           </div>
                         </div>

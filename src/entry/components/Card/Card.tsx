@@ -173,7 +173,7 @@ const Card = ({
 
             <div className="position-relative">
               <AnchorLink to={`/card/${data.identifier}`}>
-                <img src={data.pfp} alt={data.username} />
+                <img src={data.pfp} alt={data.username} className="img" />
               </AnchorLink>
 
               {displayBadge ? <span className="badge position-absolute"></span> : null}

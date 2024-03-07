@@ -248,7 +248,7 @@ export default class Contract {
     }
   }
 
-  async withdraw(amount: number) {
+  async withdraw(amount: ethers.BigNumber) {
     try {
       await this.contract.withdraw(amount);
 

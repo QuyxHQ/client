@@ -108,7 +108,7 @@ const CardDetails = () => {
                       </div>
 
                       <AnchorLink to={`/user/${data.owner.username}`}>
-                        <span>Explore more from this creator</span>
+                        <span>Explore more by this creator</span>
                       </AnchorLink>
                     </div>
                   )}

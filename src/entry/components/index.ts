@@ -18,3 +18,4 @@ export { default as SIWE } from "./SIWE";
 export { default as TagsInput } from "./Tags";
 export { default as UploadMedia } from "./UploadMedia";
 export { default as VerifiedIcon } from "./VerifiedIcon";
+export { default as Wallet } from "./Wallet";

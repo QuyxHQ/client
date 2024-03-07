@@ -31,6 +31,7 @@ button:disabled {
 
 img {
   object-fit: cover !important;
+  object-position: center;
 }
 
 .scroll-disabled {
@@ -93,6 +94,15 @@ img {
   }
   100% {
     top: 0;
+  }
+}
+
+@keyframes fromBottom {
+  0% {
+    bottom: -100px;
+  }
+  100% {
+    bottom: 0;
   }
 }
 
@@ -339,6 +349,7 @@ img {
   height: 2.25rem;
   border-radius: 50%;
   background-color: #555;
+  display: block;
 }
 
 .search-result-creator li a h4 {
@@ -450,7 +461,7 @@ img {
 
 .top-seller-single .image {
   border: 1px solid #6a7181a4;
-  padding: 0.3rem 0;
+  padding: 0.3rem;
   border-radius: 8px;
 }
 
@@ -612,9 +623,12 @@ img {
   gap: 0.5rem;
 }
 
-.quyx-card img {
+.quyx-card img.img {
+  background-color: #222;
   width: 100%;
   display: block;
+  min-height: 15rem;
+  height: auto;
   border-radius: 12px;
 }
 
@@ -2052,22 +2066,22 @@ input[type="datetime-local"] {
   display: flex;
   align-items: center;
   white-space: nowrap;
-  gap: 1rem;
+  gap: 0.8rem;
 }
 
 .single-page-card .user-details .user > div {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.65rem;
   background-color: rgb(255, 255, 255, 0.1);
   border: 1px solid #6a7181a8;
-  padding: 0.45rem;
+  padding: 0.4rem;
   border-radius: 100px;
 }
 
 .single-page-card .user-details .user img {
-  width: 2.7rem;
-  height: 2.7rem;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   background-color: #555;
 }
@@ -2080,7 +2094,7 @@ input[type="datetime-local"] {
 .single-page-card .user-details .user h4 {
   font-weight: 600;
   padding-right: 1.1rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -2088,7 +2102,8 @@ input[type="datetime-local"] {
 
 .single-page-card .user-details a {
   white-space: nowrap;
-  border-bottom: 1px solid #fff;
+  border-bottom: 0.8px solid #fff;
+  font-size: 0.9rem;
   padding: 0.15rem 0.1rem;
 }
 
@@ -2295,4 +2310,360 @@ input[type="datetime-local"] {
   padding: 1.25rem 2.5rem;
   color: #fff;
   font-weight: 600;
+}
+
+.search-on-mobile {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  z-index: 99;
+  animation-name: fromTop;
+  animation-duration: 0.3s;
+  -webkit-animation-name: fromTop;
+  -webkit-animation-duration: 0.3s;
+}
+
+.search-on-mobile .header {
+  gap: 0.7rem;
+}
+
+.search-on-mobile .header .back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.search-on-mobile .header .back i {
+  font-size: 2rem;
+}
+
+.search-on-mobile .header .form-group .position-absolute {
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1.5rem;
+}
+
+.search-on-mobile .header .form-group .position-absolute i {
+  font-size: 1.4rem;
+}
+
+.search-on-mobile .content ul {
+  list-style-type: none;
+}
+
+.search-on-mobile .content .text {
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+.search-on-mobile .content .text strong {
+  font-weight: 600;
+}
+
+.search-on-mobile .content ul li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #6a7181ad;
+}
+
+.search-on-mobile .content ul li:last-child {
+  border-bottom: none;
+}
+
+.search-on-mobile .content ul li a {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 0.7rem;
+}
+
+.search-on-mobile .content ul li a:hover {
+  background-color: rgb(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.search-on-mobile .content ul li a img {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: #555;
+  display: block;
+}
+
+.search-on-mobile .content ul li a h4 {
+  display: flex;
+  gap: 0.4rem;
+  font-weight: 500;
+  font-size: 0.93rem;
+  padding-right: 1rem;
+}
+
+.search-on-mobile .content ul li a h4 span {
+  white-space: nowrap;
+  max-width: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wallet-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  overflow-y: auto;
+  animation-name: fromTop;
+  animation-duration: 0.3s;
+  -webkit-animation-name: fromTop;
+  -webkit-animation-duration: 0.3s;
+}
+
+.wallet-box > div {
+  background-color: rgb(255, 255, 255, 0.05);
+  height: 100%;
+  width: 100%;
+}
+
+.bg-dark {
+  background-color: #000;
+}
+
+.wallet-box .close-modal {
+  position: absolute;
+  right: 1.5rem;
+  top: 2rem;
+  cursor: pointer;
+}
+
+.wallet-box .close-modal i {
+  font-size: 1.4rem;
+  color: #444;
+}
+
+.wallet-box .wallet-config {
+  gap: 0.6rem;
+  padding: 2.4rem;
+}
+
+.wallet-box .wallet-config > img {
+  width: 2rem;
+  height: 2rem;
+}
+
+.wallet-box .wallet-config .info {
+  gap: 0.8rem;
+  border-left: 1px solid #6a7181c1;
+  padding-left: 0.6rem;
+}
+
+.wallet-box .wallet-config .info p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-bottom: 2px dotted #ffffff94;
+  padding: 0.1rem 0;
+}
+
+.wallet-box .wallet-config .copy {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.wallet-box .wallet-config .copy i {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.wallet-box .balance-area {
+  gap: 1.8rem;
+  padding-bottom: 3rem;
+}
+
+.wallet-box hr {
+  border: none;
+  height: 1px;
+  width: 100%;
+  background-color: #6a71815a;
+}
+
+.wallet-box .balance-area .balance h1 {
+  font-size: 2.2rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.wallet-box .balance-area .balance p {
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+}
+
+.wallet-box .balance-area .buttons {
+  gap: 1rem;
+}
+
+.wallet-box .balance-area .buttons button {
+  background-color: transparent;
+  border: 2px solid #9327ff;
+  color: #9327ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.9rem;
+  height: 2.9rem;
+}
+
+.wallet-box .balance-area .buttons button i {
+  font-size: 1.6rem;
+}
+
+.wallet-box .body {
+  width: 100%;
+  padding: 2.1rem 0;
+}
+
+.wallet-box .body ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.wallet-box .body ul li > div {
+  gap: 1rem;
+}
+
+.wallet-box .body ul li img {
+  width: 3.3rem;
+  height: 3.3rem;
+  border: 1px solid #6a718183;
+  padding: 1rem;
+  border-radius: 50%;
+  display: block;
+}
+
+.wallet-box .body .coin {
+  gap: 0.9rem;
+}
+
+.wallet-box .body .coin .info {
+  gap: 0.2rem;
+}
+
+.wallet-box .body .coin .info h3 {
+  font-weight: 500;
+  line-height: 175%;
+  font-size: 0.95rem;
+}
+
+.wallet-box .body .coin .info h3 span {
+  display: block;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.wallet-box .body .coin .info p {
+  color: #888;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.wallet-box .body .bal {
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+.wallet-box .body .bal h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.wallet-box .body .bal p {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.wallet-box .slide-up-modal {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.wallet-box .slide-up-modal .content {
+  width: 100%;
+  background-color: #000;
+  position: absolute;
+  bottom: 0;
+  border: 1px solid #6a718183;
+  min-height: 10rem;
+  border-radius: 20px 20px 0 0;
+  padding: 2rem 1.5rem;
+  animation-name: fromBottom;
+  animation-duration: 0.3s;
+  -webkit-animation-name: fromBottom;
+  -webkit-animation-duration: 0.3s;
+}
+
+.wallet-box .slide-up-modal .content h3 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  line-height: 150%;
+}
+
+.wallet-box .slide-up-modal .content img {
+  width: 45%;
+  display: block;
+  margin: 0% auto;
+  margin-bottom: 1.4rem;
+}
+
+.wallet-box .slide-up-modal .content p {
+  font-size: 0.95rem;
+  text-align: center;
+  line-height: 160%;
+  color: #888;
+}
+
+.wallet-box .slide-up-modal .content button {
+  width: 100%;
+  padding: 1.2rem 2rem;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 10px !important;
+  /* background-color: rgb(255, 255, 255, 0.08);
+  border: 1px solid rgb(255, 255, 255, 0.2); */
+  background-color: #2f5b24;
+}
+
+.wallet-box .slide-up-modal .content button span {
+  width: 18px;
+  height: 18px;
+}
+
+@media screen and (min-width: 576px) {
+  .wallet-box {
+    width: 30rem;
+    margin: 2rem auto;
+    height: 90%;
+    border-radius: 15px;
+    border: 1px solid #6a718176;
+  }
+
+  .wallet-box > div {
+    border-radius: 15px;
+  }
+
+  .wallet-box .slide-up-modal .content {
+    border-radius: 20px 20px 14px 14px;
+  }
 }
