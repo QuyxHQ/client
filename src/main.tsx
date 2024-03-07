@@ -7,8 +7,6 @@ import {
   coinbaseWallet,
   walletConnect,
   trustWallet,
-  zerionWallet,
-  cryptoDefiWallet,
   ThirdwebProvider,
 } from "@thirdweb-dev/react";
 import { BinanceTestnet } from "@thirdweb-dev/chains";
@@ -24,8 +22,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         walletConnect(),
         rainbowWallet(),
         trustWallet(),
-        zerionWallet(),
-        cryptoDefiWallet(),
       ]}
       activeChain={BinanceTestnet}
       supportedChains={[BinanceTestnet]}
