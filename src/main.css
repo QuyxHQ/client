@@ -2073,8 +2073,8 @@ input[type="datetime-local"] {
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  background-color: rgb(255, 255, 255, 0.1);
-  border: 1px solid #6a7181a8;
+  background-color: rgb(255, 255, 255, 0.08);
+  border: 1px solid #6a718171;
   padding: 0.4rem;
   border-radius: 100px;
 }
@@ -2102,9 +2102,9 @@ input[type="datetime-local"] {
 
 .single-page-card .user-details a {
   white-space: nowrap;
-  border-bottom: 0.8px solid #fff;
+  border-bottom: 1px solid #fff;
   font-size: 0.9rem;
-  padding: 0.15rem 0.1rem;
+  padding: 0.2rem 0.1rem;
 }
 
 .single-page-card .main .position-relative {

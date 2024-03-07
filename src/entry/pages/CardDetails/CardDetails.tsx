@@ -17,6 +17,7 @@ const CardDetails = () => {
   const [isBookmarkBtnLoading, setIsBookmarkBtnLoading] = useState<boolean>(false);
   const [isDeleteBtnLoading, setIsDeleteBtnLoading] = useState<boolean>(false);
 
+  //@ts-ignore
   async function addToBookmark(_id: string) {
     if (isBookmarkBtnLoading) return;
     setIsBookmarkBtnLoading(true);
