@@ -2,8 +2,8 @@ const HowItWorks3 = ({ width, height, className }: Omit<IconProps, "fill">) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={width || "278"}
-      height={height || "187"}
+      width={width || "245.85"}
+      height={height || "165"}
       className={className}
       fill="none"
       viewBox="0 0 278 187"

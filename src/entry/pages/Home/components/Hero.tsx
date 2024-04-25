@@ -9,16 +9,16 @@ const Hero = () => {
         personal identity(ies) online.
       </p>
 
-      <div className="buttons d-flex flex-column flex-sm-row">
+      <div className="buttons d-flex flex-column">
         <AnchorLink to="/marketplace">
           <button>
-            <span>Explore now</span>
+            <span>Claim Username</span>
           </button>
         </AnchorLink>
 
         <button>
           <i className="h h-play" />
-          <span>Watch Video</span>
+          <span>Watch Explainer Video</span>
         </button>
       </div>
     </div>

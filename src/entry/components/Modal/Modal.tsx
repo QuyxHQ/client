@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { useAppStore } from "../../context/AppProvider";
+import { useModal } from "../../context/ModalProvider";
 
 const Modal = () => {
-  const { displayModal, modalBody, closeModal, canCloseModal } = useAppStore();
+  const { displayModal, modalBody, closeModal, canCloseModal } = useModal();
 
   useEffect(() => {
     if (displayModal) document.body.classList.add("scroll-disabled");
@@ -32,7 +32,7 @@ const Modal = () => {
           </div>
         ) : null}
 
-        <div className="body">{modalBody ?? "modal content here"}</div>
+        <div className="body">{modalBody ?? "Empty Modal"}</div>
       </div>
     </div>
   );

@@ -1,27 +1,12 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
-import { useAppStore } from "../../context/AppProvider";
-import { SIWE } from "..";
+import { useTonConnectModal } from "@tonconnect/ui-react";
 
 const ConnectBtn = () => {
-  const { openModal, setModalBody } = useAppStore();
-
-  function promptSignIn() {
-    const accessToken = localStorage.getItem("quyx_user_access_token");
-    const refreshToken = localStorage.getItem("quyx_user_refresh_token");
-
-    if (!accessToken || !refreshToken) {
-      setModalBody(<SIWE />);
-      openModal();
-    }
-  }
+  const { open } = useTonConnectModal();
 
   return (
-    <ConnectWallet
-      className="gradient-border"
-      btnTitle="Connect"
-      onConnect={promptSignIn}
-      switchToActiveChain
-    />
+    <button className="gradient-border" onClick={open}>
+      Connect wallet
+    </button>
   );
 };
 

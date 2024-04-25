@@ -1,0 +1,366 @@
+#pragma version =0.4.3;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "tact_UNftCollection.headers.fc";
+#include "tact_UNftCollection.stdlib.fc";
+#include "tact_UNftCollection.native.fc";
+#include "tact_UNftCollection.constants.fc";
+#include "tact_UNftCollection.storage.fc";
+
+;;
+;; Contract UNftCollection functions
+;;
+
+((int, int, slice), slice, slice, slice, cell, slice) $UNftCollection$_contract_init(slice $collection_uri, slice $protocol_address, (int, int, slice) $default_royalty_params) impure inline_ref {
+    var (($default_royalty_params'numerator, $default_royalty_params'denominator, $default_royalty_params'destination)) = $default_royalty_params;
+    var ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)) = (null(), null(), null(), null(), null(), null());
+    ($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination) = ($default_royalty_params'numerator, $default_royalty_params'denominator, $default_royalty_params'destination);
+    $self'collection_uri = $collection_uri;
+    $self'protocol_address = $protocol_address;
+    $self'owner = __tact_context_get_sender();
+    return (($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract);
+}
+
+(int, int) $global_getPriceRangeConfig(int $username_length) impure inline {
+    if (($username_length == 4)) {
+        return $PriceRangeConfig$_constructor_start_end(100, 1000);
+    }
+    if (($username_length == 5)) {
+        return $PriceRangeConfig$_constructor_start_end(50, 500);
+    }
+    if (($username_length == 6)) {
+        return $PriceRangeConfig$_constructor_start_end(40, 400);
+    }
+    if (($username_length == 7)) {
+        return $PriceRangeConfig$_constructor_start_end(30, 300);
+    }
+    if (($username_length == 8)) {
+        return $PriceRangeConfig$_constructor_start_end(20, 200);
+    }
+    if (($username_length == 9)) {
+        return $PriceRangeConfig$_constructor_start_end(10, 100);
+    }
+    if (($username_length == 10)) {
+        return $PriceRangeConfig$_constructor_start_end(5, 50);
+    }
+    return $PriceRangeConfig$_constructor_start_end(1, 10);
+}
+
+int $global_getUsernamePrice(int $len, int $current_time) impure inline {
+    var ($price_config'start, $price_config'end) = $global_getPriceRangeConfig($len);
+    int $start_min_price = (1000000000 * $price_config'start);
+    int $end_min_price = (1000000000 * $price_config'end);
+    int $seconds = ($current_time - 1713135600);
+    int $months = ($seconds / 2592000);
+    if (($months > 21)) {
+        return $start_min_price;
+    }
+    repeat ($months) {
+        $end_min_price = (($end_min_price * 90) / 100);
+    }
+    return $end_min_price;
+}
+
+(((int, int, slice), slice, slice, slice, cell, slice), int) $UNftCollection$_fun_username_link_status(((int, int, slice), slice, slice, slice, cell, slice) $self, slice $username) impure inline_ref {
+    var ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)) = $self;
+    int $item_index = helper_slice_hash($username);
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), __tact_dict_get_int_int($self'dictionary, 257, $item_index, 1));
+}
+
+(((int, int, slice), slice, slice, slice, cell, slice), int) $UNftCollection$_fun_get_username_hash(((int, int, slice), slice, slice, slice, cell, slice) $self, slice $username) impure inline_ref {
+    var ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)) = $self;
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), helper_slice_hash($username));
+}
+
+(((int, int, slice), slice, slice, slice, cell, slice), ()) $UNftCollection$_fun_getRoyaltyParams(((int, int, slice), slice, slice, slice, cell, slice) $self, (int, slice, int, slice) $ctx, (int) $msg) impure inline {
+    var ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)) = $self;
+    var (($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw)) = $ctx;
+    var (($msg'query_id)) = $msg;
+    $global_send($SendParameters$_constructor_to_value_mode_bounce_body($ctx'sender, 0, 64, false, $ReportRoyaltyParams$_store_cell($ReportRoyaltyParams$_constructor_query_id_numerator_denominator_destination($msg'query_id, $self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination))));
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), ());
+}
+
+(((int, int, slice), slice, slice, slice, cell, slice), (cell, cell)) $UNftCollection$_fun_getNftItemInit(((int, int, slice), slice, slice, slice, cell, slice) $self, int $item_index) impure inline {
+    var ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)) = $self;
+    tuple $builder = __tact_string_builder_start_string();
+    $builder~__tact_string_builder_append($self'collection_uri);
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), $UNftItem$_init_child(__tact_context_sys, my_address(), $self'owner, $item_index, __tact_string_builder_end($builder), ($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination)));
+}
+
+(((int, int, slice), slice, slice, slice, cell, slice), (int, cell, slice)) $UNftCollection$_fun_getCollectionData(((int, int, slice), slice, slice, slice, cell, slice) $self) impure inline {
+    var ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)) = $self;
+    tuple $builder = __tact_string_builder_start_string();
+    $builder~__tact_string_builder_append($self'collection_uri);
+    $builder~__tact_string_builder_append(__gen_slice_string_61c21407730de125092b19eef22b39a85d19867c7538f9fc3e9417e817a9ab68());
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), $CollectionData$_constructor_next_item_index_collection_content_owner_address((- 1), __tact_string_builder_end($builder), $self'owner));
+}
+
+(((int, int, slice), slice, slice, slice, cell, slice), cell) $UNftCollection$_fun_getNFTContent(((int, int, slice), slice, slice, slice, cell, slice) $self, cell $individual_content) impure inline {
+    var ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)) = $self;
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), $individual_content);
+}
+
+(((int, int, slice), slice, slice, slice, cell, slice), cell) $UNftCollection$_fun_get_nft_content(((int, int, slice), slice, slice, slice, cell, slice) $self, int $item_index, cell $individual_content) impure inline_ref {
+    var ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)) = $self;
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), (($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)~$UNftCollection$_fun_getNFTContent($individual_content));
+}
+
+(((int, int, slice), slice, slice, slice, cell, slice), (int, cell, slice)) $UNftCollection$_fun_get_collection_data(((int, int, slice), slice, slice, slice, cell, slice) $self) impure inline_ref {
+    var ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)) = $self;
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), (($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)~$UNftCollection$_fun_getCollectionData());
+}
+
+(((int, int, slice), slice, slice, slice, cell, slice), slice) $UNftCollection$_fun_get_nft_address_by_index(((int, int, slice), slice, slice, slice, cell, slice) $self, int $item_index) impure inline_ref {
+    var ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)) = $self;
+    var ($state_init'code, $state_init'data) = (($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)~$UNftCollection$_fun_getNftItemInit($item_index);
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), $global_contractAddress(($state_init'code, $state_init'data)));
+}
+
+(((int, int, slice), slice, slice, slice, cell, slice), slice) $UNftCollection$_fun_get_allowed_contract(((int, int, slice), slice, slice, slice, cell, slice) $self) impure inline_ref {
+    var ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)) = $self;
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), (null?($self'allowed_contract) ? __tact_create_address(0, 0) : __tact_not_null($self'allowed_contract)));
+}
+
+(((int, int, slice), slice, slice, slice, cell, slice), int) $UNftCollection$_fun_get_username_price(((int, int, slice), slice, slice, slice, cell, slice) $self, slice $username) impure inline_ref {
+    var ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)) = $self;
+    int $len = string_size($username);
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), $global_getUsernamePrice(($len / 8), now()));
+}
+
+;;
+;; Receivers of a Contract UNftCollection
+;;
+
+((((int, int, slice), slice, slice, slice, cell, slice)), ()) %$UNftCollection$_internal_empty(((int, int, slice), slice, slice, slice, cell, slice) $self) impure inline {
+    var (($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract) = $self;
+    throw_unless(401, ( __tact_slice_eq_bits(__tact_context_get_sender(), $self'owner) ));
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), ());
+}
+
+((((int, int, slice), slice, slice, slice, cell, slice)), ()) $UNftCollection$_internal_binary_GetCardLinkStatus(((int, int, slice), slice, slice, slice, cell, slice) $self, (int, int, slice, cell) $msg) impure inline {
+    var (($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract) = $self;
+    var ($msg'query_id, $msg'item_index, $msg'initiator, $msg'payload) = $msg;
+    int $status = __tact_dict_get_int_int($self'dictionary, 257, $msg'item_index, 1);
+    $global_send($SendParameters$_constructor_to_value_mode_bounce_body(__tact_context_get_sender(), 0, (2 + 64), false, $ReportCardLinkStatus$_store_cell($ReportCardLinkStatus$_constructor_query_id_is_linked_to_card_item_index_initiator_payload($msg'query_id, $status, $msg'item_index, $msg'initiator, $msg'payload))));
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), ());
+}
+
+((((int, int, slice), slice, slice, slice, cell, slice)), ()) $UNftCollection$_internal_binary_UpdateAllowedContract(((int, int, slice), slice, slice, slice, cell, slice) $self, (slice) $msg) impure inline {
+    var (($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract) = $self;
+    var ($msg'allowed_contract) = $msg;
+    throw_unless(401, ( __tact_slice_eq_bits(__tact_context_get_sender(), $self'owner) ));
+    $self'allowed_contract = $msg'allowed_contract;
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), ());
+}
+
+((((int, int, slice), slice, slice, slice, cell, slice)), ()) $UNftCollection$_internal_binary_UpdateUsernameLinkedStatus(((int, int, slice), slice, slice, slice, cell, slice) $self, (int, int, slice, int) $msg) impure inline {
+    var (($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract) = $self;
+    var ($msg'query_id, $msg'index, $msg'initiator, $msg'status) = $msg;
+    throw_unless(400, (~ null?($self'allowed_contract)));
+    throw_unless(401, ( __tact_slice_eq_bits(__tact_context_get_sender(), __tact_not_null($self'allowed_contract)) ));
+    throw_unless(403, (~ null?(__tact_dict_get_int_int($self'dictionary, 257, $msg'index, 1))));
+    $self'dictionary~__tact_dict_set_int_int(257, $msg'index, $msg'status, 1);
+    $global_send($SendParameters$_constructor_to_value_mode_body($msg'initiator, 0, (2 + 64), $Excesses$_store_cell($Excesses$_constructor_query_id($msg'query_id))));
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), ());
+}
+
+((((int, int, slice), slice, slice, slice, cell, slice)), ()) $UNftCollection$_internal_binary_GetRoyaltyParams(((int, int, slice), slice, slice, slice, cell, slice) $self, (int) $msg) impure inline {
+    var (($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract) = $self;
+    var ($msg'query_id) = $msg;
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    (($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)~$UNftCollection$_fun_getRoyaltyParams(($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw), ($msg'query_id));
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), ());
+}
+
+(((int, int, slice), slice, slice, slice, cell, slice), ()) $UNftCollection$_internal_any_text(((int, int, slice), slice, slice, slice, cell, slice) $self, slice $username) impure inline {
+    var (($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract) = $self;
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    int $current_time = now();
+    throw_unless(199, ($current_time > 1713135600));
+    int $len = string_size($username);
+    throw_unless(200, ($len > (3 * 8)));
+    throw_unless(201, ($len <= (126 * 8)));
+    throw_unless(202, (($len % 8) == 0));
+    throw_unless(203, check_domain_string($username));
+    int $price = $global_getUsernamePrice(($len / 8), $current_time);
+    throw_unless(204, ($ctx'value > $price));
+    int $item_index = helper_slice_hash($username);
+    throw_unless(205, null?(__tact_dict_get_int_int($self'dictionary, 257, $item_index, 1)));
+    var ($state_init'code, $state_init'data) = (($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)~$UNftCollection$_fun_getNftItemInit($item_index);
+    $global_send($SendParameters$_constructor_to_value_mode_bounce_body_code_data($global_contractAddress(($state_init'code, $state_init'data)), ($ctx'value - $price), 2, false, $Transfer$_store_cell($Transfer$_constructor_query_id_new_owner_response_destination_custom_payload_forward_amount_forward_payload(0, $ctx'sender, $ctx'sender, $String$_fun_asComment($username), 0, $global_emptySlice())), $state_init'code, $state_init'data));
+    tuple $comment = __tact_string_builder_start_string();
+    $comment~__tact_string_builder_append($username);
+    $comment~__tact_string_builder_append(__gen_slice_string_a3626d463b0ed87002b24162b6ac39cc1195c499aea8962a292a00d57886e489());
+    $global_send($SendParameters$_constructor_to_value_mode_bounce_body($self'protocol_address, 0, (2 + 128), false, __tact_string_builder_end($comment)));
+    $self'dictionary~__tact_dict_set_int_int(257, $item_index, false, 1);
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), ());
+}
+
+((((int, int, slice), slice, slice, slice, cell, slice)), ()) $UNftCollection$_internal_binary_Deploy(((int, int, slice), slice, slice, slice, cell, slice) $self, (int) $deploy) impure inline {
+    var (($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract) = $self;
+    var ($deploy'queryId) = $deploy;
+    (($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract)~$UNftCollection$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return ((($self'default_royalty_params'numerator, $self'default_royalty_params'denominator, $self'default_royalty_params'destination), $self'collection_uri, $self'owner, $self'protocol_address, $self'dictionary, $self'allowed_contract), ());
+}
+
+;;
+;; Get methods of a Contract UNftCollection
+;;
+
+_ %username_link_status(slice $$username) method_id(76950) {
+    slice $username = $$username;
+    var self = $UNftCollection$_contract_load();
+    var res = self~$UNftCollection$_fun_username_link_status($username);
+    return res;
+}
+
+_ %get_username_hash(slice $$username) method_id(111152) {
+    slice $username = $$username;
+    var self = $UNftCollection$_contract_load();
+    var res = self~$UNftCollection$_fun_get_username_hash($username);
+    return res;
+}
+
+_ %get_nft_content(int $$item_index, cell $$individual_content) method_id(68445) {
+    int $item_index = $$item_index;
+    cell $individual_content = $$individual_content;
+    var self = $UNftCollection$_contract_load();
+    var res = self~$UNftCollection$_fun_get_nft_content($item_index, $individual_content);
+    return res;
+}
+
+_ %get_collection_data() method_id(102491) {
+    var self = $UNftCollection$_contract_load();
+    var res = self~$UNftCollection$_fun_get_collection_data();
+    return $CollectionData$_to_external(res);
+}
+
+_ %get_nft_address_by_index(int $$item_index) method_id(92067) {
+    int $item_index = $$item_index;
+    var self = $UNftCollection$_contract_load();
+    var res = self~$UNftCollection$_fun_get_nft_address_by_index($item_index);
+    return res;
+}
+
+_ %get_allowed_contract() method_id(129339) {
+    var self = $UNftCollection$_contract_load();
+    var res = self~$UNftCollection$_fun_get_allowed_contract();
+    return res;
+}
+
+_ %get_username_price(slice $$username) method_id(87502) {
+    slice $username = $$username;
+    var self = $UNftCollection$_contract_load();
+    var res = self~$UNftCollection$_fun_get_username_price($username);
+    return res;
+}
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() method_id {
+    return "ipfs://QmUbvU6XteTFddwexumwHoxWJKAv4oPoYSWXUo55SerNQt";
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract UNftCollection
+;;
+
+(((int, int, slice), slice, slice, slice, cell, slice), int) $UNftCollection$_contract_router_internal(((int, int, slice), slice, slice, slice, cell, slice) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive empty message
+    if ((op == 0) & (slice_bits(in_msg) <= 32)) {
+        self~%$UNftCollection$_internal_empty();
+        return (self, true);
+    }
+    
+    ;; Receive GetCardLinkStatus message
+    if (op == 3028164059) {
+        var msg = in_msg~$GetCardLinkStatus$_load();
+        self~$UNftCollection$_internal_binary_GetCardLinkStatus(msg);
+        return (self, true);
+    }
+    
+    ;; Receive UpdateAllowedContract message
+    if (op == 3161124927) {
+        var msg = in_msg~$UpdateAllowedContract$_load();
+        self~$UNftCollection$_internal_binary_UpdateAllowedContract(msg);
+        return (self, true);
+    }
+    
+    ;; Receive UpdateUsernameLinkedStatus message
+    if (op == 3479701466) {
+        var msg = in_msg~$UpdateUsernameLinkedStatus$_load();
+        self~$UNftCollection$_internal_binary_UpdateUsernameLinkedStatus(msg);
+        return (self, true);
+    }
+    
+    ;; Receive GetRoyaltyParams message
+    if (op == 435086716) {
+        var msg = in_msg~$GetRoyaltyParams$_load();
+        self~$UNftCollection$_internal_binary_GetRoyaltyParams(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var msg = in_msg~$Deploy$_load();
+        self~$UNftCollection$_internal_binary_Deploy(msg);
+        return (self, true);
+    }
+    
+    ;; Text Receivers
+    if (op == 0) {
+        if (slice_bits(in_msg) >= 32) {
+            self~$UNftCollection$_internal_any_text(in_msg.skip_bits(32));
+            return (self, true);
+        }
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $UNftCollection$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$UNftCollection$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $UNftCollection$_contract_store(self);
+}

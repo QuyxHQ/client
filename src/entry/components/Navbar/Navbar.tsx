@@ -1,28 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import { AnchorLink, ConnectBtn, GradientLogo, VerifiedIcon, Wallet } from "..";
-import { useAppStore } from "../../context/AppProvider";
-import debounce from "lodash.debounce";
-import { api } from "../../../utils/class/api.class";
+import { useState } from "react";
+import { AnchorLink, ConnectBtn, GradientLogo } from "..";
+import useTonConnect from "../../hooks/useTonConnect";
 
 const Navbar = () => {
-  const { isWalletConnected, userInfo, balance } = useAppStore();
-  const [displaySearchRes, setDisplaySearchRes] = useState<boolean>(false);
-  const [displaySearchOnMobile, setDisplaySearchOnMobile] = useState<boolean>(false);
-  const [q, setQ] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [users, setUsers] = useState<QuyxUser[]>();
-  const searchBoxRef = useRef<any>(null);
+  const { connected } = useTonConnect();
+
   const [isLogoutLoading, setIsLogoutLoading] = useState<boolean>(false);
-  const [displayWallet, setDisplayWallet] = useState<boolean>(false);
 
   async function logout() {
-    if (isLogoutLoading) return;
     setIsLogoutLoading(true);
-
-    const resp = await api.logout();
-    if (resp) window.location.reload();
-
-    setIsLogoutLoading(false);
+    setTimeout(() => setIsLogoutLoading(false), 2000);
   }
 
   const navigation = [
@@ -66,37 +53,8 @@ const Navbar = () => {
     },
   ];
 
-  async function searchForCreator(q: string) {
-    const resp = await api.searchForUser({ q, limit: 20, page: 1 });
-    if (resp) setUsers(resp.data);
-    setIsLoading(false);
-  }
-
-  const debouncedFetchData = debounce(searchForCreator, 1500);
-
-  useEffect(() => {
-    if (q && q.length >= 3) {
-      setDisplaySearchRes(true);
-      setIsLoading(true);
-      debouncedFetchData(q);
-    } else setDisplaySearchRes(false);
-  }, [q]);
-
-  useEffect(() => {
-    function handleClickOutside(e: any) {
-      if (searchBoxRef.current && !searchBoxRef.current.contains(e.target)) {
-        setDisplaySearchRes(false);
-      }
-    }
-
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
-
   return (
     <>
-      <Wallet displayWallet={displayWallet} setDisplayWallet={setDisplayWallet} />
-
       <nav className="default-nav">
         <div className="container-fluid container-xl">
           <div className="row">
@@ -110,90 +68,9 @@ const Navbar = () => {
                   className="d-flex align-items-center justify-content-between"
                   style={{ gap: "1rem" }}
                 >
-                  <AnchorLink to="/new-card">
-                    <button className="d-none d-md-flex gradient-border button-create">
-                      <span>Create</span>
-                      <i className="h h-plus" />
-                    </button>
-                  </AnchorLink>
-
-                  <div className="d-none d-md-block position-relative" ref={searchBoxRef}>
-                    <div className="search position-relative">
-                      <i className="position-absolute h h-lens" />
-                      <input
-                        type="text"
-                        placeholder="Search creators"
-                        value={q}
-                        onChange={(e) => setQ(e.target.value)}
-                        onFocus={() => (q.length >= 3 ? setDisplaySearchRes(true) : {})}
-                      />
-                    </div>
-
-                    <div
-                      className={`position-absolute search-result-creator d-none ${
-                        displaySearchRes ? "d-md-block" : "d-none"
-                      }`}
-                    >
-                      {q.length < 3 ? (
-                        <div className="py-5 my-2 d-flex justify-content-center">
-                          <p className="text px-5 text-center">Start typing....</p>
-                        </div>
-                      ) : isLoading ? (
-                        <div className="py-5 my-2 d-flex justify-content-center">
-                          <div className="loader-span-sm"></div>
-                        </div>
-                      ) : !users ? (
-                        <div className="py-5 my-2 d-flex justify-content-center">
-                          <p className="text">
-                            <strong>Oops!</strong> Unable to complete search
-                          </p>
-                        </div>
-                      ) : users.length == 0 ? (
-                        <div className="py-5 my-2 d-flex justify-content-center">
-                          <p className="text">
-                            no user found for <strong>`{q}`</strong>
-                          </p>
-                        </div>
-                      ) : (
-                        <ul>
-                          {users.map((user, index) => (
-                            <li key={`creator-search-${index}`}>
-                              <AnchorLink to={`/user/${user.username}`}>
-                                <div>
-                                  <img
-                                    src={user.pfp ?? "/images/default-user.png"}
-                                    alt={user.username}
-                                  />
-                                </div>
-
-                                <h4>
-                                  <span>{user.username}</span>
-                                  {user.hasBlueTick ? <VerifiedIcon /> : null}
-                                </h4>
-                              </AnchorLink>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  </div>
-
-                  <AnchorLink to="/new-card" className="d-flex d-md-none">
-                    <div className="icon gradient-border">
-                      <i className="h h-plus" />
-                    </div>
-                  </AnchorLink>
-
-                  <div
-                    className="icon d-flex d-md-none pointer"
-                    onClick={() => setDisplaySearchOnMobile(true)}
-                  >
-                    <i className="h h-lens" />
-                  </div>
-
-                  {isWalletConnected ? (
+                  {connected ? (
                     <div className="user d-flex align-items-center">
-                      <button onClick={() => setDisplayWallet(true)}>
+                      <button>
                         <div className="d-flex align-items-center px-0 px-sm-1 px-md-0 px-lg-2">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -208,17 +85,12 @@ const Navbar = () => {
                             ></path>
                           </svg>
 
-                          <span className="d-none d-sm-block d-md-none d-lg-block">
-                            {balance == undefined ? "-.--" : balance.toFixed(2)} BNB
-                          </span>
+                          <span className="d-none d-sm-block d-md-none d-lg-block">200 TON</span>
                         </div>
                       </button>
 
                       <div className="position-relative">
-                        <img
-                          src={userInfo?.pfp ? userInfo.pfp : "/images/default-user.png"}
-                          alt={userInfo?.username}
-                        />
+                        <img src={"/images/default-user.png"} alt={"Morick"} />
 
                         <div className="position-absolute nav-navigate">
                           <ul>
@@ -236,7 +108,7 @@ const Navbar = () => {
                             )}
 
                             <li>
-                              <a onClick={() => logout()} className={isLoading ? "disabled" : ""}>
+                              <a onClick={() => logout()}>
                                 {isLogoutLoading ? (
                                   <span className="loader-span-sm"></span>
                                 ) : (
@@ -259,83 +131,6 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-
-      <div className={`search-on-mobile ${displaySearchOnMobile ? "d-block" : "d-none"} d-md-none`}>
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="main mt-4 px-1">
-                <div className="header d-flex align-items-center mb-4">
-                  <div className="back" onClick={() => setDisplaySearchOnMobile(false)}>
-                    <i className="h h-chevron-left" />
-                  </div>
-
-                  <div className="form-group position-relative w-100 my-0">
-                    <input
-                      type="text"
-                      className="my-0"
-                      value={q}
-                      onChange={(e) => setQ(e.target.value)}
-                      placeholder="Search creators"
-                    />
-
-                    <div className="position-absolute">
-                      <i className="h h-lens" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="content">
-                  {q.length < 3 ? (
-                    <div className="py-5 my-2 d-flex justify-content-center">
-                      <p className="text px-5 text-center">Start typing....</p>
-                    </div>
-                  ) : isLoading ? (
-                    <div className="d-flex align-items-center justify-content-center py-5 my-5">
-                      <span className="loader-span-sm my-4"></span>
-                    </div>
-                  ) : !users ? (
-                    <div className="py-5 my-2 d-flex justify-content-center">
-                      <p className="text">
-                        <strong>Oops!</strong> Unable to complete search
-                      </p>
-                    </div>
-                  ) : users.length == 0 ? (
-                    <div className="py-5 my-2 d-flex justify-content-center">
-                      <p className="text">
-                        no user found for <strong>`{q}`</strong>
-                      </p>
-                    </div>
-                  ) : (
-                    <ul>
-                      {users.map((user, index) => (
-                        <li key={`creator-search-${index}`}>
-                          <AnchorLink
-                            to={`/user/${user.username}`}
-                            handleClick={() => setDisplaySearchOnMobile(false)}
-                          >
-                            <div>
-                              <img
-                                src={user.pfp ?? "/images/default-user.png"}
-                                alt={user.username}
-                              />
-                            </div>
-
-                            <h4>
-                              <span>{user.username}</span>
-                              {user.hasBlueTick ? <VerifiedIcon /> : null}
-                            </h4>
-                          </AnchorLink>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </>
   );
 };

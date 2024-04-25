@@ -1,0 +1,304 @@
+#pragma version =0.4.3;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "tact_CNftItem.headers.fc";
+#include "tact_CNftItem.stdlib.fc";
+#include "tact_CNftItem.native.fc";
+#include "tact_CNftItem.constants.fc";
+#include "tact_CNftItem.storage.fc";
+
+;;
+;; Contract CNftItem functions
+;;
+
+(slice, int, slice, slice, cell, int, int, cell, cell, cell) $CNftItem$_contract_init(slice $collection_address, slice $owner, int $index, cell $individual_content) impure inline_ref {
+    var (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)) = (null(), null(), null(), null(), null(), false, 0, null(), null(), null());
+    $self'collection_address = $collection_address;
+    $self'owner = $owner;
+    $self'index = $index;
+    $self'individual_content = $individual_content;
+    $self'username = $global_emptyCell();
+    $self'pfp = $global_emptyCell();
+    $self'bio = $global_emptyCell();
+    return ($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio);
+}
+
+((slice, int, slice, slice, cell, int, int, cell, cell, cell), slice) $CNftItem$_fun_getOwner((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self) impure inline {
+    var (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)) = $self;
+    if (null?($self'owner)) {
+        return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), __tact_create_address(0, 0));
+    }
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), __tact_not_null($self'owner));
+}
+
+((slice, int, slice, slice, cell, int, int, cell, cell, cell), ()) $CNftItem$_fun_initialize((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self, (int, slice, int, slice) $ctx, (int, slice, slice, slice, cell) $msg) impure inline {
+    var (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)) = $self;
+    var (($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw)) = $ctx;
+    var (($msg'query_id, $msg'new_owner, $msg'response_destination, $msg'authority, $msg'payload)) = $msg;
+    $self'is_initialized = true;
+    $self'owner = $msg'new_owner;
+    $self'authority = $msg'authority;
+    slice $incomingPayloadSlice = begin_parse($msg'payload);
+    $self'username = $incomingPayloadSlice~load_ref();
+    $self'pfp = $incomingPayloadSlice~load_ref();
+    $self'bio = $incomingPayloadSlice~load_ref();
+    $global_send($SendParameters$_constructor_to_value_mode_body($msg'response_destination, 0, (2 + 64), $Excesses$_store_cell($Excesses$_constructor_query_id($msg'query_id))));
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), ());
+}
+
+((slice, int, slice, slice, cell, int, int, cell, cell, cell), ()) $CNftItem$_fun_reportStaticData((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self, (int) $msg) impure inline {
+    var (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)) = $self;
+    var (($msg'query_id)) = $msg;
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    $global_send($SendParameters$_constructor_to_value_mode_bounce_body($ctx'sender, 0, 64, false, $ReportStaticData$_store_cell($ReportStaticData$_constructor_query_id_index_collection($msg'query_id, $self'index, $self'collection_address))));
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), ());
+}
+
+((slice, int, slice, slice, cell, int, int, cell, cell, cell), ()) $CNftItem$_fun_proveOwnership((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self, (int, slice, cell, int) $msg) impure inline {
+    var (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)) = $self;
+    var (($msg'query_id, $msg'dest, $msg'forward_payload, $msg'with_content)) = $msg;
+    $global_send($SendParameters$_constructor_to_value_mode_bounce_body($msg'dest, 0, 64, false, $OwnershipProof$_store_cell($OwnershipProof$_constructor_query_id_item_id_owner_data_revoked_at_content($msg'query_id, $self'index, ($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)~$CNftItem$_fun_getOwner(), $msg'forward_payload, $self'revoked_at, ($msg'with_content ? $self'individual_content : $global_emptyCell())))));
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), ());
+}
+
+((slice, int, slice, slice, cell, int, int, cell, cell, cell), ()) $CNftItem$_fun_requestOwner((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self, (int, slice, cell, int) $msg) impure inline {
+    var (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)) = $self;
+    var (($msg'query_id, $msg'dest, $msg'forward_payload, $msg'with_content)) = $msg;
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    $global_send($SendParameters$_constructor_to_value_mode_bounce_body($msg'dest, 0, 64, false, $OwnerInfo$_store_cell($OwnerInfo$_constructor_query_id_item_id_initiator_owner_data_revoked_at_content($msg'query_id, $self'index, $ctx'sender, ($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)~$CNftItem$_fun_getOwner(), $msg'forward_payload, $self'revoked_at, ($msg'with_content ? $self'individual_content : $global_emptyCell())))));
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), ());
+}
+
+((slice, int, slice, slice, cell, int, int, cell, cell, cell), (int, int, slice, slice, cell)) $CNftItem$_fun_getNFTData((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self) impure inline {
+    var (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)) = $self;
+    tuple $builder = __tact_string_builder_start_string();
+    slice $collection_uri = __tact_slice_to_str($Cell$_fun_asSlice($self'individual_content));
+    $builder~__tact_string_builder_append($collection_uri);
+    $builder~__tact_string_builder_append(__gen_slice_string_f27cb79e14c9467b3b5f8c977740f36959118da072f63bbaeaa7a03d874f734d());
+    $builder~__tact_string_builder_append(__tact_int_to_string($self'index));
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), $ItemData$_constructor_is_initialized_index_collection_address_owner_address_individual_content($self'is_initialized, $self'index, $self'collection_address, ($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)~$CNftItem$_fun_getOwner(), __tact_string_builder_end($builder)));
+}
+
+((slice, int, slice, slice, cell, int, int, cell, cell, cell), tuple) $CNftItem$_fun_get_metadata((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self) impure inline_ref {
+    var (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)) = $self;
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), $CardMetadata$_as_optional($CardMetadata$_constructor_username_pfp_bio($self'username, $self'pfp, $self'bio)));
+}
+
+((slice, int, slice, slice, cell, int, int, cell, cell, cell), (int, int, slice, slice, cell)) $CNftItem$_fun_get_nft_data((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self) impure inline_ref {
+    var (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)) = $self;
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), ($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)~$CNftItem$_fun_getNFTData());
+}
+
+((slice, int, slice, slice, cell, int, int, cell, cell, cell), slice) $CNftItem$_fun_get_authority_address((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self) impure inline_ref {
+    var (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)) = $self;
+    if (null?($self'authority)) {
+        return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), __tact_create_address(0, 0));
+    }
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), __tact_not_null($self'authority));
+}
+
+((slice, int, slice, slice, cell, int, int, cell, cell, cell), int) $CNftItem$_fun_get_revoked_time((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self) impure inline_ref {
+    var (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)) = $self;
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), $self'revoked_at);
+}
+
+;;
+;; Receivers of a Contract CNftItem
+;;
+
+(((slice, int, slice, slice, cell, int, int, cell, cell, cell)), ()) $CNftItem$_internal_binary_Initialize((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self, (int, slice, slice, slice, cell) $msg) impure inline {
+    var ($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio) = $self;
+    var ($msg'query_id, $msg'new_owner, $msg'response_destination, $msg'authority, $msg'payload) = $msg;
+    throw_unless(401, ( __tact_slice_eq_bits(__tact_context_get_sender(), $self'collection_address) ));
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    ($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)~$CNftItem$_fun_initialize(($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw), ($msg'query_id, $msg'new_owner, $msg'response_destination, $msg'authority, $msg'payload));
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), ());
+}
+
+(((slice, int, slice, slice, cell, int, int, cell, cell, cell)), ()) $CNftItem$_internal_binary_GetStaticData((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self, (int) $msg) impure inline {
+    var ($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio) = $self;
+    var ($msg'query_id) = $msg;
+    ($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)~$CNftItem$_fun_reportStaticData($GetStaticData$_tensor_cast(($msg'query_id)));
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), ());
+}
+
+(((slice, int, slice, slice, cell, int, int, cell, cell, cell)), ()) $CNftItem$_internal_binary_ProveOwnership((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self, (int, slice, cell, int) $msg) impure inline {
+    var ($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio) = $self;
+    var ($msg'query_id, $msg'dest, $msg'forward_payload, $msg'with_content) = $msg;
+    ($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)~$CNftItem$_fun_proveOwnership($ProveOwnership$_tensor_cast(($msg'query_id, $msg'dest, $msg'forward_payload, $msg'with_content)));
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), ());
+}
+
+(((slice, int, slice, slice, cell, int, int, cell, cell, cell)), ()) $CNftItem$_internal_binary_RequestOwner((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self, (int, slice, cell, int) $msg) impure inline {
+    var ($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio) = $self;
+    var ($msg'query_id, $msg'dest, $msg'forward_payload, $msg'with_content) = $msg;
+    ($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio)~$CNftItem$_fun_requestOwner($RequestOwner$_tensor_cast(($msg'query_id, $msg'dest, $msg'forward_payload, $msg'with_content)));
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), ());
+}
+
+(((slice, int, slice, slice, cell, int, int, cell, cell, cell)), ()) $CNftItem$_internal_binary_Transfer((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self, (int, slice, slice, cell, int, slice) $msg) impure inline {
+    var ($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio) = $self;
+    var ($msg'query_id, $msg'new_owner, $msg'response_destination, $msg'custom_payload, $msg'forward_amount, $msg'forward_payload) = $msg;
+    throw(413);
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), ());
+}
+
+(((slice, int, slice, slice, cell, int, int, cell, cell, cell)), ()) $CNftItem$_internal_binary_Destroy((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self, (int) $msg) impure inline {
+    var ($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio) = $self;
+    var ($msg'query_id) = $msg;
+    throw_unless(400, (~ null?($self'owner)));
+    throw_unless(401, ( __tact_slice_eq_bits(__tact_context_get_sender(), __tact_not_null($self'owner)) ));
+    $self'owner = null();
+    $self'authority = null();
+    $global_send($SendParameters$_constructor_to_value_mode_body($self'collection_address, 0, (2 + 64), $UnlinkCard$_store_cell($UnlinkCard$_constructor_query_id_initiator_index($msg'query_id, __tact_context_get_sender(), $self'index))));
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), ());
+}
+
+(((slice, int, slice, slice, cell, int, int, cell, cell, cell)), ()) $CNftItem$_internal_binary_Revoke((slice, int, slice, slice, cell, int, int, cell, cell, cell) $self, (int) $msg) impure inline {
+    var ($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio) = $self;
+    var ($msg'query_id) = $msg;
+    throw_unless(400, (~ null?($self'authority)));
+    throw_unless(401, ( __tact_slice_eq_bits(__tact_context_get_sender(), __tact_not_null($self'authority)) ));
+    throw_unless(403, ($self'revoked_at == 0));
+    $self'revoked_at = now();
+    $global_send($SendParameters$_constructor_to_value_mode_body(__tact_context_get_sender(), 0, (2 + 64), $Excesses$_store_cell($Excesses$_constructor_query_id($msg'query_id))));
+    return (($self'collection_address, $self'index, $self'owner, $self'authority, $self'individual_content, $self'is_initialized, $self'revoked_at, $self'username, $self'pfp, $self'bio), ());
+}
+
+;;
+;; Get methods of a Contract CNftItem
+;;
+
+_ %get_metadata() method_id(89214) {
+    var self = $CNftItem$_contract_load();
+    var res = self~$CNftItem$_fun_get_metadata();
+    return $CardMetadata$_to_opt_external(res);
+}
+
+_ %get_nft_data() method_id(102351) {
+    var self = $CNftItem$_contract_load();
+    var res = self~$CNftItem$_fun_get_nft_data();
+    return $ItemData$_to_external(res);
+}
+
+_ %get_authority_address() method_id(84760) {
+    var self = $CNftItem$_contract_load();
+    var res = self~$CNftItem$_fun_get_authority_address();
+    return res;
+}
+
+_ %get_revoked_time() method_id(97667) {
+    var self = $CNftItem$_contract_load();
+    var res = self~$CNftItem$_fun_get_revoked_time();
+    return res;
+}
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() method_id {
+    return "ipfs://QmPmwGRnRz6PZW97EdpuwscbMPGte2p2HGPomsPZoX9ZfK";
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract CNftItem
+;;
+
+((slice, int, slice, slice, cell, int, int, cell, cell, cell), int) $CNftItem$_contract_router_internal((slice, int, slice, slice, cell, int, int, cell, cell, cell) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive Initialize message
+    if (op == 3568268437) {
+        var msg = in_msg~$Initialize$_load();
+        self~$CNftItem$_internal_binary_Initialize(msg);
+        return (self, true);
+    }
+    
+    ;; Receive GetStaticData message
+    if (op == 2365735669) {
+        var msg = in_msg~$GetStaticData$_load();
+        self~$CNftItem$_internal_binary_GetStaticData(msg);
+        return (self, true);
+    }
+    
+    ;; Receive ProveOwnership message
+    if (op == 3956722467) {
+        var msg = in_msg~$ProveOwnership$_load();
+        self~$CNftItem$_internal_binary_ProveOwnership(msg);
+        return (self, true);
+    }
+    
+    ;; Receive RequestOwner message
+    if (op == 2177359512) {
+        var msg = in_msg~$RequestOwner$_load();
+        self~$CNftItem$_internal_binary_RequestOwner(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Transfer message
+    if (op == 1312029976) {
+        var msg = in_msg~$Transfer$_load();
+        self~$CNftItem$_internal_binary_Transfer(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Destroy message
+    if (op == 473171199) {
+        var msg = in_msg~$Destroy$_load();
+        self~$CNftItem$_internal_binary_Destroy(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Revoke message
+    if (op == 2711683139) {
+        var msg = in_msg~$Revoke$_load();
+        self~$CNftItem$_internal_binary_Revoke(msg);
+        return (self, true);
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $CNftItem$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$CNftItem$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $CNftItem$_contract_store(self);
+}

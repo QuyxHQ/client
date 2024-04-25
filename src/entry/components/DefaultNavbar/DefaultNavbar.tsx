@@ -10,8 +10,8 @@ const DefaultNavbar = () => {
   const navigation = [
     { title: "Home", to: "/" },
     { title: "About", to: "/#about" },
-    { title: "Marketplace", to: "/marketplace" },
-    { title: "Docs", to: "//docs.quyx.xyz", target: "_blank" },
+    { title: "Team", to: "/team" },
+    { title: "Marketplace", to: "/marketplace", target: "" },
   ];
 
   useEffect(() => setDisplayNavbar(false), [navigate]);

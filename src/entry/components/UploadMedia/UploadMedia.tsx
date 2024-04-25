@@ -1,9 +1,8 @@
 import { Dispatch, SetStateAction, useRef, useState } from "react";
-import { useAppStore } from "../../context/AppProvider";
-import { NFTs } from "..";
+import { useModal } from "../../context/ModalProvider";
 
 const UploadMedia = (props: { pfp: string; setPfp: Dispatch<SetStateAction<string>> }) => {
-  const { openModal, setModalBody } = useAppStore();
+  const { openModal, setModalBody } = useModal();
   const fileRef = useRef<any>();
 
   function handleImageChange(e: any) {
@@ -70,7 +69,7 @@ const UploadMedia = (props: { pfp: string; setPfp: Dispatch<SetStateAction<strin
 
             <button
               onClick={() => {
-                setModalBody(<NFTs pfp={props.pfp} setPfp={props.setPfp} />);
+                setModalBody(<div>nfts in wallet here</div>);
                 openModal();
               }}
             >
