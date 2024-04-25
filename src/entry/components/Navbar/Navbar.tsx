@@ -209,7 +209,7 @@ const Navbar = () => {
                           </svg>
 
                           <span className="d-none d-sm-block d-md-none d-lg-block">
-                            {balance ? balance.toFixed(3) : "-.--"} BNB
+                            {balance == undefined ? "-.--" : balance.toFixed(2)} BNB
                           </span>
                         </div>
                       </button>

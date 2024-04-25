@@ -4,7 +4,7 @@ import { api } from "../../../utils/class/api.class";
 import { copyToClipboard, isURL } from "../../../utils/helper";
 
 const Settings = () => {
-  const { userInfo, address } = useAppStore();
+  const { userInfo, address, setUserInfo } = useAppStore();
 
   const [pfp, setPfp] = useState<string>("");
   const [username, setUsername] = useState<string>("");
@@ -51,7 +51,7 @@ const Settings = () => {
       username,
     });
 
-    if (resp) window.location.reload();
+    if (resp) setUserInfo({ ...userInfo!, pfp: currentPfp, email, username });
     setIsLoading(false);
   }
 
@@ -68,7 +68,7 @@ const Settings = () => {
     if (isLoading) return;
     setIsLoading(true);
     const resp = await api.kycVerify({ otp });
-    if (resp) setTimeout(() => window.location.reload(), 1500);
+    if (resp) setUserInfo({ ...userInfo!, hasCompletedKYC: true });
 
     setIsLoading(false);
   }
@@ -206,7 +206,7 @@ const Settings = () => {
 
                       <div className="form-group">
                         <button className="gradient-border" disabled={isLoading} onClick={editInfo}>
-                          {isLoading ? "Processing..." : "Save"}
+                          {isLoading ? <span className="loader-span-sm mx-1"></span> : "Save"}
                         </button>
                       </div>
                     </div>

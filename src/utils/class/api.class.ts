@@ -95,6 +95,11 @@ class Api {
       return false;
     }
 
+    customToast({
+      type: TOAST_STATUS.SUCCESS,
+      message: data.message,
+    });
+
     return true;
   }
 

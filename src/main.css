@@ -1405,7 +1405,7 @@ footer.custom p {
 }
 
 .form-group textarea {
-  line-height: 170%;
+  line-height: 180%;
 }
 
 .form-group input:focus,
@@ -2227,10 +2227,11 @@ input[type="datetime-local"] {
 
 .rti--container {
   --rti-bg: "#000";
-  --rti-main: "#fff";
+  --rti-main: "#000";
 }
 
 .rti--container {
+  background-color: transparent !important;
   border: none;
   padding: 0;
   outline: none;
@@ -2242,6 +2243,7 @@ input[type="datetime-local"] {
   border: 1px solid #6a7181a4;
   gap: 1rem;
   background-color: #222;
+  margin-bottom: 0.15rem;
   font-size: 0.85rem;
 }
 
@@ -2738,4 +2740,15 @@ input[type="datetime-local"] {
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
+}
+
+.gradient-border {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gradient-border span.loader-span-sm {
+  width: 17px;
+  height: 17px;
 }

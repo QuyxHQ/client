@@ -118,7 +118,7 @@ const Wallet = ({ displayWallet, setDisplayWallet }: Props) => {
 
           <div className="balance-area bg-dark d-flex flex-column px-4">
             <div className="balance">
-              <h1>${!portfolioBalance ? "-.--" : portfolioBalance.toFixed(2)} USD</h1>
+              <h1>${portfolioBalance == undefined ? "-.--" : portfolioBalance.toFixed(2)} USD</h1>
               <p>Portfolio Balance</p>
             </div>
 

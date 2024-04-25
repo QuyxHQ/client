@@ -132,6 +132,7 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
         QUYX_METADATA,
         canCloseModal,
         balance,
+        setUserInfo,
         openModal,
         closeModal,
         setModalBody,

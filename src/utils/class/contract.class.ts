@@ -5,10 +5,12 @@ import { TOAST_STATUS, customToast } from "../toast.utils";
 export default class Contract {
   private contract: ethers.Contract;
   public static chainIdToContractAddress: Record<(typeof QUYX_CHAINS)[number], string> = {
-    "97": "0xF9875719FFCe7a4cf36647b02Fa34283B3Be0827",
+    "97": "0xb8C67B7AB57FCB534C176f005dd04b3f8ef45Fdc",
   };
 
   constructor(chainId: (typeof QUYX_CHAINS)[number], signer?: ethers.Signer) {
+    console.log("ca: ", Contract.chainIdToContractAddress[chainId]);
+    console.log("signer: ", signer);
     this.contract = new ethers.Contract(Contract.chainIdToContractAddress[chainId], abi, signer);
   }
 
@@ -78,6 +80,8 @@ export default class Contract {
 
       return parseInt(cardId.toString());
     } catch (e: any) {
+      console.error(e);
+
       customToast({
         type: TOAST_STATUS.ERROR,
         message: e?.data?.message ?? "unable to complete request",
@@ -89,9 +93,15 @@ export default class Contract {
 
   async newCard(tempToken: string, value?: string) {
     try {
-      const tx = await this.contract.newCard(tempToken, value ? { value } : undefined);
+      let tx;
+
+      if (value) tx = await this.contract.newCard(tempToken, { value });
+      else await this.contract.newCard(tempToken);
+
       return tx;
     } catch (e: any) {
+      console.error(e);
+
       customToast({
         type: TOAST_STATUS.ERROR,
         message: e?.data?.message ?? "unable to complete request",
@@ -133,6 +143,8 @@ export default class Contract {
 
       return true;
     } catch (e: any) {
+      console.error(e);
+
       customToast({
         type: TOAST_STATUS.ERROR,
         message: e?.data?.message ?? "unable to complete request",
@@ -164,10 +176,10 @@ export default class Contract {
 
   async buyCard(
     { cardIdentifier, referredBy = ethers.constants.AddressZero }: BuyCardProps,
-    value?: string
+    value: string
   ) {
     try {
-      await this.contract.buyCard(cardIdentifier, referredBy, value ? { value } : undefined);
+      await this.contract.buyCard(cardIdentifier, referredBy, { value });
 
       customToast({
         type: TOAST_STATUS.SUCCESS,
@@ -187,10 +199,10 @@ export default class Contract {
 
   async placeBid(
     { cardIdentifier, referredBy = ethers.constants.AddressZero }: BuyCardProps,
-    value?: string
+    value: string
   ) {
     try {
-      await this.contract.placeBid(cardIdentifier, referredBy, value ? { value } : undefined);
+      await this.contract.placeBid(cardIdentifier, referredBy, { value });
 
       customToast({
         type: TOAST_STATUS.SUCCESS,

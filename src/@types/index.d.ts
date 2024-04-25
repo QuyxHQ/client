@@ -122,6 +122,7 @@ type AppContextProps = {
   closeModal: () => void;
   isWalletConnected?: boolean;
   userInfo?: QuyxUser;
+  setUserInfo: (value: QuyxUser) => void;
   address?: string;
   chainId?: number;
   canCloseModal: boolean;

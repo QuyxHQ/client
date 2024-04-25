@@ -20,6 +20,7 @@ const NewCard = () => {
     closeModal,
     QUYX_METADATA,
     balance,
+    setUserInfo,
   } = useAppStore();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -85,7 +86,7 @@ const NewCard = () => {
   }, [displayModal]);
 
   async function uploadCard() {
-    if (isLoading) return;
+    if (isLoading || !signer) return;
     if (!pfp) {
       customToast({
         type: TOAST_STATUS.ERROR,
@@ -154,6 +155,19 @@ const NewCard = () => {
     });
 
     if (resp) {
+      setUserInfo({
+        ...userInfo!,
+        cardsCreatedCount: [
+          {
+            chainId: String(chainId ? chainId : DEFAULT_CHAIN.chainId),
+            count:
+              (userInfo?.cardsCreatedCount.find(
+                (item) => item.chainId == String(chainId ? chainId : DEFAULT_CHAIN.chainId)
+              )?.count ?? 0) + 1,
+          },
+        ],
+      });
+
       // then call the blockchain fn with the temptoken
       const { tempToken } = resp;
       const contract = new Contract(

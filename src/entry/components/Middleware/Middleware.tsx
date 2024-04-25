@@ -54,13 +54,14 @@ const Middleware = ({ children }: { children: React.JSX.Element }) => {
 
   useEffect(() => {
     (function () {
-      if (!isWalletConnected) return;
+      if (isMounting || !isWalletConnected) return;
+
       if (!isLoggedIn && !UNPROTECTED_ROUTES.includes(location.pathname)) {
         setModalBody(<SIWE />);
         openModal();
       }
     })();
-  }, [isWalletConnected, isLoggedIn, location]);
+  }, [isWalletConnected, isLoggedIn, location, isMounting]);
 
   useEffect(() => {
     (function () {
