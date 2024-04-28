@@ -4,6 +4,7 @@ import {
   Features,
   Hero,
   HowItWorks,
+  Metrics,
   Sponsors,
   Stats,
   Subscribe,
@@ -18,6 +19,7 @@ const Home = () => {
       <HowItWorks />
       <WhatWeOffer />
       <Features />
+      <Metrics />
       <Stats />
       <About />
       <FAQs />

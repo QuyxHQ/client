@@ -3,6 +3,7 @@ export { default as FAQs } from "./FAQs";
 export { default as Features } from "./Features";
 export { default as Hero } from "./Hero";
 export { default as HowItWorks } from "./HowItWorks";
+export { default as Metrics } from "./Metrics";
 export { default as Sponsors } from "./Sponsors";
 export { default as Stats } from "./Stats";
 export { default as Subscribe } from "./Subscribe";

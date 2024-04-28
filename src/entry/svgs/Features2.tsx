@@ -2,8 +2,8 @@ const Features2 = ({ width, height, className }: Omit<IconProps, "fill">) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={width || "330"}
-      height={height || "323"}
+      width={width || "230"}
+      height={height || "230"}
       className={className}
       fill="none"
       viewBox="0 0 330 323"

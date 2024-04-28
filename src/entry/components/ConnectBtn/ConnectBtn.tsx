@@ -1,11 +1,13 @@
 import { useTonConnectModal } from "@tonconnect/ui-react";
+import { TonIcon } from "..";
 
 const ConnectBtn = () => {
   const { open } = useTonConnectModal();
 
   return (
     <button className="gradient-border" onClick={open}>
-      Connect wallet
+      <TonIcon size={18} />
+      <span style={{ fontWeight: 500 }}>Connect</span>
     </button>
   );
 };

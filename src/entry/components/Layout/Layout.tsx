@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { ConnectBtn, DefaultNavbar, Footer, Navbar } from "..";
+import { ConnectBtn, DefaultNavbar, Footer } from "..";
 import { UNPROTECTED_ROUTES } from "../../../utils/constants";
 import useTonConnect from "../../hooks/useTonConnect";
 import { CHAIN } from "@tonconnect/sdk";
@@ -12,19 +12,17 @@ const Layout = ({ children }: { children: React.JSX.Element }) => {
     <>
       {connected && network && network == CHAIN.TESTNET ? (
         <div className="top-nav">
-          <p>Howdy! You are currently on the testnet</p>
+          <p>
+            <i className="h h-alert-triangle" />
+            <span>
+              <strong>Heads up!</strong>
+              <span>You are currently on the testnet</span>
+            </span>
+          </p>
         </div>
       ) : null}
 
-      {location.pathname == "/" ||
-      location.pathname == "/about" ||
-      location.pathname == "/team" ||
-      location.pathname == "/pricing" ||
-      (!connected && UNPROTECTED_ROUTES.includes(location.pathname)) ? (
-        <DefaultNavbar />
-      ) : (
-        <Navbar />
-      )}
+      <DefaultNavbar />
 
       {!connected && !UNPROTECTED_ROUTES.includes(location.pathname) ? (
         <div className="container">
