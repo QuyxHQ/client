@@ -1,6 +1,6 @@
 import { Layout } from "..";
 
-const Middleware = ({ children }: { children: React.JSX.Element }) => {
+const Middleware = ({ children }: { children: React.ReactNode }) => {
   return <Layout children={children} />;
 };
 

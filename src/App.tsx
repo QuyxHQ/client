@@ -1,10 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   CardDetails,
-  Dashboard,
-  EditCard,
+  User,
   Home,
-  Marketplace,
+  Market,
   Middleware,
   Modal,
   NewCard,
@@ -23,16 +22,12 @@ const App = () => {
       errorElement: <NotFound />,
     },
     {
-      path: "/dashboard",
-      element: <Middleware children={<Dashboard />} />,
+      path: "/user/:address",
+      element: <Middleware children={<User />} />,
     },
     {
-      path: "/marketplace",
-      element: <Middleware children={<Marketplace />} />,
-    },
-    {
-      path: "/edit-card/:card",
-      element: <Middleware children={<EditCard />} />,
+      path: "/market",
+      element: <Middleware children={<Market />} />,
     },
     {
       path: "/card/:card",

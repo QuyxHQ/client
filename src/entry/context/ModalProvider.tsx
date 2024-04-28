@@ -19,7 +19,7 @@ const ModalContext = createContext<ModalContextProps>({
 
 export const useModal = () => useContext(ModalContext);
 
-const ModalProvider = ({ children }: { children: React.JSX.Element }) => {
+const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   const [canCloseModal, setCanCloseModal] = useState<boolean>(true);
   const [displayModal, setDisplayModal] = useState<boolean>(false);
   const [modalBody, setModalBody] = useState<React.JSX.Element>();
