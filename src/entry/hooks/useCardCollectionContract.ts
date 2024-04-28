@@ -1,5 +1,5 @@
 import { address } from "@ton/core";
-import { CNftCollection } from "../../wrappers/CNftCollection";
+import { CNftCollection } from "../../contract/wrappers/CNftCollection";
 import useAsyncInitialize from "./useAsyncInitialize";
 import useTonClient from "./useTonClient";
 import useTonConnect from "./useTonConnect";

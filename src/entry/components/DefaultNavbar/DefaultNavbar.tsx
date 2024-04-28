@@ -22,6 +22,11 @@ const DefaultNavbar = () => {
       to: "/marketplace",
     },
     {
+      title: "Mint Card",
+      icon: "plus",
+      to: "/mint",
+    },
+    {
       title: "Settings",
       icon: "settings",
       to: "/settings",
@@ -88,6 +93,7 @@ const DefaultNavbar = () => {
                         className={
                           location.pathname == "/favorites" ||
                           location.pathname == "/settings" ||
+                          location.pathname == "/mint" ||
                           location.pathname == `/user/${address}`
                             ? "active"
                             : ""
@@ -185,6 +191,7 @@ const DefaultNavbar = () => {
                 className={
                   location.pathname == "/favorites" ||
                   location.pathname == "/settings" ||
+                  location.pathname == "/mint" ||
                   location.pathname == `/user/${address}`
                     ? "active"
                     : ""

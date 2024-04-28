@@ -1,5 +1,5 @@
-const Marketplace = () => {
-  return <div>Marketplace</div>;
+const Market = () => {
+  return <div>Market</div>;
 };
 
-export default Marketplace;
+export default Market;

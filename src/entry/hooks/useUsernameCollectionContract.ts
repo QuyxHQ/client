@@ -4,7 +4,7 @@ import useTonClient from "./useTonClient";
 import useTonConnect from "./useTonConnect";
 import { MAINNET_ADDRESSES, TESTNET_ADDRESSES } from "../../utils/constants";
 import { CHAIN } from "@tonconnect/ui-react";
-import { UNftCollection } from "../../wrappers/UNftCollection";
+import { UNftCollection } from "../../contract/wrappers/UNftCollection";
 
 function useUsernameCollectionContract() {
   const { client } = useTonClient();

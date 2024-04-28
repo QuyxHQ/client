@@ -9,6 +9,8 @@ import {
   NewCard,
   NotFound,
   Team,
+  Settings,
+  NameDetails,
 } from "./entry";
 import { Toaster } from "react-hot-toast";
 
@@ -22,7 +24,7 @@ const App = () => {
       errorElement: <NotFound />,
     },
     {
-      path: "/user/:address",
+      path: "/user/:username",
       element: <Middleware children={<User />} />,
     },
     {
@@ -30,16 +32,24 @@ const App = () => {
       element: <Middleware children={<Market />} />,
     },
     {
-      path: "/card/:card",
+      path: "/card/:address",
       element: <Middleware children={<CardDetails />} />,
+    },
+    {
+      path: "/name/:address",
+      element: <Middleware children={<NameDetails />} />,
     },
     {
       path: "/team",
       element: <Middleware children={<Team />} />,
     },
     {
-      path: "/new-card",
+      path: "/mint",
       element: <Middleware children={<NewCard />} />,
+    },
+    {
+      path: "/settings",
+      element: <Middleware children={<Settings />} />,
     },
   ]);
 

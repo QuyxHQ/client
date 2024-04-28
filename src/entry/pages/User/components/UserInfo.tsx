@@ -32,10 +32,6 @@ const UserInfo = () => {
             </AnchorLink>
 
             <AnchorLink to="#">
-              <i className="h h-linkedin" />
-            </AnchorLink>
-
-            <AnchorLink to="#">
               <i className="h h-external-link" />
             </AnchorLink>
           </div>

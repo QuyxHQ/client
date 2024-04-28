@@ -2,7 +2,7 @@ import { Address } from "@ton/core";
 import useAsyncInitialize from "./useAsyncInitialize";
 import useTonClient from "./useTonClient";
 import useTonConnect from "./useTonConnect";
-import { CNftItem } from "../../wrappers/CNftItem";
+import { CNftItem } from "../../contract/wrappers/CNftItem";
 
 function useCardItemContract(contract_address: Address) {
   const { client } = useTonClient();
