@@ -517,14 +517,16 @@ img {
 .quyx-card .card-title {
   font-size: 1.65rem;
   font-weight: 500;
-  margin-top: 1rem;
+  margin-top: 1.2rem;
+  line-height: 150%;
+  margin-bottom: 0.2rem;
 }
 
 .quyx-card .intro {
   font-size: 0.9rem;
-  line-height: 190%;
-  color: #888;
-  font-weight: 400;
+  line-height: 220%;
+  color: #777;
+  font-weight: 300;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -542,7 +544,8 @@ img {
   background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #fff;
-  padding: 0.8rem 1.4rem;
+  padding: 0.95rem 1.45rem;
+  font-weight: 500;
 }
 
 .quyx-card .price button span.loader-span-sm {
@@ -557,7 +560,10 @@ img {
 }
 
 .quyx-card .price h4 {
-  font-size: 2.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 2.6rem;
   color: #ffd599;
   font-weight: 400;
 }
@@ -1430,6 +1436,13 @@ input[type="datetime-local"] {
   padding: 1.1rem 2rem;
   font-weight: 500;
   color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.empty-res button i {
+  font-size: 1.4rem;
 }
 
 .alert {
@@ -3149,4 +3162,240 @@ footer .bottom .socials {
 
 footer .bottom .socials i {
   font-size: 1.5rem;
+}
+
+.user-top-profile {
+  position: relative;
+  width: 100%;
+}
+
+.user-top-profile .cover {
+  position: relative;
+  inset: 0;
+  z-index: -1;
+}
+
+.user-top-profile .cover img {
+  width: 100%;
+  height: 15rem;
+  object-fit: cover;
+}
+
+.user-top-profile .cover .overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.user-top-profile .user {
+  margin-top: -3rem;
+  z-index: 1;
+  width: max-content;
+  height: max-content;
+  position: relative;
+}
+
+.user-top-profile .user img {
+  width: 8rem;
+  height: 8rem;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid #000;
+}
+
+.user-top-profile .user button {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 0.7rem;
+  border: 5px solid #000;
+  background-color: #444;
+  color: #ffff;
+}
+
+.user-top-profile .user button i {
+  font-size: 1.3rem;
+  margin-bottom: 0;
+  display: block;
+}
+
+.user-top-profile .container {
+  position: relative;
+}
+
+.user-top-profile .edit {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 1.45rem;
+  color: #fff;
+  background-color: #222;
+  border: 1px solid #444;
+  font-weight: 500;
+}
+
+.user-top-profile .edit i {
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+
+.user-page-info h1 {
+  font-size: calc(1vw + 1.6rem);
+  font-weight: 500;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.user-page-info .addr {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #888;
+}
+
+.user-page-info .addr span {
+  border-bottom: 1px solid #888;
+  padding: 0.3rem 0.1rem;
+}
+
+.user-page-info .addr i {
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.user-page-info .socials {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.user-page-info .socials a {
+  width: 3.2rem;
+  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #222;
+}
+
+.user-page-info .socials a i {
+  font-size: 1.3rem;
+  opacity: 0.8;
+}
+
+.user-profile-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  gap: 1.5rem;
+}
+
+.user-profile-tab > div {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  justify-content: center;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  color: #888;
+  transition: 0.2s ease-in-out;
+}
+
+.user-profile-tab > div:hover {
+  color: #aaa;
+}
+
+.user-profile-tab > div i {
+  font-size: 1.5rem;
+}
+
+.user-profile-tab > div span {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.user-profile-tab > div.active {
+  border-bottom: 1px solid #fff;
+  color: #fff;
+}
+
+.username-item {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.username-item tr {
+  border-bottom: 1px solid #444;
+}
+
+.username-item th {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.username-item th,
+.username-item td {
+  padding: 0.8rem;
+  text-align: start;
+}
+
+.username-item .info {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: max-content;
+}
+
+.username-item .info img {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 10px;
+  background-color: #333;
+}
+
+.username-item .info h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.username-item a {
+  width: max-content;
+  display: block;
+}
+
+.username-item .link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.username-item .link > span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.username-item .link > span > span {
+  color: #bbb;
+}
+
+.username-item .link > span:last-child {
+  border-bottom: 1px solid dodgerblue;
+  padding: 0.2rem 0;
+  color: dodgerblue;
+}
+
+.table-responsive {
+  overflow-x: auto;
 }

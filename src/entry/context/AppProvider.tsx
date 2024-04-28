@@ -5,6 +5,7 @@ const initialState = { user: undefined };
 
 type QuyxUser = {
   token: string;
+  wallet: string;
 };
 
 type AppContextProps = {

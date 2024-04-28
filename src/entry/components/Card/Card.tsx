@@ -1,32 +1,42 @@
-import { AnchorLink } from "..";
-import { CardMetadata } from "../../../wrappers/CNftCollection";
+import { AnchorLink, TonIcon } from "..";
 
-const Card = ({
-  data,
-  className,
-}: {
-  data: CardMetadata & { address: String };
-  className?: string;
-}) => {
-  const username = data.username.beginParse().loadStringTail();
-  const pfp = data.pfp.beginParse().loadStringTail();
-  const bio = data.bio.beginParse().loadStringTail();
+type QuyxCard = {
+  name: string;
+  link: string;
+  image: string;
+  bio: string;
+};
 
+const Card = ({ data, className }: { data: QuyxCard; className?: string }) => {
   return (
     <div className={`quyx-card ${className} position-relative`}>
       <div className="h-100 main d-flex flex-column justify-content-between">
         <div className="d-flex flex-column top">
           <div className="position-relative">
-            <AnchorLink to={`/card/${data.address}`}>
-              <img src={pfp} alt={username} className="img" />
+            <AnchorLink to={data.link}>
+              <img src={data.image} alt={data.name} className="img" />
             </AnchorLink>
           </div>
 
-          <AnchorLink to={`/card/${data.address}`}>
-            <h3 className="card-title">{username}</h3>
+          <AnchorLink to={data.link}>
+            <h3 className="card-title">{data.name}</h3>
           </AnchorLink>
 
-          <p className="intro">{bio}</p>
+          <p className="intro">{data.bio}</p>
+        </div>
+
+        <div className="bottom">
+          <div className="price d-flex align-items-center justify-content-between">
+            <h4>
+              <TonIcon size={30} />
+              <span>--</span>
+            </h4>
+
+            <button className="d-flex align-items-center">
+              <span>Destroy</span>
+              <i className="h h-trash-2" />
+            </button>
+          </div>
         </div>
       </div>
     </div>

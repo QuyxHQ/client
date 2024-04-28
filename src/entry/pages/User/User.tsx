@@ -1,5 +1,13 @@
+import { Items, UserInfo, UserTop } from "./components";
+
 const User = () => {
-  return <div>User</div>;
+  return (
+    <section>
+      <UserTop />
+      <UserInfo />
+      <Items />
+    </section>
+  );
 };
 
 export default User;

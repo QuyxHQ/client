@@ -22,11 +22,6 @@ const DefaultNavbar = () => {
       to: "/marketplace",
     },
     {
-      title: "Favorites",
-      icon: "heart",
-      to: "/favorites",
-    },
-    {
       title: "Settings",
       icon: "settings",
       to: "/settings",
