@@ -77,6 +77,7 @@ const DefaultNavbar = () => {
                           item.to == location.pathname
                             ? "active"
                             : location.pathname != "/" &&
+                              location.pathname != "/team" &&
                               location.pathname != "/explore" &&
                               item.to == "/"
                             ? "active"

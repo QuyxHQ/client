@@ -1,7 +1,7 @@
 import { ComingSoon } from "../..";
 
-const Market = () => {
+const Explore = () => {
   return <ComingSoon />;
 };
 
-export default Market;
+export default Explore;

@@ -3,7 +3,7 @@ import {
   CardDetails,
   User,
   Home,
-  Market,
+  Explore,
   Middleware,
   Modal,
   NewCard,
@@ -28,8 +28,8 @@ const App = () => {
       element: <Middleware children={<User />} />,
     },
     {
-      path: "/market",
-      element: <Middleware children={<Market />} />,
+      path: "/explore",
+      element: <Middleware children={<Explore />} />,
     },
     {
       path: "/card/:address",
