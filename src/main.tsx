@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
 import ModalProvider from "./entry/context/ModalProvider.tsx";
 import AppProvider from "./entry/context/AppProvider.tsx";
+import settings from "./utils/settings.ts";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } },
@@ -12,7 +13,7 @@ const queryClient = new QueryClient({
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <TonConnectUIProvider manifestUrl="http://172.20.10.3:5173/tonconnect-manifest.json">
+    <TonConnectUIProvider manifestUrl={`${settings.BASE_URL}/tonconnect-manifest.json`}>
       <QueryClientProvider client={queryClient}>
         <AppProvider>
           <ModalProvider>

@@ -6,10 +6,10 @@ const Loader = ({ col }: { col?: string }) => {
   return (
     <div className={col ? col : "col-12 col-md-6 col-lg-4"}>
       <div className="card-loader">
-        <div className="user-box d-flex align-items-center">
+        {/* <div className="user-box d-flex align-items-center">
           <div className="image skeleton" />
           <p className="skeleton" />
-        </div>
+        </div> */}
 
         <div className="image skeleton" />
         <p className="skeleton title" />

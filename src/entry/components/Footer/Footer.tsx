@@ -25,70 +25,22 @@ const Footer = () => {
 
                   <ul>
                     <li>
-                      <AnchorLink to="/marketplace">
-                        <span>Marketplace</span>
+                      <AnchorLink to="/">
+                        <span>Home</span>
                         <i className="h h-external-link" />
                       </AnchorLink>
                     </li>
-                    <li>
-                      <AnchorLink to="/claim">
-                        <span>Claim username</span>
-                        <i className="h h-external-link" />
-                      </AnchorLink>
-                    </li>
-                    <li>
-                      <AnchorLink to="/claim">
-                        <span>Send us an email</span>
-                        <i className="h h-external-link" />
-                      </AnchorLink>
-                    </li>
-                  </ul>
-                </div>
 
-                <div className="col-6 col-lg-3">
-                  <h4>Media</h4>
+                    <li>
+                      <AnchorLink to="/team">
+                        <span>The Team</span>
+                        <i className="h h-external-link" />
+                      </AnchorLink>
+                    </li>
 
-                  <ul>
                     <li>
-                      <AnchorLink to="/marketplace">
-                        <span>Marketplace</span>
-                        <i className="h h-external-link" />
-                      </AnchorLink>
-                    </li>
-                    <li>
-                      <AnchorLink to="/claim">
-                        <span>Claim username</span>
-                        <i className="h h-external-link" />
-                      </AnchorLink>
-                    </li>
-                    <li>
-                      <AnchorLink to="/claim">
-                        <span>Send us an email</span>
-                        <i className="h h-external-link" />
-                      </AnchorLink>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="col-6 col-lg-3">
-                  <h4>Ecosystem</h4>
-
-                  <ul>
-                    <li>
-                      <AnchorLink to="/marketplace">
-                        <span>Marketplace</span>
-                        <i className="h h-external-link" />
-                      </AnchorLink>
-                    </li>
-                    <li>
-                      <AnchorLink to="/claim">
-                        <span>Claim username</span>
-                        <i className="h h-external-link" />
-                      </AnchorLink>
-                    </li>
-                    <li>
-                      <AnchorLink to="/claim">
-                        <span>Send us an email</span>
+                      <AnchorLink to="/explore">
+                        <span>Explore</span>
                         <i className="h h-external-link" />
                       </AnchorLink>
                     </li>
@@ -100,20 +52,68 @@ const Footer = () => {
 
                   <ul>
                     <li>
-                      <AnchorLink to="/marketplace">
+                      <AnchorLink to="//github.com/QuyxHQ" target="_blank">
+                        <span>Github</span>
+                        <i className="h h-external-link" />
+                      </AnchorLink>
+                    </li>
+
+                    <li>
+                      <AnchorLink to="/whitepaper.pdf">
+                        <span>WHitepaper</span>
+                        <i className="h h-external-link" />
+                      </AnchorLink>
+                    </li>
+                    <li>
+                      <AnchorLink to="#" target="_blank">
+                        <span>Pitchdeck</span>
+                        <i className="h h-external-link" />
+                      </AnchorLink>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="col-6 col-lg-3">
+                  <h4>Other</h4>
+
+                  <ul>
+                    <li>
+                      <AnchorLink to="//t.me/QuyxBot?start" target="_blank">
+                        <span>Claim username</span>
+                        <i className="h h-external-link" />
+                      </AnchorLink>
+                    </li>
+
+                    <li>
+                      <AnchorLink to="//docs.quyx.xyz" target="_blank">
                         <span>Docs</span>
                         <i className="h h-external-link" />
                       </AnchorLink>
                     </li>
+
                     <li>
-                      <AnchorLink to="/claim">
-                        <span>SDKs</span>
+                      <AnchorLink to="mailto:support@quyx.xyz" target="_blank">
+                        <span>Reach out</span>
                         <i className="h h-external-link" />
                       </AnchorLink>
                     </li>
+                  </ul>
+                </div>
+
+                <div className="col-6 col-lg-3">
+                  <h4>Press</h4>
+
+                  <ul>
                     <li>
-                      <AnchorLink to="/claim">
-                        <span>Whitepaper</span>
+                      <AnchorLink to="//blog.quyx.xyz" target="_blank">
+                        <span>Blog</span>
+                        <i className="h h-external-link" />
+                      </AnchorLink>
+                    </li>
+
+                    <li>
+                      <AnchorLink to="//media.quyx.xyz" target="_blank">
+                        <span>Multimedia</span>
                         <i className="h h-external-link" />
                       </AnchorLink>
                     </li>
@@ -135,15 +135,15 @@ const Footer = () => {
             </div>
 
             <div className="socials d-flex align-items-center">
-              <a href="#" target="_blank">
+              <a href="https://twitter.com/quyxHQ" target="_blank">
                 <i className="h h-twitter" />
               </a>
 
-              <a href="#" target="_blank">
+              <a href="https://github.com/QuyxHQ" target="_blank">
                 <i className="h h-github" />
               </a>
 
-              <a href="#" target="_blank">
+              <a href="https://t.me/QuyxBot?start" target="_blank">
                 <i className="h h-send" />
               </a>
 

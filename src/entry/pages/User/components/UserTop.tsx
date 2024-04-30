@@ -1,8 +1,11 @@
+import { Address } from "ton-core";
 import { AnchorLink } from "../../..";
 import useTonConnect from "../../../hooks/useTonConnect";
 
-const UserTop = () => {
-  const { connected } = useTonConnect();
+const UserTop = ({ user }: { user: QuyxUser }) => {
+  const { connected, address } = useTonConnect();
+
+  const isUser = address == Address.parse(user.address).toString();
 
   return (
     <div className="user-top-profile mb-3">
@@ -13,9 +16,9 @@ const UserTop = () => {
 
       <div className="container">
         <div className="user">
-          <img src="/images/default-user.png" alt="user" />
+          <img src={user.pfp ? user.pfp : "/images/default-user.png"} alt={user.username} />
 
-          {connected ? (
+          {connected && isUser ? (
             <AnchorLink to="/settings">
               <button>
                 <i className="h h-camera" />
@@ -24,7 +27,7 @@ const UserTop = () => {
           ) : null}
         </div>
 
-        {connected ? (
+        {connected && isUser ? (
           <AnchorLink to="/settings">
             <button className="edit">
               <span>Edit Profile</span>

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { ProfileCardsList } from ".";
 import UsernameList from "./UsernameList";
+import { Address } from "ton-core";
 
-const Items = () => {
+const Items = ({ address }: { address: Address }) => {
   const [selectedTab, setSelectedTab] = useState<0 | 1>(0);
 
   return (
@@ -28,7 +29,7 @@ const Items = () => {
           </div>
 
           <div className={selectedTab == 1 ? "d-block" : "d-none"}>
-            <ProfileCardsList />
+            <ProfileCardsList address={address} />
           </div>
         </div>
       </div>

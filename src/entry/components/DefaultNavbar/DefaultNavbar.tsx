@@ -73,7 +73,15 @@ const DefaultNavbar = () => {
                   {main_navigation.map((item, index) => (
                     <li key={`navigation-item-${index}`}>
                       <AnchorLink
-                        className={item.to == location.pathname ? "active" : ""}
+                        className={
+                          item.to == location.pathname
+                            ? "active"
+                            : location.pathname != "/" &&
+                              location.pathname != "/explore" &&
+                              item.to == "/"
+                            ? "active"
+                            : ""
+                        }
                         to={item.to}
                         target={item.target}
                       >

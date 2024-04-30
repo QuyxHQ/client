@@ -1,6 +1,6 @@
-import { address } from "@ton/core";
-import { EmptyIcon, AnchorLink, VerifiedIcon } from "../../..";
-import { truncateAddress } from "../../../../utils/helper";
+// import { address } from "@ton/core";
+import { EmptyIcon, AnchorLink } from "../../..";
+// import { truncateAddress } from "../../../../utils/helper";
 
 const UsernameList = () => {
   return (
