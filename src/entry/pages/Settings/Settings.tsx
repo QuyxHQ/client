@@ -1,13 +1,33 @@
-import { useRef, useState } from "react";
-import { copyToClipboard } from "../../../utils/helper";
-import useTonConnect from "../../hooks/useTonConnect";
+import { useEffect, useRef, useState } from "react";
+import { useAppContext } from "../../context/AppProvider";
+import { apiSdk } from "../../../utils/api.utils";
+import { isURL } from "../../../utils/helper";
 
 const Settings = () => {
-  const { address } = useTonConnect();
+  const { user, update } = useAppContext();
 
   const [pfp, setPfp] = useState<string>("");
   const [username, setUsername] = useState<string>("");
+  const [bio, setBio] = useState<string>("");
+  const [twitterLink, setTwitterLink] = useState<string>("");
+  const [youtubeLink, setYoutubeLink] = useState<string>("");
+  const [instagramLink, setInstagramLink] = useState<string>("");
+  const [otherLink, setOtherLink] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    (async function () {
+      if (!user) return;
+
+      setPfp(user.pfp || "");
+      setUsername(user.username);
+      setBio(user.bio || "");
+      setTwitterLink(user.twitterLink || "");
+      setYoutubeLink(user.youtubeLink || "");
+      setInstagramLink(user.instagramLink || "");
+      setOtherLink(user.otherLink || "");
+    })();
+  }, [user]);
 
   const fileRef = useRef<any>();
 
@@ -20,11 +40,32 @@ const Settings = () => {
     reader.readAsDataURL(file);
   }
 
-  async function editInfo() {
+  async function editProfile(e: any) {
+    e.preventDefault();
     if (isLoading) return;
+
     setIsLoading(true);
 
-    setTimeout(() => setIsLoading(false), 3000);
+    let currentPfp = pfp;
+    if (currentPfp && !isURL(currentPfp)) {
+      // upload it...
+      const resp = await apiSdk.uploadImage(currentPfp.split(",")[1]);
+      if (!resp) return;
+      currentPfp = resp;
+    }
+
+    const user = await apiSdk.edit({
+      pfp: currentPfp.length == 0 ? null : currentPfp,
+      bio,
+      instagramLink,
+      otherLink,
+      twitterLink,
+      username,
+      youtubeLink,
+    });
+
+    if (user) update(user as QuyxUser);
+    setIsLoading(false);
   }
 
   return (
@@ -37,7 +78,12 @@ const Settings = () => {
                 <h1 className="page-title">Settings</h1>
               </div>
 
-              <div className="col-12 col-sm-11 col-lg-9 col-xl-8">
+              <form
+                className="col-12 col-sm-11 col-lg-9 col-xl-8"
+                action="#"
+                method="post"
+                onSubmit={editProfile}
+              >
                 <div className="row flex-row-reverse g-4">
                   <div className="col-12 col-md-4">
                     <div className="position-relative settings-image">
@@ -69,6 +115,8 @@ const Settings = () => {
                           type="text"
                           name="username"
                           id="username"
+                          value={username}
+                          onChange={(e) => setUsername(e.target.value)}
                           required
                           placeholder="Enter username"
                         />
@@ -79,16 +127,24 @@ const Settings = () => {
                         <textarea
                           name="bio"
                           id="bio"
-                          required
+                          value={bio}
+                          onChange={(e) => setBio(e.target.value)}
                           placeholder="A short detail about yourself :-)"
                           rows={4}
                         />
                       </div>
 
                       <div className="form-group">
-                        <label htmlFor="address">Twitter Link</label>
+                        <label htmlFor="twitterLink">Twitter Link</label>
                         <div className="copy position-relative">
-                          <input type="text" name="address" placeholder="https://twitter.com/" />
+                          <input
+                            type="text"
+                            id="twitterLink"
+                            name="twitterLink"
+                            placeholder="https://twitter.com/"
+                            value={twitterLink}
+                            onChange={(e) => setTwitterLink(e.target.value)}
+                          />
 
                           <div className="copy-box position-absolute">
                             <i className="h h-twitter" />
@@ -97,9 +153,16 @@ const Settings = () => {
                       </div>
 
                       <div className="form-group">
-                        <label htmlFor="address">Youtube Link</label>
+                        <label htmlFor="youtubeLink">Youtube Link</label>
                         <div className="copy position-relative">
-                          <input type="text" name="address" placeholder="https://youtube.com/" />
+                          <input
+                            type="text"
+                            id="youtubeLink"
+                            name="youtubeLink"
+                            placeholder="https://youtube.com/"
+                            value={youtubeLink}
+                            onChange={(e) => setYoutubeLink(e.target.value)}
+                          />
 
                           <div className="copy-box position-absolute">
                             <i className="h h-youtube" />
@@ -108,9 +171,16 @@ const Settings = () => {
                       </div>
 
                       <div className="form-group">
-                        <label htmlFor="address">Instagram Link</label>
+                        <label htmlFor="instagramLink">Instagram Link</label>
                         <div className="copy position-relative">
-                          <input type="text" name="address" placeholder="https://instagram.com/" />
+                          <input
+                            type="text"
+                            id="instagramLink"
+                            name="instagramLink"
+                            placeholder="https://instagram.com/"
+                            value={instagramLink}
+                            onChange={(e) => setInstagramLink(e.target.value)}
+                          />
 
                           <div className="copy-box position-absolute">
                             <i className="h h-instagram" />
@@ -119,9 +189,16 @@ const Settings = () => {
                       </div>
 
                       <div className="form-group">
-                        <label htmlFor="address">Other Link</label>
+                        <label htmlFor="otherLink">Other Link</label>
                         <div className="copy position-relative">
-                          <input type="text" name="address" placeholder="Any link" />
+                          <input
+                            type="text"
+                            id="otherLink"
+                            name="otherLink"
+                            placeholder="Any link"
+                            value={otherLink}
+                            onChange={(e) => setOtherLink(e.target.value)}
+                          />
 
                           <div className="copy-box position-absolute">
                             <i className="h h-external-link" />
@@ -143,14 +220,20 @@ const Settings = () => {
                       </div>
 
                       <div className="form-group">
-                        <button className="gradient-border" disabled={isLoading} onClick={editInfo}>
-                          {isLoading ? "Processing..." : "Save"}
+                        <button className="gradient-border" disabled={isLoading} type="submit">
+                          {isLoading ? (
+                            <div className="px-3">
+                              <span className="loader-span-sm" />
+                            </div>
+                          ) : (
+                            <div className="px-2">Save</div>
+                          )}
                         </button>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>

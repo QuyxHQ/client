@@ -60,6 +60,16 @@ class ApiSdk {
     return new ApiSdk(token || undefined);
   }
 
+  async uploadImage(image: string) {
+    const instance = await this.getInstance();
+    const { data, error } = await instance.apiHttpClient
+      .getInstanceWithoutAuth()
+      .post("/image/upload", { image });
+
+    if (error) return null;
+    return data.uri as string | null;
+  }
+
   async generateToken() {
     const instance = await this.getInstance();
     const { data, error } = await instance.apiHttpClient
@@ -119,7 +129,7 @@ class ApiSdk {
     return true;
   }
 
-  async edit(input: Omit<QuyxUser, "_id" | "createdAt" | "updatedAt" | "address">) {
+  async edit(input: Omit<QuyxUser, "_id" | "createdAt" | "updatedAt" | "address" | "hasBlueTick">) {
     const instance = await this.getInstance();
     const { data, error } = await instance.apiHttpClient.getInstance().put("/user", { ...input });
 
@@ -131,6 +141,11 @@ class ApiSdk {
 
       return false;
     }
+
+    customToast({
+      type: TOAST_STATUS.SUCCESS,
+      message: "Profile info updated successfully!",
+    });
 
     return input;
   }

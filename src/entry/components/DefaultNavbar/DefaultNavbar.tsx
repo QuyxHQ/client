@@ -93,10 +93,7 @@ const DefaultNavbar = () => {
                         />
 
                         <div className="position-absolute nav-navigate">
-                          <AnchorLink
-                            className="top-shi"
-                            to={`/user/${user ? Address.parse(user.address).toString() : ""}`}
-                          >
+                          <AnchorLink className="top-shi" to={`/user/${user ? user.username : ""}`}>
                             <div>
                               <h2>
                                 {truncateAddress({
