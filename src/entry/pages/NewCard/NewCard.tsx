@@ -6,11 +6,11 @@ import { UploadMedia } from "../..";
 const NewCard = () => {
   const { displayModal, openModal, closeModal, setModalBody } = useModal();
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, __] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
   const [bio, setBio] = useState<string>("");
   const [pfp, setPfp] = useState<string>("");
-  const [loadingText, setLoadingText] = useState<string>("Processing");
+  const [loadingText, _] = useState<string>("Processing");
 
   const navigate = useNavigate();
 
