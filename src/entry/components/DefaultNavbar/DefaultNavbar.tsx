@@ -1,60 +1,55 @@
 import { useEffect, useState } from "react";
 import { AnchorLink, ConnectBtn, GradientLogo, Logo, MenuIcon } from "..";
 import { useLocation, useNavigate } from "react-router-dom";
-import useTonConnect from "../../hooks/useTonConnect";
+import { useAppContext } from "../../context/AppProvider";
+import { apiSdk } from "../../../utils/api.utils";
+import { Address } from "@ton/core";
+import { truncateAddress } from "../../../utils/helper";
+import useTonClient from "../../hooks/useTonClient";
 
 const DefaultNavbar = () => {
   const [displayNavbar, setDisplayNavbar] = useState<boolean>(false);
-  const { connected, address } = useTonConnect();
+  const [isLogoutLoading, setIsLogoutLoading] = useState<boolean>(false);
+  const [balance, setBalance] = useState<string>();
+
+  const { logout, user, isConnected: connected } = useAppContext();
+  const { client } = useTonClient();
+
+  useEffect(() => {
+    (async function () {
+      if (!client || !user) return;
+
+      const balance = await client.getBalance(Address.parse(user.address));
+      setBalance(parseFloat((Number(balance) / 1_000_000_000).toFixed(2)).toLocaleString());
+    })();
+  }, [client, user]);
+
   const navigate = useNavigate();
   const location = useLocation();
-  const [isLogoutLoading, setIsLogoutLoading] = useState<boolean>(false);
 
-  async function logout() {
+  async function doLogout() {
     setIsLogoutLoading(true);
-    setTimeout(() => setIsLogoutLoading(false), 2000);
+    await apiSdk.logout();
+    logout();
+
+    setIsLogoutLoading(false);
   }
 
   const navigation = [
-    {
-      title: "Claim username",
-      icon: "cast",
-      to: "/marketplace",
-    },
-    {
-      title: "Mint Card",
-      icon: "plus",
-      to: "/mint",
-    },
-    {
-      title: "Settings",
-      icon: "settings",
-      to: "/settings",
-    },
-    {
-      isDivider: true,
-    },
-    {
-      title: "Docs",
-      icon: "file",
-      to: "//docs.quyx.xyz",
-      target: "_blank",
-    },
-    {
-      title: "Help center",
-      icon: "help-circle",
-      to: "mailto:support@quyx.xyz",
-      target: "_blank",
-    },
-    {
-      isDivider: true,
-    },
+    { title: "Claim username", icon: "cast", to: "//t.me/QuyxBot?start", target: "_blank" },
+    { title: "Mint Card", icon: "plus", to: "/mint" },
+    { title: "Settings", icon: "settings", to: "/settings" },
+    { isDivider: true },
+    { title: "Docs", icon: "file", to: "//docs.quyx.xyz", target: "_blank" },
+    { title: "Help center", icon: "help-circle", to: "mailto:support@quyx.xyz", target: "_blank" },
+    { isDivider: true },
   ];
 
   const main_navigation = [
     { title: "Home", to: "/" },
     { title: "Team", to: "/team" },
-    { title: "Market", to: "/market", target: "" },
+    { title: "Explore", to: "/explore" },
+    { title: "Whitepaper", to: "/whitepaper.pdf", target: "_blank" },
   ];
 
   useEffect(() => setDisplayNavbar(false), [navigate]);
@@ -69,12 +64,12 @@ const DefaultNavbar = () => {
         <div className="container-fluid container-xl">
           <div className="row">
             <div className="col-12">
-              <div className="d-flex align-items-center justify-content-between px-2">
+              <div className="d-flex align-items-center justify-content-between px-2 xxy">
                 <AnchorLink to="/" className="pt-1">
                   <GradientLogo height={33} width={98} />
                 </AnchorLink>
 
-                <ul className="d-none d-md-flex align-items-center main-nav">
+                <ul className="d-none d-lg-flex align-items-center main-nav">
                   {main_navigation.map((item, index) => (
                     <li key={`navigation-item-${index}`}>
                       <AnchorLink
@@ -86,33 +81,32 @@ const DefaultNavbar = () => {
                       </AnchorLink>
                     </li>
                   ))}
-
-                  {!connected ? null : (
-                    <li>
-                      <AnchorLink
-                        className={
-                          location.pathname == "/favorites" ||
-                          location.pathname == "/settings" ||
-                          location.pathname == "/mint" ||
-                          location.pathname == `/user/${address}`
-                            ? "active"
-                            : ""
-                        }
-                        to={`/user/${address}`}
-                      >
-                        Profile
-                      </AnchorLink>
-                    </li>
-                  )}
                 </ul>
 
                 <div className="d-flex align-items-center" style={{ gap: "1.5rem" }}>
                   {connected ? (
                     <div className="user d-flex align-items-center">
                       <div className="position-relative">
-                        <img src={"/images/default-user.png"} alt={"Morick"} />
+                        <img
+                          src={user?.pfp ? user.pfp : "/images/default-user.png"}
+                          alt={user?.username}
+                        />
 
                         <div className="position-absolute nav-navigate">
+                          <AnchorLink
+                            className="top-shi"
+                            to={`/user/${user ? Address.parse(user.address).toString() : ""}`}
+                          >
+                            <div>
+                              <h2>
+                                {truncateAddress({
+                                  address: user ? Address.parse(user.address).toString() : "",
+                                })}
+                              </h2>
+                              <p>Go to dashboard</p>
+                            </div>
+                          </AnchorLink>
+
                           <ul>
                             {navigation.map((item, index) =>
                               item.isDivider ? (
@@ -128,7 +122,7 @@ const DefaultNavbar = () => {
                             )}
 
                             <li>
-                              <a onClick={() => logout()}>
+                              <a onClick={doLogout}>
                                 {isLogoutLoading ? (
                                   <span className="loader-span-sm"></span>
                                 ) : (
@@ -141,7 +135,7 @@ const DefaultNavbar = () => {
                           </ul>
                         </div>
 
-                        <span>0.02 TON</span>
+                        <span>{balance ? balance : "-.--"} TON</span>
                       </div>
                     </div>
                   ) : (
@@ -149,7 +143,7 @@ const DefaultNavbar = () => {
                   )}
 
                   <div
-                    className="d-block d-md-none menu pointer"
+                    className="d-block d-lg-none menu pointer"
                     onClick={() => setDisplayNavbar(true)}
                   >
                     <MenuIcon />
@@ -161,7 +155,7 @@ const DefaultNavbar = () => {
         </div>
       </nav>
 
-      <div className={`mobile-navbar ${displayNavbar ? "d-flex" : "d-none"} d-md-none`}>
+      <div className={`mobile-navbar ${displayNavbar ? "d-flex" : "d-none"} d-lg-none`}>
         <div className="close" onClick={() => setDisplayNavbar(false)}>
           <i className="h h-x" />
         </div>
@@ -184,24 +178,6 @@ const DefaultNavbar = () => {
               </AnchorLink>
             </li>
           ))}
-
-          {!connected ? null : (
-            <li>
-              <AnchorLink
-                className={
-                  location.pathname == "/favorites" ||
-                  location.pathname == "/settings" ||
-                  location.pathname == "/mint" ||
-                  location.pathname == `/user/${address}`
-                    ? "active"
-                    : ""
-                }
-                to={`/user/${address}`}
-              >
-                Profile
-              </AnchorLink>
-            </li>
-          )}
         </ul>
       </div>
     </>

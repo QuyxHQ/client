@@ -1,5 +1,7 @@
+import { ComingSoon } from "../..";
+
 const NameDetails = () => {
-  return <div>NameDetails</div>;
+  return <ComingSoon />;
 };
 
 export default NameDetails;

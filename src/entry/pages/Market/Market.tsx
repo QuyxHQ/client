@@ -1,5 +1,7 @@
+import { ComingSoon } from "../..";
+
 const Market = () => {
-  return <div>Market</div>;
+  return <ComingSoon />;
 };
 
 export default Market;

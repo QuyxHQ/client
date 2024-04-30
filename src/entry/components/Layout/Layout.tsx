@@ -1,9 +1,11 @@
 import { DefaultNavbar, Footer } from "..";
+import { useAppContext } from "../../context/AppProvider";
 import useTonConnect from "../../hooks/useTonConnect";
 import { CHAIN } from "@tonconnect/sdk";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const { connected, network } = useTonConnect();
+  const { network } = useTonConnect();
+  const { isConnected: connected } = useAppContext();
 
   return (
     <>

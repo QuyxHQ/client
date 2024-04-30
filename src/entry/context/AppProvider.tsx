@@ -1,25 +1,28 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer, useState } from "react";
 import { createAsyncLocalStorage } from "../../utils/asyncLocalStorage";
+import { apiSdk } from "../../utils/api.utils";
+import useTonConnect from "../hooks/useTonConnect";
 
 const initialState = { user: undefined };
 
-type QuyxUser = {
-  token: string;
-  wallet: string;
-};
-
 type AppContextProps = {
+  isMounting: boolean;
+  isConnected: boolean;
   user?: QuyxUser;
-  login: (user: QuyxUser) => Promise<void>;
-  logout: () => Promise<void>;
+  login: (user: QuyxUser) => void;
+  update: (user: QuyxUser) => void;
+  logout: () => void;
 };
 
 const AppContext = createContext<AppContextProps>({
-  async login() {},
-  async logout() {},
+  isMounting: true,
+  isConnected: false,
+  login() {},
+  update() {},
+  logout() {},
 });
 
-function appReducer(state: any, action: { type: string; payload?: QuyxUser }) {
+function appReducer(state: any, action: { type: string; payload?: any }) {
   switch (action.type) {
     case "LOGIN":
       return {
@@ -31,6 +34,15 @@ function appReducer(state: any, action: { type: string; payload?: QuyxUser }) {
       return {
         ...state,
         user: null,
+      };
+
+    case "UPDATE":
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.payload,
+        },
       };
 
     default:
@@ -47,20 +59,57 @@ export function useAppContext() {
 
 function AppProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(appReducer, initialState);
+  const [isMounting, setIsMounting] = useState<boolean>(true);
+  const [isConnected, setIsConnected] = useState<boolean>(true);
+
+  const { connected } = useTonConnect();
+
+  useEffect(() => {
+    if (connected) setIsConnected(true);
+    else setIsConnected(false);
+  }, [connected]);
+
   const appStorage = createAsyncLocalStorage("app");
 
-  const login = async (user: QuyxUser) => {
-    await appStorage.setItem("token", user.token); // login
-    dispatch({ type: "LOGIN", payload: user });
-  };
+  useEffect(() => {
+    (async function () {
+      let token = await appStorage.getItem("token");
+      if (!token) {
+        setIsMounting(false);
+        return;
+      }
 
-  const logout = async () => {
-    await appStorage.removeItem("token"); // remove token from localstorage
+      const user = await apiSdk.whoami();
+      if (user) dispatch({ type: "LOGIN", payload: user });
+      setIsMounting(false);
+      return;
+    })();
+  }, []);
+
+  function login(user: QuyxUser) {
+    dispatch({ type: "LOGIN", payload: user });
+  }
+
+  function update(user: Partial<QuyxUser>) {
+    dispatch({ type: "UPDATE", payload: user });
+  }
+
+  function logout() {
     dispatch({ type: "LOGOUT" });
-  };
+    setIsConnected(false);
+  }
 
   return (
-    <AppContext.Provider value={{ user: state.user, login, logout }}>
+    <AppContext.Provider
+      value={{
+        user: state.user,
+        isMounting,
+        isConnected,
+        login,
+        update,
+        logout,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

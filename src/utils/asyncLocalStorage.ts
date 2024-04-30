@@ -2,6 +2,7 @@ export interface AsyncStorage {
   getItem(key: string): Promise<string | null>;
   setItem(key: string, value: string): Promise<void>;
   removeItem(key: string): Promise<void>;
+  clear(): Promise<void>;
 }
 
 const PREFIX = `__/QUYX`;
@@ -35,6 +36,12 @@ export class AsyncLocalStorage implements AsyncStorage {
   removeItem(key: string): Promise<void> {
     return new Promise((resolve) => {
       resolve(localStorage.removeItem(`${PREFIX}/${this.name}/${key}`));
+    });
+  }
+
+  clear(): Promise<void> {
+    return new Promise((resolve) => {
+      resolve(localStorage.clear());
     });
   }
 }

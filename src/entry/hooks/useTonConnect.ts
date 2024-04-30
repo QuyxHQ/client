@@ -1,6 +1,8 @@
 import { CHAIN, THEME, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 import { Sender, SenderArguments, address } from "@ton/core";
 import { useEffect } from "react";
+import { apiSdk } from "../../utils/api.utils";
+import { useAppContext } from "../context/AppProvider";
 
 type TonConnect = {
   sender: Sender;
@@ -13,25 +15,27 @@ type TonConnect = {
 function useTonConnect(): TonConnect {
   const [tonConnectUI] = useTonConnectUI();
   const wallet = useTonWallet();
+  const { login } = useAppContext();
 
   useEffect(() => {
     tonConnectUI.uiOptions = { uiPreferences: { theme: THEME.DARK } };
     tonConnectUI.setConnectRequestParameters({ state: "loading" });
 
-    setTimeout(() => {
-      tonConnectUI.setConnectRequestParameters({
-        state: "ready",
-        value: { tonProof: "test payload hahahaha" },
-      });
-    }, 2000);
+    (async function () {
+      const token = await apiSdk.generateToken();
+      if (!token) tonConnectUI.setConnectRequestParameters(null);
+      else {
+        tonConnectUI.setConnectRequestParameters({
+          state: "ready",
+          value: { tonProof: token },
+        });
+      }
+    })();
 
-    tonConnectUI.onStatusChange((wallet) => {
-      console.log(wallet);
-
+    tonConnectUI.onStatusChange(async (wallet) => {
       if (wallet && wallet.connectItems?.tonProof && "proof" in wallet.connectItems.tonProof) {
-        // checkProofInYourBackend(wallet.connectItems.tonProof.proof, wallet.account);
-        console.log("Proof:", wallet.connectItems.tonProof.proof);
-        console.log(wallet.account);
+        const user = await apiSdk.login(wallet);
+        if (user) login(user);
       }
     });
   }, []);

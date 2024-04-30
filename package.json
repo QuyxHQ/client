@@ -26,6 +26,7 @@
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "6.16",
     "ton": "^13.9.0",
+    "ton-core": "^0.53.0",
     "ton-crypto": "^3.2.0"
   },
   "devDependencies": {

@@ -1,6 +1,7 @@
 export { default as AnchorLink } from "./AnchorLink";
 export { default as Card } from "./Card";
 export { default as CardLoader } from "./CardLoader";
+export { default as ComingSoon } from "./ComingSoon";
 export { default as ConnectBtn } from "./ConnectBtn";
 export { default as DefaultNavbar } from "./DefaultNavbar";
 export { default as EmptyIcon } from "./icons/EmptyIcon";
