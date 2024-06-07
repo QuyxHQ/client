@@ -15,8 +15,8 @@ type ModalContextProps = {
     modalBody?: React.JSX.Element;
     title?: string;
     setTitle: React.Dispatch<React.SetStateAction<string | undefined>>;
-    closeModal: () => void;
-    openModal: () => void;
+    closeModal: (callback?: any) => void;
+    openModal: (canClose?: boolean) => void;
     setModalBody: React.Dispatch<React.SetStateAction<React.JSX.Element | undefined>>;
 };
 

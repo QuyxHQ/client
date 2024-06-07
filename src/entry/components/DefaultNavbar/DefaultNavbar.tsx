@@ -24,7 +24,7 @@ const DefaultNavbar = () => {
             if (!client || !user) return;
 
             const balance = await client.getBalance(Address.parse(user.address));
-            setBalance(fromNano(balance));
+            setBalance(Number(fromNano(balance)).toFixed(2));
         })();
     }, [client, user]);
 
@@ -35,10 +35,11 @@ const DefaultNavbar = () => {
         setIsLogoutLoading(true);
 
         const { session } = await useApi();
-        await session.deleteCurrentSession();
-        await tonConnectUI.disconnect();
-
-        logout();
+        const resp = await session.deleteCurrentSession();
+        if (resp) {
+            await tonConnectUI.disconnect();
+            logout();
+        }
 
         setIsLogoutLoading(false);
     }
@@ -46,7 +47,7 @@ const DefaultNavbar = () => {
     const navigation = [
         {
             title: 'Claim username',
-            icon: 'cast',
+            icon: 'user',
             to: '/claim',
         },
         {
@@ -88,8 +89,8 @@ const DefaultNavbar = () => {
             to: '/explore',
         },
         {
-            title: 'Whitepaper',
-            to: '/whitepaper.pdf',
+            title: 'Docs',
+            to: '//docs.quyx.xyz',
             target: '_blank',
         },
     ];

@@ -6,6 +6,18 @@ type truncateAddressProps = {
     prefixLength?: number;
 };
 
+export function checkUsername(username: string): string | undefined {
+    if (username.length < 4) return 'Username should have atleast 4 chars';
+    if (/^-/.test(username)) return 'Username cannot begin with a hyphen';
+    if (/-$/.test(username)) return 'Username cannot end with a hyphen';
+    if (/\s/.test(username)) return 'Username cannot have whitespace';
+    if (/[^a-zA-Z0-9-]/.test(username)) {
+        return 'Username can only contain alphanumeric characters and hyphen';
+    }
+
+    return;
+}
+
 export function truncateAddress(props: truncateAddressProps) {
     if (!props.address) return 'null';
 

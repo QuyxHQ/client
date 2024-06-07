@@ -4,7 +4,6 @@ import { useIsConnectionRestored } from '@tonconnect/ui-react';
 import useTonConnect from '../../hooks/useTonConnect';
 import useApp from '../../hooks/useApp';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import useApi from '../../hooks/useApi';
 
 const ConnectBtn = () => {
@@ -13,20 +12,11 @@ const ConnectBtn = () => {
     const { connected } = useTonConnect();
     const [tonConnectUI] = useTonConnectUI();
     const { isMounting, getUser, setIsAuthenticating, isAuthenticating, user: whoami } = useApp();
-    const navigate = useNavigate();
 
     async function connect() {
         if (connected) await tonConnectUI.disconnect();
         open();
     }
-
-    useEffect(() => {
-        if (whoami) {
-            if (whoami.tg_id == null) return navigate('/onboard/complete');
-            if (whoami.is_active == false) return navigate('/onboard/paywall');
-            return navigate('/');
-        }
-    }, [whoami]);
 
     useEffect(() => {
         tonConnectUI.uiOptions = {
@@ -66,7 +56,10 @@ const ConnectBtn = () => {
                 setIsAuthenticating(true);
 
                 const authTokens = await auth.authenticateWallet(wallet);
-                if (!authTokens) return setIsAuthenticating(false);
+                if (!authTokens) {
+                    await tonConnectUI.disconnect();
+                    return setIsAuthenticating(false);
+                }
 
                 const { accessToken, refreshToken } = authTokens;
 

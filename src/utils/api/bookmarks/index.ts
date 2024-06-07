@@ -24,7 +24,7 @@ export default class BookmarkSdk {
     }
 
     private completeBookmark(data: any) {
-        const { acknowledged, modifiedCount, deletedCount } = data;
+        const { acknowledged, modifiedCount, deletedCount } = data.data;
 
         if (acknowledged && modifiedCount && modifiedCount > 0) {
             toast({
@@ -100,7 +100,7 @@ export default class BookmarkSdk {
             return false;
         }
 
-        const { acknowledged, deletedCount } = data.data;
+        const { acknowledged, deletedCount } = data.data.data;
 
         if (acknowledged && deletedCount > 0) {
             toast({

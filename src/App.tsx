@@ -56,6 +56,10 @@ const App = () => {
             path: '/claim',
             element: <Middleware children={<ClaimUsername />} />,
         },
+        {
+            path: '/claim/:username',
+            element: <Middleware children={<ClaimUsername />} />,
+        },
     ]);
 
     return (

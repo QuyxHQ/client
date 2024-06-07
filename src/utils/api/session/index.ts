@@ -26,7 +26,8 @@ export default class SessionSdk {
             return false;
         }
 
-        const { acknowledged, modifiedCount } = data.data;
+        const { acknowledged, modifiedCount } = data.data.data;
+
         if (!acknowledged || modifiedCount == 0) {
             toast({
                 type: 'error',
@@ -51,7 +52,7 @@ export default class SessionSdk {
             return false;
         }
 
-        const { acknowledged, modifiedCount } = data.data;
+        const { acknowledged, modifiedCount } = data.data.data;
         if (!acknowledged || modifiedCount == 0) {
             toast({
                 type: 'error',
@@ -76,7 +77,7 @@ export default class SessionSdk {
             return false;
         }
 
-        const { acknowledged, modifiedCount } = data.data;
+        const { acknowledged, modifiedCount } = data.data.data;
         if (!acknowledged || modifiedCount == 0) {
             toast({
                 type: 'error',
