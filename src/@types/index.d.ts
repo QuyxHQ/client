@@ -1,92 +1,125 @@
+type AppContextProps = {
+    isMounting: boolean;
+    isAuthenticated: boolean;
+    isAuthenticating: boolean;
+    setIsAuthenticating: React.Dispatch<React.SetStateAction<boolean>>;
+    user?: TonFrensUser;
+    login: (user: TonFrensUser) => void;
+    logout: () => void;
+    getUser(params?: { access_token: string; refresh_token: string }): Promise<void>;
+};
+
+type ModalContextProps = {
+    displayModal: boolean;
+    canCloseModal: boolean;
+    modalBody?: React.JSX.Element;
+    title?: string;
+    setTitle: React.Dispatch<React.SetStateAction<string | undefined>>;
+    closeModal: () => void;
+    openModal: () => void;
+    setModalBody: React.Dispatch<React.SetStateAction<React.JSX.Element | undefined>>;
+};
+
 type IconProps = {
-  fill?: string;
-  className?: string;
-  width?: number;
-  height?: number;
+    fill?: string;
+    className?: string;
+    width?: number;
+    height?: number;
 };
 
 type AnchorLinkProps = {
-  to: string;
-  className?: string;
-  children?: React.ReactNode;
-  style?: React.CSSProperties;
-  handleClick?: () => void;
-  title?: string;
-  target?: string;
+    to: string;
+    className?: string;
+    children?: React.ReactNode;
+    style?: React.CSSProperties;
+    handleClick?: () => void;
+    title?: string;
+    target?: string;
 };
 
-type QuyxUser = {
-  _id: string;
-  username: string;
-  hasBlueTick: boolean;
-  address: string;
-  pfp: null | string;
-  bio: null | string;
-  twitterLink: null | string;
-  youtubeLink: null | string;
-  instagramLink: null | string;
-  otherLink: null | string;
-  createdAt: string;
-  updatedAt: string;
+type Session = Base & {
+    user: string;
+    device?: string | null;
+    isActive: boolean;
 };
 
-type Pagination = {
-  page: number;
-  limit: number;
-  skip: number;
-  total: number;
+type Bookmark = Base &
+    NftItem & {
+        user: string;
+        address: string;
+    };
+
+type User = Base & {
+    tg?: {
+        id?: number | null;
+        username?: string | null;
+        firstName?: string | null;
+        lastName?: string | null;
+        languageCode?: string | null;
+        photoUrl?: string | null;
+    };
+    username: string;
+    hasBlueTick: boolean;
+    address: string;
+    did: string;
+    pfp?: string | null;
+    bio?: string | null;
+    socials?: {
+        x?: string | null;
+        yt?: string | null;
+        tg?: string | null;
+        other?: string | null;
+    };
 };
 
-type NftScanResponse<T> = {
-  code: number;
-  msg?: string;
-  data: T;
+type Base = {
+    readonly _id: string;
+    createdAt: string;
+    updatedAt: string;
+    _v: number;
 };
 
-type NftScanByAccountResponse = NftScanResponse<{
-  next: string;
-  total: number;
-  content: {
-    block_number: number;
-    content_type: string;
-    content_uri: string;
-    contract_address: string;
-    contract_name: string;
-    description: string;
-    external_link: string;
-    image_url: string;
-    latest_trade_price: number;
-    latest_trade_timestamp: number;
-    latest_trade_transaction_hash: string;
-    metadata_json: string;
-    mint_price: number;
-    mint_timestamp: number;
-    mint_transaction_hash: string;
-    minter: string;
-    name: string;
-    owner: string;
-    token_address: string;
-    token_id: string;
-    token_uri: string;
-  }[];
-}>;
+type AccountAddress = {
+    address: string;
+    name?: string;
+    is_scam: boolean;
+    icon?: string;
+    is_wallet: boolean;
+};
 
-type NftScanNftTxResponse = NftScanResponse<{
-  next: string;
-  total: number;
-  content: {
-    block_number: number;
-    contract_address: string;
-    contract_name: string;
-    destination: string;
-    event_type: string;
-    fee: number;
-    hash: string;
-    nftscan_tx_id: string;
-    source: string;
-    timestamp: number;
-    token_address: string;
-    token_id: string;
-    trade_price: number;
-  }[];
-}>;
+type NftItemPrice = {
+    value: string;
+    token_name: string;
+};
+
+type NftItemSale = {
+    address: string;
+    market: AccountAddress;
+    owner?: AccountAddress;
+    price: NftItemPrice;
+};
+
+type NftItem = {
+    address: string;
+    index: number;
+    owner?: AccountAddress;
+    collection?: {
+        address: string;
+        name: string;
+        description: string;
+    };
+    verified: boolean;
+    metadata: Record<string, any>;
+    sale?: NftItemSale;
+    previews?: [{ resolution: string; url: string }];
+    dns?: string;
+    approved_by: 'getgems' | 'tonkeeper' | 'ton.diamonds';
+    include_cnft?: boolean;
+    trust: 'whitelist' | 'graylist' | 'blacklist' | 'none';
+};
+
+type Nft = NftItem & {
+    bookmarks: number;
+    isBookmarked: boolean;
+    nft_owner?: User;
+};

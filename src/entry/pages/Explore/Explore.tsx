@@ -1,7 +1,5 @@
-import { ComingSoon } from "../..";
-
 const Explore = () => {
-  return <ComingSoon />;
+    return <>Explore</>;
 };
 
 export default Explore;

@@ -1,51 +1,53 @@
-import { customToast, TOAST_STATUS } from "./toast.utils";
+import toast from './toast';
 
 type truncateAddressProps = {
-  address: string;
-  suffixLength?: number;
-  prefixLength?: number;
+    address: string;
+    suffixLength?: number;
+    prefixLength?: number;
 };
 
-export function truncateAddress({
-  address,
-  prefixLength = 5,
-  suffixLength = 4,
-}: truncateAddressProps) {
-  if (!address) return "null";
+export function truncateAddress(props: truncateAddressProps) {
+    if (!props.address) return 'null';
 
-  if (address.length <= prefixLength + suffixLength) return address;
+    if (!props.prefixLength) props.prefixLength = 5;
+    if (!props.suffixLength) props.suffixLength = 4;
 
-  const prefix = address.slice(0, prefixLength);
-  const suffix = address.slice(-suffixLength);
-  const truncated = `${prefix}....${suffix}`;
+    if (props.address.length <= props.prefixLength + props.suffixLength) return props.address;
 
-  return truncated;
+    const prefix = props.address.slice(0, props.prefixLength);
+    const suffix = props.address.slice(-props.suffixLength);
+    const truncated = `${prefix}....${suffix}`;
+
+    return truncated;
 }
 
 export function isURL(string: string) {
-  return /^(ftp|http|https):\/\/[^ "]+$/.test(string);
+    return /^(ftp|http|https):\/\/[^ "]+$/.test(string);
 }
 
 export async function copyToClipboard(text: string) {
-  if (navigator.clipboard) {
-    try {
-      await navigator.clipboard.writeText(text);
-      customToast({
-        type: TOAST_STATUS.SUCCESS,
-        message: "Copied to clipboard ✅",
-      });
-    } catch (e: any) {
-      customToast({
-        type: TOAST_STATUS.ERROR,
-        message: "Unable to copy to clipboard",
-      });
+    if (!navigator.clipboard) {
+        toast({
+            type: 'error',
+            message: 'Clipboard action not supported on device',
+        });
 
-      console.error("Unable to copy text to clipboard", e);
+        return;
     }
-  } else {
-    customToast({
-      type: TOAST_STATUS.ERROR,
-      message: "Clipboard action not supported on device",
-    });
-  }
+
+    try {
+        await navigator.clipboard.writeText(text);
+
+        toast({
+            type: 'success',
+            message: 'Copied to clipboard ✅',
+        });
+    } catch (e: any) {
+        toast({
+            type: 'error',
+            message: 'Unable to copy to clipboard',
+        });
+
+        console.error('Unable to copy text to clipboard', e);
+    }
 }
