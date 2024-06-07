@@ -1,5 +1,5 @@
 import { Address } from 'ton-core';
-import { AnchorLink, VerifiedIcon } from '../../..';
+import { VerifiedIcon } from '../../..';
 import { copyToClipboard, truncateAddress } from '../../../../utils/helper';
 
 const UserInfo = ({ user }: { user: User }) => {
