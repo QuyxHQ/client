@@ -4,9 +4,11 @@ import ApiClient from '../api.client';
 export default class UserSdk {
     constructor(private client: ApiClient) {}
 
-    async updateInformation(username: string, socials: User['socials']) {
+    async updateInformation(username: string, bio: string, pfp: string, socials: User['socials']) {
         const { error, data } = await this.client.getInstance().put('/user', {
             username,
+            bio,
+            pfp,
             socials,
         });
 
@@ -16,7 +18,7 @@ export default class UserSdk {
                 message: data.error || 'Could not update information',
             });
 
-            return;
+            return false;
         }
 
         toast({
@@ -24,7 +26,7 @@ export default class UserSdk {
             message: 'Information updated successfully!',
         });
 
-        return;
+        return true;
     }
 
     async whoami() {

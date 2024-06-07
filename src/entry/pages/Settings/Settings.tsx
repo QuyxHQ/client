@@ -1,15 +1,32 @@
 import { useEffect, useRef, useState } from 'react';
-import { isURL } from '../../../utils/helper';
+import { LoginButton } from '@telegram-auth/react';
+import { isURL, toQs } from '../../../utils/helper';
+import useApp from '../../hooks/useApp';
+import useApi from '../../hooks/useApi';
 
 const Settings = () => {
     const [pfp, setPfp] = useState<string>('');
     const [username, setUsername] = useState<string>('');
     const [bio, setBio] = useState<string>('');
-    const [twitterLink, setTwitterLink] = useState<string>('');
-    const [youtubeLink, setYoutubeLink] = useState<string>('');
-    const [instagramLink, setInstagramLink] = useState<string>('');
+    const [xLink, setXLink] = useState<string>('');
+    const [ytLink, setYtLink] = useState<string>('');
+    const [tgLink, setTgLink] = useState<string>('');
     const [otherLink, setOtherLink] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const { user: whoami, login } = useApp();
+
+    useEffect(() => {
+        if (!whoami) return;
+
+        setUsername(whoami.username);
+        setBio(whoami.bio || '');
+        setPfp(whoami.pfp || '');
+        setXLink(whoami.socials?.x || '');
+        setYtLink(whoami.socials?.yt || '');
+        setTgLink(whoami.socials?.tg || '');
+        setOtherLink(whoami.socials?.other || '');
+    }, [whoami]);
 
     const fileRef = useRef<any>();
 
@@ -23,31 +40,44 @@ const Settings = () => {
     }
 
     async function editProfile(e: any) {
-        // e.preventDefault();
-        // if (isLoading) return;
-        // setIsLoading(true);
-        // let currentPfp = pfp;
-        // if (currentPfp && !isURL(currentPfp)) {
-        //   // upload it...
-        //   const resp = await apiSdk.uploadImage(currentPfp.split(",")[1]);
-        //   if (!resp) return;
-        //   currentPfp = resp;
-        // }
-        // const user = await apiSdk.edit({
-        //   pfp: currentPfp.length == 0 ? null : currentPfp,
-        //   bio,
-        //   instagramLink,
-        //   otherLink,
-        //   twitterLink,
-        //   username,
-        //   youtubeLink,
-        // });
-        // if (user) update(user as QuyxUser);
-        // setIsLoading(false);
+        e.preventDefault();
+
+        if (isLoading || !whoami) return;
+        setIsLoading(true);
+
+        const { misc, user } = await useApi();
+
+        let currentPfp = pfp;
+        if (currentPfp && !isURL(currentPfp)) {
+            // upload it...
+            const resp = await misc.uploadImage(currentPfp);
+            if (!resp) return setIsLoading(false);
+            currentPfp = resp;
+        }
+
+        const resp = await user.updateInformation(username, bio, pfp, {
+            x: xLink.length > 0 ? xLink : undefined,
+            yt: ytLink.length > 0 ? ytLink : undefined,
+            tg: tgLink.length > 0 ? tgLink : undefined,
+            other: otherLink.length > 0 ? otherLink : undefined,
+        });
+
+        if (resp) {
+            login({
+                ...whoami,
+                username,
+                bio,
+                pfp: currentPfp,
+                socials: { x: xLink, yt: ytLink, tg: tgLink, other: otherLink },
+            });
+        }
+
+        setIsLoading(false);
     }
 
     return (
         <section className="mb-5">
+            <div className="bg"></div>
             <div className="container-fluid container-xl">
                 <div className="row">
                     <div className="col-12">
@@ -120,17 +150,17 @@ const Settings = () => {
                                             </div>
 
                                             <div className="form-group">
-                                                <label htmlFor="twitterLink">Twitter Link</label>
+                                                <label htmlFor="xLink">
+                                                    X (Formerly Twiiter) Link
+                                                </label>
                                                 <div className="copy position-relative">
                                                     <input
-                                                        type="text"
-                                                        id="twitterLink"
-                                                        name="twitterLink"
-                                                        placeholder="https://twitter.com/"
-                                                        value={twitterLink}
-                                                        onChange={(e) =>
-                                                            setTwitterLink(e.target.value)
-                                                        }
+                                                        type="url"
+                                                        id="xLink"
+                                                        name="xLink"
+                                                        placeholder="https://twitter.com/######"
+                                                        value={xLink}
+                                                        onChange={(e) => setXLink(e.target.value)}
                                                     />
 
                                                     <div className="copy-box position-absolute">
@@ -140,17 +170,15 @@ const Settings = () => {
                                             </div>
 
                                             <div className="form-group">
-                                                <label htmlFor="youtubeLink">Youtube Link</label>
+                                                <label htmlFor="ytLink">Youtube Link</label>
                                                 <div className="copy position-relative">
                                                     <input
-                                                        type="text"
-                                                        id="youtubeLink"
-                                                        name="youtubeLink"
-                                                        placeholder="https://youtube.com/"
-                                                        value={youtubeLink}
-                                                        onChange={(e) =>
-                                                            setYoutubeLink(e.target.value)
-                                                        }
+                                                        type="url"
+                                                        id="ytLink"
+                                                        name="ytLink"
+                                                        placeholder="https://youtube.com/######"
+                                                        value={ytLink}
+                                                        onChange={(e) => setYtLink(e.target.value)}
                                                     />
 
                                                     <div className="copy-box position-absolute">
@@ -160,23 +188,19 @@ const Settings = () => {
                                             </div>
 
                                             <div className="form-group">
-                                                <label htmlFor="instagramLink">
-                                                    Instagram Link
-                                                </label>
+                                                <label htmlFor="tgLink">Telegram Link</label>
                                                 <div className="copy position-relative">
                                                     <input
-                                                        type="text"
-                                                        id="instagramLink"
-                                                        name="instagramLink"
-                                                        placeholder="https://instagram.com/"
-                                                        value={instagramLink}
-                                                        onChange={(e) =>
-                                                            setInstagramLink(e.target.value)
-                                                        }
+                                                        type="url"
+                                                        id="tgLink"
+                                                        name="tgLink"
+                                                        placeholder="https://t.me/######"
+                                                        value={tgLink}
+                                                        onChange={(e) => setTgLink(e.target.value)}
                                                     />
 
                                                     <div className="copy-box position-absolute">
-                                                        <i className="h h-instagram" />
+                                                        <i className="h h-send" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -185,10 +209,10 @@ const Settings = () => {
                                                 <label htmlFor="otherLink">Other Link</label>
                                                 <div className="copy position-relative">
                                                     <input
-                                                        type="text"
+                                                        type="url"
                                                         id="otherLink"
                                                         name="otherLink"
-                                                        placeholder="Any link"
+                                                        placeholder="https://portfolio.me.com"
                                                         value={otherLink}
                                                         onChange={(e) =>
                                                             setOtherLink(e.target.value)
@@ -207,14 +231,29 @@ const Settings = () => {
                                                 </div>
                                                 <div>
                                                     <h4 className="mb-1">
-                                                        Connect Telegram Account (Coming soon)
+                                                        Connect Telegram Account
                                                     </h4>
                                                     <p>
-                                                        Allows you to receive notifications you
-                                                        subscribe to directly to your Telegram DM
+                                                        Helps you manage your digital identities and
+                                                        notifications in one place
                                                     </p>
                                                 </div>
                                             </div>
+
+                                            <LoginButton
+                                                botUsername="QuyxBot"
+                                                onAuthCallback={async (data) => {
+                                                    console.log(data);
+
+                                                    const { auth } = await useApi();
+                                                    const qs = toQs(data);
+
+                                                    const resp = await auth.completeOnboarding(qs);
+                                                    if (resp) window.location.reload();
+                                                }}
+                                            />
+
+                                            <div className="py-3"></div>
 
                                             <div className="form-group">
                                                 <button

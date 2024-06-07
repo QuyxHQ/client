@@ -10,6 +10,32 @@ export default class AuthSdk {
         this.storage = env.storage;
     }
 
+    async completeOnboarding(tg_data: string) {
+        const { error, data } = await this.client.getInstance().put('/auth/callback', { tg_data });
+
+        if (error) {
+            toast({
+                type: 'error',
+                message: data.error || 'Unable to complete authentication',
+            });
+
+            return false;
+        }
+
+        const { acknowledged, modifiedCount } = data.data;
+
+        if (!acknowledged || modifiedCount == 0) {
+            toast({
+                type: 'error',
+                message: 'Oops! Request was not completed',
+            });
+
+            return false;
+        }
+
+        return true;
+    }
+
     async getProofPayload() {
         const { error, data } = await this.client.getInstanceWithoutAuth().get('/auth/token');
 

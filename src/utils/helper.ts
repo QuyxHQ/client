@@ -6,6 +6,11 @@ type truncateAddressProps = {
     prefixLength?: number;
 };
 
+export function toQs(obj: Object) {
+    const qs = new URLSearchParams(Object.entries(obj)).toString();
+    return qs;
+}
+
 export function checkUsername(username: string): string | undefined {
     if (username.length < 4) return 'Username should have atleast 4 chars';
     if (/^-/.test(username)) return 'Username cannot begin with a hyphen';

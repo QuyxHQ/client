@@ -1333,7 +1333,7 @@ footer.custom p {
 .form-group textarea,
 .form-group select {
     width: 100%;
-    background-color: inherit;
+    background-color: #000;
     border: 1px solid #6a7181a4;
     padding: 1.3rem 1.4rem;
     font-size: 0.9rem;
@@ -3602,6 +3602,7 @@ footer .bottom .socials i {
     width: 100%;
     height: auto;
     border-radius: 10px;
+    background-color: #111;
 }
 
 .team .member h3 {

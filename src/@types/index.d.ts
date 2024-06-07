@@ -3,8 +3,8 @@ type AppContextProps = {
     isAuthenticated: boolean;
     isAuthenticating: boolean;
     setIsAuthenticating: React.Dispatch<React.SetStateAction<boolean>>;
-    user?: TonFrensUser;
-    login: (user: TonFrensUser) => void;
+    user?: User;
+    login: (user: User) => void;
     logout: () => void;
     getUser(params?: { access_token: string; refresh_token: string }): Promise<void>;
 };

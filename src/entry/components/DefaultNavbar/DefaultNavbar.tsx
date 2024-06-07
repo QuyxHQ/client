@@ -51,9 +51,9 @@ const DefaultNavbar = () => {
             to: '/claim',
         },
         {
-            title: 'Settings',
-            icon: 'settings',
-            to: '/settings',
+            title: 'Edit profile',
+            icon: 'edit',
+            to: '/edit-profile',
         },
         {
             isDivider: true,

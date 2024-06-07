@@ -49,7 +49,7 @@ const App = () => {
             element: <Middleware children={<NewCard />} />,
         },
         {
-            path: '/settings',
+            path: '/edit-profile',
             element: <Middleware children={<Settings />} />,
         },
         {

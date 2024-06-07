@@ -36,6 +36,6 @@ export default class MiscSdk {
             return;
         }
 
-        return (data?.data.url as string) ?? undefined;
+        return (data?.data.uri as string) ?? undefined;
     }
 }
