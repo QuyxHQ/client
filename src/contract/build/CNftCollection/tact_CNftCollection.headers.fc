@@ -1,0 +1,214 @@
+;;
+;; Header files for CNftCollection
+;; NOTE: declarations are sorted for optimal order
+;;
+
+;; __tact_verify_address
+slice __tact_verify_address(slice address) inline;
+
+;; __tact_load_address
+(slice, slice) __tact_load_address(slice cs) inline;
+
+;; __tact_load_address_opt
+(slice, slice) __tact_load_address_opt(slice cs) inline;
+
+;; __tact_store_address
+builder __tact_store_address(builder b, slice address) inline;
+
+;; __tact_store_address_opt
+builder __tact_store_address_opt(builder b, slice address) inline;
+
+;; __tact_create_address
+slice __tact_create_address(int chain, int hash) inline;
+
+;; __tact_compute_contract_address
+slice __tact_compute_contract_address(int chain, cell code, cell data) inline;
+
+;; __tact_my_balance
+int __tact_my_balance() inline;
+
+;; __tact_not_null
+forall X -> X __tact_not_null(X x) inline;
+
+;; __tact_context_get
+(int, slice, int, slice) __tact_context_get() inline;
+
+;; __tact_context_get_sender
+slice __tact_context_get_sender() inline;
+
+;; __tact_store_bool
+builder __tact_store_bool(builder b, int v) inline;
+
+;; __tact_slice_eq_bits
+int __tact_slice_eq_bits(slice a, slice b) inline;
+
+;; __tact_dict_set_code
+cell __tact_dict_set_code(cell dict, int id, cell code) inline;
+
+;; __tact_dict_get_code
+cell __tact_dict_get_code(cell dict, int id) inline;
+
+;; __tact_string_builder_start
+tuple __tact_string_builder_start(builder b) inline;
+
+;; __tact_string_builder_start_comment
+tuple __tact_string_builder_start_comment() inline;
+
+;; __tact_string_builder_start_string
+tuple __tact_string_builder_start_string() inline;
+
+;; __tact_string_builder_end
+cell __tact_string_builder_end(tuple builders) inline;
+
+;; __tact_string_builder_append
+((tuple), ()) __tact_string_builder_append(tuple builders, slice sc) inline_ref;
+
+;; $Deploy$_load
+(slice, ((int))) $Deploy$_load(slice sc_0) inline;
+
+;; $DeployOk$_store
+builder $DeployOk$_store(builder build_0, (int) v) inline;
+
+;; $DeployOk$_store_cell
+cell $DeployOk$_store_cell((int) v) inline;
+
+;; $GetCardLinkStatus$_store
+builder $GetCardLinkStatus$_store(builder build_0, (int, int, slice, cell) v) inline;
+
+;; $GetCardLinkStatus$_store_cell
+cell $GetCardLinkStatus$_store_cell((int, int, slice, cell) v) inline;
+
+;; $ReportCardLinkStatus$_load
+(slice, ((int, int, int, slice, cell))) $ReportCardLinkStatus$_load(slice sc_0) inline;
+
+;; $GetUsernameData$_store
+builder $GetUsernameData$_store(builder build_0, (int, slice, cell) v) inline;
+
+;; $GetUsernameData$_store_cell
+cell $GetUsernameData$_store_cell((int, slice, cell) v) inline;
+
+;; $ReportUsernameData$_load
+(slice, ((int, int, cell, slice, cell))) $ReportUsernameData$_load(slice sc_0) inline;
+
+;; $UnlinkCard$_load
+(slice, ((int, int, slice))) $UnlinkCard$_load(slice sc_0) inline;
+
+;; $UpdateUsernameLinkedStatus$_store
+builder $UpdateUsernameLinkedStatus$_store(builder build_0, (int, int, slice, int) v) inline;
+
+;; $UpdateUsernameLinkedStatus$_store_cell
+cell $UpdateUsernameLinkedStatus$_store_cell((int, int, slice, int) v) inline;
+
+;; $UpdateAllowedContract$_load
+(slice, ((slice))) $UpdateAllowedContract$_load(slice sc_0) inline;
+
+;; $MintCard$_load
+(slice, ((int, slice, slice, slice))) $MintCard$_load(slice sc_0) inline;
+
+;; $Initialize$_store
+builder $Initialize$_store(builder build_0, (int, slice, slice, slice, cell) v) inline;
+
+;; $Initialize$_store_cell
+cell $Initialize$_store_cell((int, slice, slice, slice, cell) v) inline;
+
+;; $CNftCollection$_store
+builder $CNftCollection$_store(builder build_0, (slice, int, slice, slice) v) inline;
+
+;; $CNftCollection$_load
+(slice, ((slice, int, slice, slice))) $CNftCollection$_load(slice sc_0) inline;
+
+;; $StateInit$_not_null
+((cell, cell)) $StateInit$_not_null(tuple v) inline;
+
+;; $CollectionData$_to_external
+(int, cell, slice) $CollectionData$_to_external(((int, cell, slice)) v) inline;
+
+;; $CNftItem$init$_store
+builder $CNftItem$init$_store(builder build_0, (slice, slice, int, cell) v) inline;
+
+;; $CNftCollection$init$_load
+(slice, ((slice))) $CNftCollection$init$_load(slice sc_0) inline;
+
+;; $CNftCollection$_contract_init
+(slice, int, slice, slice) $CNftCollection$_contract_init(slice $collection_uri) impure inline_ref;
+
+;; $CNftCollection$_contract_load
+(slice, int, slice, slice) $CNftCollection$_contract_load() impure inline_ref;
+
+;; $CNftCollection$_contract_store
+() $CNftCollection$_contract_store((slice, int, slice, slice) v) impure inline;
+
+;; $global_emptyCell
+cell $global_emptyCell() impure inline;
+
+;; $global_contractAddress
+slice $global_contractAddress((cell, cell) $s) impure inline;
+
+;; $global_send
+() $global_send((int, slice, int, int, cell, cell, cell) $params) impure inline_ref;
+
+;; $String$_fun_asComment
+cell $String$_fun_asComment(slice $self) impure inline_ref;
+
+;; $CNftItem$_init_child
+(cell, cell) $CNftItem$_init_child(cell sys', slice $collection_address, slice $owner, int $index, cell $individual_content) inline_ref;
+
+;; $SendParameters$_constructor_bounce_to_value_mode_body_code_data
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int bounce, slice to, int value, int mode, cell body, cell code, cell data) inline;
+
+;; $SendParameters$_constructor_to_value_mode_body
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_mode_body(slice to, int value, int mode, cell body) inline;
+
+;; $SendParameters$_constructor_to_value_mode_bounce_body
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_mode_bounce_body(slice to, int value, int mode, int bounce, cell body) inline;
+
+;; $CNftCollection$_fun_forward
+((slice, int, slice, slice), ()) $CNftCollection$_fun_forward((slice, int, slice, slice) $self, slice $to, cell $body, int $bounce, tuple $init) impure inline_ref;
+
+;; $CNftCollection$_fun_notify
+((slice, int, slice, slice), ()) $CNftCollection$_fun_notify((slice, int, slice, slice) $self, cell $body) impure inline;
+
+;; $CNftCollection$_fun_estimateRestValue
+((slice, int, slice, slice), int) $CNftCollection$_fun_estimateRestValue((slice, int, slice, slice) $self, (int, slice, int, slice) $ctx) impure inline_ref;
+
+;; $CNftCollection$_fun_getNftItemInit
+((slice, int, slice, slice), (cell, cell)) $CNftCollection$_fun_getNftItemInit((slice, int, slice, slice) $self, int $item_index) impure inline;
+
+;; $CollectionData$_constructor_next_item_index_collection_content_owner_address
+((int, cell, slice)) $CollectionData$_constructor_next_item_index_collection_content_owner_address(int next_item_index, cell collection_content, slice owner_address) inline;
+
+;; $CNftCollection$_fun_getCollectionData
+((slice, int, slice, slice), (int, cell, slice)) $CNftCollection$_fun_getCollectionData((slice, int, slice, slice) $self) impure inline;
+
+;; $CNftCollection$_fun_getNFTContent
+((slice, int, slice, slice), cell) $CNftCollection$_fun_getNFTContent((slice, int, slice, slice) $self, cell $individual_content) impure inline;
+
+;; $CNftCollection$_fun_get_nft_content
+((slice, int, slice, slice), cell) $CNftCollection$_fun_get_nft_content((slice, int, slice, slice) $self, int $item_index, cell $individual_content) impure inline_ref;
+
+;; $CNftCollection$_fun_get_collection_data
+((slice, int, slice, slice), (int, cell, slice)) $CNftCollection$_fun_get_collection_data((slice, int, slice, slice) $self) impure inline_ref;
+
+;; $CNftCollection$_fun_get_nft_address_by_index
+((slice, int, slice, slice), slice) $CNftCollection$_fun_get_nft_address_by_index((slice, int, slice, slice) $self, int $item_index) impure inline_ref;
+
+;; $CNftCollection$_fun_get_allowed_contract
+((slice, int, slice, slice), slice) $CNftCollection$_fun_get_allowed_contract((slice, int, slice, slice) $self) impure inline_ref;
+
+;; $GetUsernameData$_constructor_query_id_initiator_payload
+((int, slice, cell)) $GetUsernameData$_constructor_query_id_initiator_payload(int query_id, slice initiator, cell payload) inline;
+
+;; $GetCardLinkStatus$_constructor_query_id_item_index_initiator_payload
+((int, int, slice, cell)) $GetCardLinkStatus$_constructor_query_id_item_index_initiator_payload(int query_id, int item_index, slice initiator, cell payload) inline;
+
+;; $SendParameters$_constructor_to_value_mode_bounce_body_code_data
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_mode_bounce_body_code_data(slice to, int value, int mode, int bounce, cell body, cell code, cell data) inline;
+
+;; $Initialize$_constructor_query_id_new_owner_response_destination_authority_payload
+((int, slice, slice, slice, cell)) $Initialize$_constructor_query_id_new_owner_response_destination_authority_payload(int query_id, slice new_owner, slice response_destination, slice authority, cell payload) inline;
+
+;; $UpdateUsernameLinkedStatus$_constructor_query_id_initiator_index_status
+((int, int, slice, int)) $UpdateUsernameLinkedStatus$_constructor_query_id_initiator_index_status(int query_id, slice initiator, int index, int status) inline;
+
+;; $DeployOk$_constructor_queryId
+((int)) $DeployOk$_constructor_queryId(int queryId) inline;
