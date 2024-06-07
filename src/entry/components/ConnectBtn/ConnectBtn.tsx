@@ -11,7 +11,7 @@ const ConnectBtn = () => {
     const { open } = useTonConnectModal();
     const { connected } = useTonConnect();
     const [tonConnectUI] = useTonConnectUI();
-    const { isMounting, getUser, setIsAuthenticating, isAuthenticating, user: whoami } = useApp();
+    const { isMounting, getUser, setIsAuthenticating, isAuthenticating } = useApp();
 
     async function connect() {
         if (connected) await tonConnectUI.disconnect();
@@ -46,6 +46,7 @@ const ConnectBtn = () => {
         })();
 
         tonConnectUI.onStatusChange(async (wallet) => {
+            console.log(wallet);
             const { auth } = await useApi();
 
             if (

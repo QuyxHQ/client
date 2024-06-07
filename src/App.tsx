@@ -1,12 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
-    CardDetails,
     User,
     Home,
     Explore,
     Middleware,
     Modal,
-    NewCard,
     NotFound,
     Team,
     Settings,
@@ -33,20 +31,12 @@ const App = () => {
             element: <Middleware children={<Explore />} />,
         },
         {
-            path: '/card/:address',
-            element: <Middleware children={<CardDetails />} />,
-        },
-        {
             path: '/name/:address',
             element: <Middleware children={<NameDetails />} />,
         },
         {
             path: '/team',
             element: <Middleware children={<Team />} />,
-        },
-        {
-            path: '/mint',
-            element: <Middleware children={<NewCard />} />,
         },
         {
             path: '/edit-profile',

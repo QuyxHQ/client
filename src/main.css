@@ -3636,3 +3636,59 @@ footer .bottom .socials i {
 .team .member .socials i {
     font-size: 1.5rem;
 }
+
+.notfound-404 {
+    width: 100vw;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.notfound-404 h1 {
+    font-size: 4rem;
+    font-weight: 500;
+}
+
+.notfound-404 p {
+    font-size: 0.95rem;
+    opacity: 0.6;
+    font-weight: 300;
+}
+
+.notfound-404 button {
+    padding: 1.2rem 2.5rem;
+    border: 1px solid #fff;
+    background-color: #000;
+    color: #fff;
+    font-weight: 400;
+}
+
+.wrong-chain-modal {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.wrong-chain-modal h3 {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.wrong-chain-modal p {
+    font-size: 0.95rem;
+    opacity: 0.6;
+    font-weight: 300;
+}
+
+.wrong-chain-modal button {
+    width: 100%;
+    padding: 1.2rem 1rem;
+    font-weight: 500;
+}
+
+.wrong-chain-modal button span {
+    border-top-color: hsl(0, 0%, 0%);
+    width: 17px;
+    height: 17px;
+}
