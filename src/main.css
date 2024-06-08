@@ -3197,242 +3197,6 @@ footer .bottom .socials i {
     font-size: 1.5rem;
 }
 
-.user-top-profile {
-    position: relative;
-    width: 100%;
-}
-
-.user-top-profile .cover {
-    position: relative;
-    inset: 0;
-    z-index: -1;
-}
-
-.user-top-profile .cover img {
-    width: 100%;
-    height: 15rem;
-    object-fit: cover;
-}
-
-.user-top-profile .cover .overlay {
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.user-top-profile .user {
-    margin-top: -3rem;
-    z-index: 1;
-    width: max-content;
-    height: max-content;
-    position: relative;
-}
-
-.user-top-profile .user img {
-    width: 8rem;
-    height: 8rem;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 5px solid #000;
-}
-
-.user-top-profile .user button {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    padding: 0.7rem;
-    border: 5px solid #000;
-    background-color: #444;
-    color: #ffff;
-}
-
-.user-top-profile .user button i {
-    font-size: 1.3rem;
-    margin-bottom: 0;
-    display: block;
-}
-
-.user-top-profile .container {
-    position: relative;
-}
-
-.user-top-profile .edit {
-    position: absolute;
-    right: 1rem;
-    bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 1rem 1.45rem;
-    color: #fff;
-    background-color: #222;
-    border: 1px solid #444;
-    font-weight: 500;
-}
-
-.user-top-profile .edit i {
-    font-size: 1.2rem;
-    opacity: 0.6;
-}
-
-.user-page-info h1 {
-    font-size: calc(1vw + 1.6rem);
-    font-weight: 500;
-    margin-bottom: 0.6rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-}
-
-.user-page-info .addr {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #888;
-}
-
-.user-page-info .addr span {
-    border-bottom: 1px solid #888;
-    padding: 0.3rem 0.1rem;
-}
-
-.user-page-info .addr i {
-    font-size: 1.2rem;
-    cursor: pointer;
-}
-
-.user-page-info .socials {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-}
-
-.user-page-info .socials a {
-    width: 3.2rem;
-    height: 3.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: #222;
-}
-
-.user-page-info .socials a i {
-    font-size: 1.3rem;
-    opacity: 0.8;
-}
-
-.user-profile-tab {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1rem;
-    gap: 1.5rem;
-}
-
-.user-profile-tab > div {
-    width: max-content;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    justify-content: center;
-    padding: 0.8rem 1rem;
-    cursor: pointer;
-    color: #888;
-    transition: 0.2s ease-in-out;
-}
-
-.user-profile-tab > div:hover {
-    color: #aaa;
-}
-
-.user-profile-tab > div i {
-    font-size: 1.5rem;
-}
-
-.user-profile-tab > div span {
-    font-size: 0.95rem;
-    font-weight: 500;
-}
-
-.user-profile-tab > div.active {
-    border-bottom: 1px solid #fff;
-    color: #fff;
-}
-
-.username-item {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.username-item tr {
-    border-bottom: 1px solid #444;
-}
-
-.username-item th {
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: 0.8rem;
-    color: #888;
-}
-
-.username-item th,
-.username-item td {
-    padding: 0.8rem;
-    text-align: start;
-}
-
-.username-item .info {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    width: max-content;
-}
-
-.username-item .info img {
-    width: 4.5rem;
-    height: 4.5rem;
-    border-radius: 10px;
-    background-color: #333;
-}
-
-.username-item .info h3 {
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-.username-item a {
-    width: max-content;
-    display: block;
-}
-
-.username-item .link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.95rem;
-}
-
-.username-item .link > span {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-}
-
-.username-item .link > span > span {
-    color: #bbb;
-}
-
-.username-item .link > span:last-child {
-    border-bottom: 1px solid dodgerblue;
-    padding: 0.2rem 0;
-    color: dodgerblue;
-}
-
-.table-responsive {
-    overflow-x: auto;
-}
-
 .claim {
     width: 100%;
     max-width: 45rem;
@@ -3640,6 +3404,10 @@ footer .bottom .socials i {
 .notfound-404 {
     width: 100vw;
     height: 100dvh;
+    position: fixed;
+    z-index: 99999;
+    background-color: #000;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3691,4 +3459,133 @@ footer .bottom .socials i {
     border-top-color: hsl(0, 0%, 0%);
     width: 17px;
     height: 17px;
+}
+
+@media screen and (min-width: 992px) {
+    .user-page .nfts {
+        border-left: 1px solid #333;
+        min-height: 65dvh;
+    }
+}
+
+.user-info {
+    text-align: center;
+}
+
+.user-info .position-relative {
+    width: max-content;
+    margin: 0% auto;
+}
+
+.user-info .position-relative img {
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    display: block;
+}
+
+.user-info .position-relative a {
+    background-color: #333;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    bottom: 0;
+    border: 4px solid #000;
+}
+
+.user-info .position-relative a i {
+    font-size: 1.5rem;
+}
+
+.user-info h1 {
+    margin: 0% auto;
+    font-size: 1.8rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: max-content;
+    max-width: 90%;
+}
+
+.user-info h1 span:first-child {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-info .bio {
+    font-size: 0.95rem;
+    width: 90%;
+    line-height: 190%;
+    font-weight: 300;
+    opacity: 0.5;
+    margin: 0% auto;
+}
+
+.user-info .addr {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid #444;
+    padding: 1.1rem;
+    justify-content: center;
+    width: 100%;
+    max-width: 14rem;
+    border-radius: 100px;
+    font-weight: 400;
+    margin: 0% auto;
+    cursor: pointer;
+    margin-bottom: 2rem;
+}
+
+.user-info .addr i {
+    font-size: 1.3rem;
+    opacity: 0.5;
+}
+
+.user-info .socials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    position: relative;
+}
+
+.user-info .socials::after {
+    content: '';
+    width: 90%;
+    margin: 0% auto;
+    height: 1.5px;
+    border-radius: 100px;
+    background-color: #222;
+    position: absolute;
+    z-index: -1;
+}
+
+.user-info .socials a {
+    width: 3.2rem;
+    height: 3.2rem;
+    background-color: #000;
+    border: 1.5px solid #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.user-info .socials a i {
+    font-size: 1.4rem;
+    opacity: 0.35;
+    transition: 0.3s ease-in-out all;
+}
+
+.user-info .socials a:hover i {
+    opacity: 1;
 }

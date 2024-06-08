@@ -55,7 +55,7 @@ const ClaimUsername = () => {
             const values = JSON.parse(data) as string[];
             if (!values.includes(value)) {
                 values.push(value);
-                setHistory((prev) => [...prev, value]);
+                setHistory((prev) => [value, ...prev]);
             }
 
             return await storage.setItem('storage', JSON.stringify(values));
