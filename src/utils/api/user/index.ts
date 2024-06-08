@@ -34,10 +34,10 @@ export default class UserSdk {
         return data?.data as User | undefined;
     }
 
-    async getUserNfts(page = 1, limit = 20) {
+    async getUserNfts(address: string, page = 1, limit = 20) {
         const { data } = await this.client
             .getInstance()
-            .get(`/user/nfts?page=${page}&limit=${limit}`);
+            .get(`/user/nfts/${address}?page=${page}&limit=${limit}`);
 
         return (data?.data as NftItem[]) ?? [];
     }

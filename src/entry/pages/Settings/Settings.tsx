@@ -55,7 +55,7 @@ const Settings = () => {
             currentPfp = resp;
         }
 
-        const resp = await user.updateInformation(username, bio, pfp, {
+        const resp = await user.updateInformation(username, bio, currentPfp, {
             x: xLink.length > 0 ? xLink : undefined,
             yt: ytLink.length > 0 ? ytLink : undefined,
             tg: tgLink.length > 0 ? tgLink : undefined,
