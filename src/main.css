@@ -3589,3 +3589,253 @@ footer .bottom .socials i {
 .user-info .socials a:hover i {
     opacity: 1;
 }
+
+.claim-modal .badge {
+    display: block;
+    width: max-content;
+    margin: 0% auto;
+    border-width: 1px;
+    border-style: solid;
+    padding: 0.8rem 1.4rem;
+    border-radius: 100px;
+    font-weight: 500;
+    color: #fff;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+}
+
+.claim-modal .badge.green {
+    background-color: rgba(0, 128, 0, 0.124);
+    border-color: green;
+}
+
+.claim-modal .badge.red {
+    background-color: rgba(220, 20, 60, 0.124);
+    border-color: crimson;
+}
+
+.claim-modal .badge.gold {
+    background-color: rgba(218, 165, 32, 0.124);
+    border-color: goldenrod;
+}
+
+.claim-modal h3 {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    width: 90%;
+    margin: 0% auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 1.4rem;
+}
+
+.claim-modal .body {
+    background-color: #333;
+    padding: 1.5rem 1.3rem;
+    border-radius: 10px;
+    margin-bottom: 1.2rem;
+}
+
+.claim-modal .body hr {
+    border: none;
+    height: 1px;
+    width: 100%;
+    background-color: #888;
+}
+
+.claim-modal button {
+    width: 100%;
+    padding: 1.2rem 1rem;
+    font-weight: 600;
+    border-radius: 10px !important;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    justify-content: center;
+}
+
+.claim-modal button i {
+    font-size: 1.4rem;
+    opacity: 0.5;
+}
+
+.claim-modal .form-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.claim-modal .form-div > div {
+    border: 1px solid #555;
+    border-radius: 5px;
+    transition: 0.2s ease-in-out all;
+}
+
+.claim-modal .form-div input {
+    border: none;
+    background-color: inherit;
+    outline: none;
+    color: #fff;
+    width: 100%;
+    max-width: 3.5rem;
+    text-align: center;
+    padding: 0.8rem;
+}
+
+.claim-modal .form-div p {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.claim-modal .form-div > div.focused {
+    border-color: dodgerblue;
+}
+
+.claim-modal p.px-2 {
+    font-size: 0.85rem;
+    font-weight: 300;
+    line-height: 175%;
+    opacity: 0.5;
+}
+
+.claim-modal .error {
+    text-align: center;
+    color: crimson;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+.claim-modal a.link {
+    text-align: center;
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding-top: 1.2rem;
+    padding-bottom: 0.5rem;
+    color: dodgerblue;
+}
+
+.claim-modal .body .title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0.9;
+    margin-bottom: 0.7rem;
+}
+
+.claim-modal .body ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    width: 100%;
+}
+
+.claim-modal .body ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+}
+
+.claim-modal .body ul li > p {
+    font-size: 0.9rem;
+    width: 100%;
+    max-width: 7rem;
+    white-space: nowrap;
+    opacity: 0.6;
+}
+
+.claim-modal .body ul li > div.amt {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    float: right;
+    width: max-content;
+}
+
+.claim-modal .body ul li > div.amt svg {
+    opacity: 0.5;
+}
+
+.claim-modal .body ul li > div.amt p {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.claim-modal .timer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.claim-modal .timer * {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.claim-modal .timer > span {
+    width: 50%;
+    font-size: 1.3rem;
+    opacity: 0.5;
+}
+
+.claim-modal .timer > div {
+    background-color: #222222b5;
+    height: 3.3rem;
+    border-radius: 8px;
+}
+
+.claim-modal .info {
+    width: 100%;
+}
+
+.claim-modal a.user {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.claim-modal a.user .img {
+    width: 2.1rem;
+    height: 2.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.claim-modal a.user .img img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    display: block;
+}
+
+.claim-modal a.user p {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    width: max-content;
+}
+
+.claim-modal a.user p span {
+    width: max-content;
+    max-width: 6rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.claim-modal .owner > p {
+    font-size: 0.85rem;
+    opacity: 0.5;
+}

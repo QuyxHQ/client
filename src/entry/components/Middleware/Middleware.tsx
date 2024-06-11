@@ -1,7 +1,12 @@
-import { Layout } from '..';
+import { Layout, Modal } from '..';
 
 const Middleware = ({ children }: { children: React.ReactNode }) => {
-    return <Layout children={children} />;
+    return (
+        <>
+            <Modal />
+            <Layout children={children} />
+        </>
+    );
 };
 
 export default Middleware;

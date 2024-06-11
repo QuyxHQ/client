@@ -4,7 +4,6 @@ import {
     Home,
     Explore,
     Middleware,
-    Modal,
     NotFound,
     Team,
     Settings,
@@ -31,7 +30,7 @@ const App = () => {
             element: <Middleware children={<Explore />} />,
         },
         {
-            path: '/name/:address',
+            path: '/nft/:address',
             element: <Middleware children={<NameDetails />} />,
         },
         {
@@ -54,7 +53,6 @@ const App = () => {
 
     return (
         <>
-            <Modal />
             <Toaster position="bottom-center" reverseOrder={false} />
             <RouterProvider router={router} />
         </>
