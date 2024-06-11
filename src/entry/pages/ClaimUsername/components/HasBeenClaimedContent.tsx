@@ -49,7 +49,7 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
         if (toNano(value) < auction_info.max_bid_amount) {
             toast({
                 type: 'error',
-                message: `Bid amount should not be less than ${min} TON`,
+                message: `Bid amount should not be greater than ${min} TON`,
             });
 
             return;
@@ -212,7 +212,11 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
                                     >
                                         <div className="img">
                                             <img
-                                                src={user?.pfp ?? '/images/default-user.png'}
+                                                src={
+                                                    user?.pfp
+                                                        ? user.pfp
+                                                        : '/images/default-user.png'
+                                                }
                                                 alt={user?.username}
                                             />
                                         </div>
