@@ -1,17 +1,21 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useApi from '../../hooks/useApi';
 
 const Explore = () => {
-    // useEffect(() => {
-    //     (async function () {
-    //         const { misc } = await useApi();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [nft, setNfts] = useState<NftItem[]>([]);
 
-    //         const nfts = await misc.getNfts();
-    //         console.log(nfts);
-    //     })();
-    // }, []);
+    useEffect(() => {
+        (async function () {
+            const { misc } = await useApi();
 
-    return <>Explore</>;
+            const resp = await misc.getNfts();
+            setNfts(resp ?? []);
+            setIsLoading(false);
+        })();
+    }, []);
+
+    return <>{isLoading ? 'loading...' : JSON.stringify(nft)}</>;
 };
 
 export default Explore;
