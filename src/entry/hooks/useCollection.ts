@@ -1,4 +1,4 @@
-import { Address, toNano } from 'ton-core';
+import { Address, beginCell, toNano } from 'ton-core';
 import env from '../../utils/env';
 import useAsyncInitialize from './useAsyncInitialize';
 import useTonClient from './useTonClient';
@@ -33,8 +33,21 @@ export default function () {
             const balance = await client.getBalance(Address.parse(wallet));
             const value = toNano(amount);
 
+            const content_uri = `https://${
+                env.IS_TESTNET ? 'dev.' : ''
+            }api.quyx.xyz/nft/metadata?username=${username}`;
+
             if (value > balance) throw new Error('Insufficient balance');
-            await contract.send(sender, { value }, username);
+            await contract.send(
+                sender,
+                { value },
+                {
+                    $$type: 'ClaimUsername',
+                    query_id: 0n,
+                    domain: username,
+                    content: beginCell().storeStringTail(content_uri).endCell(),
+                }
+            );
         } catch (e: any) {
             throw new Error(e);
         }

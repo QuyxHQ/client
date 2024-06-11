@@ -7,8 +7,8 @@ import {
     NotFound,
     Team,
     Settings,
-    NameDetails,
     ClaimUsername,
+    NftDetails,
 } from './entry';
 import { Toaster } from 'react-hot-toast';
 
@@ -31,7 +31,7 @@ const App = () => {
         },
         {
             path: '/nft/:address',
-            element: <Middleware children={<NameDetails />} />,
+            element: <Middleware children={<NftDetails />} />,
         },
         {
             path: '/team',

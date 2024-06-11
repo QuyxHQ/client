@@ -1,4 +1,4 @@
-import { getUsernameMinPrice } from '../../../../utils/helper';
+import { getNFTData, getUsernameMinPrice, sleep } from '../../../../utils/helper';
 import { TonIcon } from '../../..';
 import { useEffect, useState } from 'react';
 import toast from '../../../../utils/toast';
@@ -23,7 +23,7 @@ const HasNotBeenClaimedContent = ({ username, address }: Props) => {
 
     useEffect(() => setPrice(String(getUsernameMinPrice(username))), [username]);
 
-    async function bid() {
+    async function startAuction() {
         if (Number(price) < getUsernameMinPrice(username)) {
             toast({
                 type: 'error',
@@ -35,10 +35,26 @@ const HasNotBeenClaimedContent = ({ username, address }: Props) => {
 
         if (isLoading || !contract) return;
 
+        let is_verified = false;
+        let count = 10;
+
         setIsLoading(true);
 
         try {
             await methods.claimUsername(username, String(Number(price) + 0.02));
+
+            while (!is_verified && count > 0) {
+                const data = await getNFTData(address);
+
+                if (data) {
+                    is_verified = true;
+                } else {
+                    count--;
+                    await sleep(2);
+                }
+            }
+
+            if (!is_verified) throw new Error('Could not verify transaction');
 
             closeModal();
             navigate(`/nft/${address}`, {
@@ -87,7 +103,7 @@ const HasNotBeenClaimedContent = ({ username, address }: Props) => {
                 </p>
             </div>
 
-            <button onClick={bid} disabled={isLoading || !connected}>
+            <button onClick={startAuction} disabled={isLoading || !connected}>
                 {isLoading ? (
                     <span className="loader-span-sm" style={{ width: '17px', height: '17px' }} />
                 ) : (

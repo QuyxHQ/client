@@ -15,7 +15,7 @@ const queryClient = new QueryClient({
     },
 });
 
-const url = `http://${env.IS_TESTNET ? 'testnet.' : ''}quyx.xyz/manifest/tonconnect.json`;
+const url = `https://${env.IS_TESTNET ? 'testnet.' : ''}quyx.xyz/manifest/tonconnect.json`;
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>

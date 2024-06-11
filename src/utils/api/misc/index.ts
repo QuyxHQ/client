@@ -19,7 +19,7 @@ export default class MiscSdk {
             .get(`/misc/nft/${address}`);
 
         if (error) return undefined;
-        return data?.data as Nft;
+        return data as Nft;
     }
 
     async uploadImage(base64image: string) {

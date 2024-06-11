@@ -1,10 +1,33 @@
+import { Address } from 'ton-core';
 import toast from './toast';
+import { TonClient } from 'ton';
+import { getHttpEndpoint } from '@orbs-network/ton-access';
+import env from './env';
+import { NftItem } from '../contract/artefacts/tact_NftItem';
 
 type truncateAddressProps = {
     address: string;
     suffixLength?: number;
     prefixLength?: number;
 };
+
+export async function getNFTData(address: string) {
+    try {
+        const addr = Address.parse(address);
+
+        const client = new TonClient({
+            endpoint: await getHttpEndpoint({
+                network: env.IS_TESTNET ? 'testnet' : 'mainnet',
+            }),
+        });
+
+        const contract = client.open(NftItem.fromAddress(addr));
+        return await contract.getGetNftData();
+    } catch (e: any) {
+        console.error(e.message);
+        return undefined;
+    }
+}
 
 export function sleep(seconds: number) {
     return new Promise((resolve) => setTimeout(resolve, seconds * 1000));

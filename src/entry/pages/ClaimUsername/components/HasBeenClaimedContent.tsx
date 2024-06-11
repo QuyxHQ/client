@@ -1,5 +1,5 @@
 import { Address, fromNano, toNano } from 'ton-core';
-import { AuctionInfo } from '../../../../contract/artefacts/tact_NftItem';
+import { AuctionInfo, NftItemData } from '../../../../contract/artefacts/tact_NftItem';
 import { useEffect, useState } from 'react';
 import useItem from '../../../hooks/useItem';
 import useApi from '../../../hooks/useApi';
@@ -14,13 +14,14 @@ type Props = {
     address: Address;
     username: string;
     auction_info: AuctionInfo;
+    nft_data: NftItemData;
 };
 
 function approx(number: bigint) {
     return Number(fromNano(number)).toFixed(2);
 }
 
-const HasBeenClaimedContent = ({ address, username, auction_info }: Props) => {
+const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Props) => {
     const { contract, methods } = useItem(address);
     const { closeModal } = useModal();
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -63,9 +64,13 @@ const HasBeenClaimedContent = ({ address, username, auction_info }: Props) => {
             await methods.placeBid(value);
 
             while (!is_verified && count > 0) {
-                const data = (await methods.getNftItemData())!;
+                const data = await methods.getNftAuctionInfo();
 
-                if (data.owner.toString() == Address.parse(whoami.address).toString()) {
+                if (
+                    data &&
+                    data.max_bid_address &&
+                    data.max_bid_address.toString() == Address.parse(whoami.address).toString()
+                ) {
                     is_verified = true;
                 } else {
                     count--;
@@ -131,14 +136,14 @@ const HasBeenClaimedContent = ({ address, username, auction_info }: Props) => {
             if (!contract) return;
 
             let { max_bid_address: addr } = auction_info;
-            if (!addr) addr = (await methods.getNftItemData())!.owner;
+            if (!addr) addr = nft_data.owner;
 
             const { user } = await useApi();
 
             setUser(await user.getUser(addr.toString()));
             setIsLoading(false);
         })();
-    }, [auction_info, contract]);
+    }, [auction_info, nft_data, contract]);
 
     return isLoading ? (
         <div className="d-flex align-items-center justify-content-center py-5">
