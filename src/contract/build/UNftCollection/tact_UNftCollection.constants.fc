@@ -1,5 +1,0 @@
-;; String "metadata"
-slice __gen_slice_string_61c21407730de125092b19eef22b39a85d19867c7538f9fc3e9417e817a9ab68() asm "B{b5ee9c7241010101000a0000106d65746164617461ff7dd203} B>boc <s PUSHSLICE";
-
-;; String ", just got claimed"
-slice __gen_slice_string_a3626d463b0ed87002b24162b6ac39cc1195c499aea8962a292a00d57886e489() asm "B{b5ee9c724101010100140000242c206a75737420676f7420636c61696d6564396d3b6f} B>boc <s PUSHSLICE";

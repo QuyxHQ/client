@@ -46,7 +46,6 @@ const ConnectBtn = () => {
         })();
 
         tonConnectUI.onStatusChange(async (wallet) => {
-            console.log(wallet);
             const { auth } = await useApi();
 
             if (

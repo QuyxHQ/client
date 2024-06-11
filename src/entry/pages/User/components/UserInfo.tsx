@@ -2,6 +2,7 @@ import { Address } from 'ton-core';
 import { AnchorLink, VerifiedIcon } from '../../..';
 import { copyToClipboard, truncateAddress } from '../../../../utils/helper';
 import useApp from '../../../hooks/useApp';
+import env from '../../../../utils/env';
 
 const UserInfo = ({ user }: { user: User }) => {
     const { user: whoami } = useApp();
@@ -55,6 +56,15 @@ const UserInfo = ({ user }: { user: User }) => {
                                 <i className="h h-youtube" />
                             </AnchorLink>
                         ) : null}
+
+                        <AnchorLink
+                            to={`//${env.IS_TESTNET ? 'testnet.' : ''}tonviewer.com/${Address.parse(
+                                user.address
+                            ).toString()}`}
+                            target="_blank"
+                        >
+                            <i className="h h-globe" />
+                        </AnchorLink>
 
                         {user.socials?.tg ? (
                             <AnchorLink to={user.socials.tg} target="_blank">

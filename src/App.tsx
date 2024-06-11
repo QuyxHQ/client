@@ -4,12 +4,11 @@ import {
     Home,
     Explore,
     Middleware,
-    Modal,
     NotFound,
     Team,
     Settings,
-    NameDetails,
     ClaimUsername,
+    NftDetails,
 } from './entry';
 import { Toaster } from 'react-hot-toast';
 
@@ -31,8 +30,8 @@ const App = () => {
             element: <Middleware children={<Explore />} />,
         },
         {
-            path: '/name/:address',
-            element: <Middleware children={<NameDetails />} />,
+            path: '/nft/:address',
+            element: <Middleware children={<NftDetails />} />,
         },
         {
             path: '/team',
@@ -54,7 +53,6 @@ const App = () => {
 
     return (
         <>
-            <Modal />
             <Toaster position="bottom-center" reverseOrder={false} />
             <RouterProvider router={router} />
         </>

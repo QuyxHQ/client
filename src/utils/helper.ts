@@ -1,10 +1,65 @@
+import { Address } from 'ton-core';
 import toast from './toast';
+import { TonClient } from 'ton';
+import { getHttpEndpoint } from '@orbs-network/ton-access';
+import env from './env';
+import { NftItem } from '../contract/artefacts/tact_NftItem';
 
 type truncateAddressProps = {
     address: string;
     suffixLength?: number;
     prefixLength?: number;
 };
+
+export async function getNFTData(address: string) {
+    try {
+        const addr = Address.parse(address);
+
+        const client = new TonClient({
+            endpoint: await getHttpEndpoint({
+                network: env.IS_TESTNET ? 'testnet' : 'mainnet',
+            }),
+        });
+
+        const contract = client.open(NftItem.fromAddress(addr));
+        return await contract.getGetNftData();
+    } catch (e: any) {
+        console.error(e.message);
+        return undefined;
+    }
+}
+
+export function sleep(seconds: number) {
+    return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+}
+
+const auction_start_time = 1713135600; // Sun Apr 14 2024 23:00:00 GMT+0000
+const one_month = 60 * 60 * 24 * 30; // one month in seconds
+
+function getPriceRange(len: number) {
+    if (len == 4) return { start: 100, end: 1000 };
+    if (len == 5) return { start: 50, end: 500 };
+    if (len == 6) return { start: 40, end: 400 };
+    if (len == 7) return { start: 30, end: 300 };
+    if (len == 8) return { start: 20, end: 200 };
+    if (len == 9) return { start: 10, end: 100 };
+    if (len == 10) return { start: 5, end: 50 };
+
+    return { start: 1, end: 10 };
+}
+
+export function getUsernameMinPrice(username: string) {
+    const len = username.length;
+    let { start, end } = getPriceRange(len);
+
+    const seconds = Date.now() / 1000 - auction_start_time;
+    const months = seconds / one_month;
+
+    if (months > 21) return start;
+
+    for (let i = months; i >= months; i--) end = (end * 90) / 100;
+    return end;
+}
 
 export function toQs(obj: Object) {
     const qs = new URLSearchParams(Object.entries(obj)).toString();

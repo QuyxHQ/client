@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { createAsyncLocalStorage } from '../../../utils/async.storage';
 import useForm from '../../hooks/useForm';
-import { useNavigate, useParams } from 'react-router-dom';
 import { checkUsername } from '../../../utils/helper';
 import useModal from '../../hooks/useModal';
-
-const ClaimUsernameModal = ({ username }: { username: string }) => {
-    return <div className="p-4">Claim username bro: {username}</div>;
-};
+import ClaimUsernameModal from './components/ClaimUsernameModal';
 
 const ClaimUsername = () => {
     const { username } = useParams();
@@ -20,14 +17,19 @@ const ClaimUsername = () => {
 
     const { onChange, onSubmit, values } = useForm(submit, { username: username || '' });
 
-    useEffect(() => {
-        if (username) {
-            setModalBody(<ClaimUsernameModal username={username} />);
-            openModal(false);
-        } else {
+    function doAction(name?: string) {
+        if (!name) {
             closeModal();
+            setModalBody(undefined);
+
+            return;
         }
-    }, [username]);
+
+        setModalBody(<ClaimUsernameModal username={name} />);
+        setTimeout(() => openModal(false), 10);
+    }
+
+    useEffect(() => doAction(username), [username]);
 
     useEffect(() => {
         if (values.username.length == 0) return;
