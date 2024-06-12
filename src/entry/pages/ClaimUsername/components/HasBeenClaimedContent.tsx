@@ -33,9 +33,13 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
     async function placeBid() {
         if (isBtnLoading || !contract || !whoami) return;
 
-        const min = approx(auction_info.max_bid_amount);
-        const message = `Enter your bid amount\n\nNB: Not less than ${min} TON`;
-        const value = Number(prompt(message, min));
+        const current_bid = fromNano(auction_info.max_bid_amount);
+        const min = (Number(current_bid) * 105) / 100;
+        const message = `Enter your bid amount\n\nNB: Not less than ${min.toFixed(2)} TON`;
+        const prompt_resp = prompt(message, min.toFixed(2));
+        if (!prompt_resp) return;
+
+        const value = Number(prompt_resp);
 
         if (isNaN(value)) {
             toast({
@@ -46,10 +50,10 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
             return;
         }
 
-        if (toNano(value) < auction_info.max_bid_amount) {
+        if (toNano(value) < toNano(min)) {
             toast({
                 type: 'error',
-                message: `Bid amount should not be greater than ${min} TON`,
+                message: `Bid amount should be greater than ${min.toFixed(2)} TON`,
             });
 
             return;
@@ -66,6 +70,10 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
             while (!is_verified && count > 0) {
                 const data = await methods.getNftAuctionInfo();
 
+                console.log(count);
+                console.log(is_verified);
+                console.log(data);
+
                 if (
                     data &&
                     data.max_bid_address &&
@@ -74,7 +82,7 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
                     is_verified = true;
                 } else {
                     count--;
-                    await sleep(2);
+                    await sleep(2.5);
                 }
             }
 

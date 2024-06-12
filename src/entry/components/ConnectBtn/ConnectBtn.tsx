@@ -5,6 +5,7 @@ import useTonConnect from '../../hooks/useTonConnect';
 import useApp from '../../hooks/useApp';
 import { useEffect } from 'react';
 import useApi from '../../hooks/useApi';
+import env from '../../../utils/env';
 
 const ConnectBtn = () => {
     const connectionRestored = useIsConnectionRestored();
@@ -14,7 +15,14 @@ const ConnectBtn = () => {
     const { isMounting, getUser, setIsAuthenticating, isAuthenticating } = useApp();
 
     async function connect() {
-        if (connected) await tonConnectUI.disconnect();
+        if (connected) {
+            await Promise.all([
+                tonConnectUI.disconnect(),
+                env.storage.removeItem('access_token'),
+                env.storage.removeItem('refresh_token'),
+            ]);
+        }
+
         open();
     }
 
