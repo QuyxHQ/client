@@ -1,4 +1,4 @@
-import { Address } from 'ton-core';
+import { Address, fromNano } from 'ton-core';
 import toast from './toast';
 import { TonClient } from 'ton';
 import { getHttpEndpoint } from '@orbs-network/ton-access';
@@ -10,6 +10,10 @@ type truncateAddressProps = {
     suffixLength?: number;
     prefixLength?: number;
 };
+
+export function approx(number: bigint | string | number) {
+    return Number(fromNano(number)).toFixed(2);
+}
 
 export async function getNFTData(address: string) {
     try {

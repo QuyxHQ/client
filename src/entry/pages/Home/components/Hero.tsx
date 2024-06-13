@@ -10,16 +10,16 @@ const Hero = () => {
             </p>
 
             <div className="buttons d-flex flex-column flex-md-row">
-                <button>
-                    <i className="h h-play" />
-                    <span>Watch Video</span>
-                </button>
-
                 <AnchorLink to="/claim">
                     <button>
                         <span>Claim Username</span>
                     </button>
                 </AnchorLink>
+
+                <button>
+                    <i className="h h-play" />
+                    <span>Watch Video</span>
+                </button>
             </div>
         </div>
     );

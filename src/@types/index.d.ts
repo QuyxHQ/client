@@ -1,9 +1,34 @@
+type Resp = {
+    nft: NftItem;
+    user: User | null;
+    isBookmarked: boolean;
+};
+
+type NftMetadata = {
+    name: string;
+    description: string;
+    image: string;
+    buttons: { label: string; uri: string }[];
+    attributes: { trait_type: string; value: string }[];
+};
+
+type ActionType = 'started_auction' | 'username_assigned';
+
+type Action = {
+    type: ActionType;
+    username: string;
+    address: string;
+    user: User;
+    timestamp: number;
+};
+
 type AppContextProps = {
     isMounting: boolean;
     isAuthenticated: boolean;
     isAuthenticating: boolean;
     setIsAuthenticating: React.Dispatch<React.SetStateAction<boolean>>;
     user?: User;
+    actions: Action[];
     login: (user: User) => void;
     logout: () => void;
     getUser(params?: { access_token: string; refresh_token: string }): Promise<void>;

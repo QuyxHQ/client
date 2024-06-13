@@ -19,14 +19,16 @@ export default class BookmarkSdk {
     }
 
     async isNftBookmarked(address: string) {
-        const { error } = await this.client.getInstance().get(`/bookmark/${address}`);
+        const { error, statusCode } = await this.client.getInstance().get(`/bookmark/${address}`);
+        if (statusCode == 401) return false;
+
         return error as boolean;
     }
 
     private completeBookmark(data: any) {
-        const { acknowledged, modifiedCount, deletedCount } = data.data;
+        const { acknowledged, deletedCount, _id } = data;
 
-        if (acknowledged && modifiedCount && modifiedCount > 0) {
+        if (_id) {
             toast({
                 type: 'success',
                 message: 'NFT bookmarked',
@@ -58,7 +60,7 @@ export default class BookmarkSdk {
             return false;
         }
 
-        if (this.completeBookmark(data.data)) return;
+        if (this.completeBookmark(data.data)) return true;
 
         toast({
             type: 'error',
@@ -79,7 +81,7 @@ export default class BookmarkSdk {
             return false;
         }
 
-        if (this.completeBookmark(data.data)) return;
+        if (this.completeBookmark(data.data)) return true;
 
         toast({
             type: 'error',

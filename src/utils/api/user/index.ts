@@ -39,7 +39,7 @@ export default class UserSdk {
             .getInstance()
             .get(`/user/nfts/${address}?page=${page}&limit=${limit}`);
 
-        return (data?.data as NftItem[]) ?? [];
+        return (data?.data as { nft: NftItem; user: User | null; isBookmarked: boolean }[]) ?? [];
     }
 
     async getUser(param: string) {
@@ -50,7 +50,7 @@ export default class UserSdk {
     async searchForUser(q: string, page = 1, limit = 20) {
         const { data } = await this.client
             .getInstance()
-            .get(`/user/search?q=${q}page=${page}&limit=${limit}`);
+            .get(`/user/search?q=${q}&page=${page}&limit=${limit}`);
 
         return {
             total: (data?.total as number) ?? 0,

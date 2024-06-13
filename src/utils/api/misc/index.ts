@@ -9,8 +9,8 @@ export default class MiscSdk {
             .getInstanceWithoutAuth()
             .get(`/misc/nfts?page=${page}&limit=${limit}`);
 
-        if (error) return undefined;
-        return data?.data as NftItem[];
+        if (error) return [];
+        return (data?.data as { nft: NftItem; user: User | null; isBookmarked: boolean }[]) ?? [];
     }
 
     async getNft(address: string) {

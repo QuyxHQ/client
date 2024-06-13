@@ -56,6 +56,11 @@ const DefaultNavbar = () => {
             to: '/edit-profile',
         },
         {
+            title: 'Bookmarks',
+            icon: 'heart',
+            to: '/bookmarks',
+        },
+        {
             isDivider: true,
         },
         {

@@ -8,7 +8,7 @@ const UserInfo = ({ user }: { user: User }) => {
     const { user: whoami } = useApp();
 
     return (
-        <div className="user-info py-lg-4 my-4 my-lg-0">
+        <div className="user-info pt-4 py-lg-4 my-4 my-lg-0">
             <div className="container">
                 <div>
                     <div className="position-relative mb-3">
