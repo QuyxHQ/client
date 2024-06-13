@@ -33,9 +33,8 @@ export default function () {
             const balance = await client.getBalance(Address.parse(wallet));
             const value = toNano(amount);
 
-            const content_uri = `https://${
-                env.IS_TESTNET ? 'dev.' : ''
-            }api.quyx.xyz/nft/metadata?username=${username}`;
+            const domain = `${env.IS_TESTNET ? 'testnet.' : ''}api.quyx.xyz`;
+            const content_uri = `https://${domain}/nft/metadata/${username}`;
 
             if (value > balance) throw new Error('Insufficient balance');
             await contract.send(
@@ -45,7 +44,7 @@ export default function () {
                     $$type: 'ClaimUsername',
                     query_id: 0n,
                     domain: username,
-                    content: beginCell().storeStringTail(content_uri).endCell(),
+                    content: beginCell().storeUint(1, 8).storeStringTail(content_uri).endCell(),
                 }
             );
         } catch (e: any) {

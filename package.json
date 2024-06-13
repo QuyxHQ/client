@@ -25,6 +25,7 @@
         "react-error-boundary": "^4.0.13",
         "react-hot-toast": "^2.4.1",
         "react-router-dom": "6.16",
+        "socket.io-client": "^4.7.5",
         "ton": "^13.9.0",
         "ton-core": "^0.53.0",
         "ton-crypto": "^3.2.0"

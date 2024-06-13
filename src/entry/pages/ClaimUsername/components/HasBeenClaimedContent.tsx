@@ -8,7 +8,7 @@ import useModal from '../../../hooks/useModal';
 import toast from '../../../../utils/toast';
 import { useNavigate } from 'react-router-dom';
 import useApp from '../../../hooks/useApp';
-import { sleep } from '../../../../utils/helper';
+import { approx, sleep } from '../../../../utils/helper';
 
 type Props = {
     address: Address;
@@ -16,10 +16,6 @@ type Props = {
     auction_info: AuctionInfo;
     nft_data: NftItemData;
 };
-
-function approx(number: bigint) {
-    return Number(fromNano(number)).toFixed(2);
-}
 
 const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Props) => {
     const { contract, methods } = useItem(address);
@@ -29,6 +25,40 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
     const [user, setUser] = useState<User>();
     const navigate = useNavigate();
     const { user: whoami } = useApp();
+
+    async function completeAution() {
+        if (isBtnLoading || !contract || !whoami) return;
+
+        setIsBtnLoading(true);
+
+        let is_verified = false;
+        let count = 13;
+
+        try {
+            await methods.completeAuction();
+
+            while (!is_verified && count > 0) {
+                const data = await methods.getNftItemData();
+
+                if (data && data.owner) {
+                    is_verified = true;
+                } else {
+                    count--;
+                    await sleep(2.5);
+                }
+            }
+
+            if (!is_verified) throw new Error('Could not verify transaction');
+
+            closeModal();
+            navigate(`/nft/${address.toString()}`);
+        } catch (e: any) {
+            toast({ type: 'error', message: e.message });
+            navigate(-1);
+        } finally {
+            setIsBtnLoading(false);
+        }
+    }
 
     async function placeBid() {
         if (isBtnLoading || !contract || !whoami) return;
@@ -62,7 +92,7 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
         setIsBtnLoading(true);
 
         let is_verified = false;
-        let count = 10;
+        let count = 13;
 
         try {
             await methods.placeBid(value);
@@ -70,14 +100,11 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
             while (!is_verified && count > 0) {
                 const data = await methods.getNftAuctionInfo();
 
-                console.log(count);
-                console.log(is_verified);
-                console.log(data);
-
                 if (
                     data &&
                     data.max_bid_address &&
-                    data.max_bid_address.toString() == Address.parse(whoami.address).toString()
+                    data.max_bid_address.toString() == Address.parse(whoami.address).toString() &&
+                    data.max_bid_amount > auction_info.max_bid_amount
                 ) {
                     is_verified = true;
                 } else {
@@ -89,11 +116,7 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
             if (!is_verified) throw new Error('Could not verify transaction');
 
             closeModal();
-            navigate(`/nft/${address.toString()}`, {
-                state: {
-                    just_placed_bid: true,
-                },
-            });
+            navigate(`/nft/${address.toString()}`);
         } catch (e: any) {
             toast({ type: 'error', message: e.message });
             navigate(-1);
@@ -125,7 +148,7 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
         };
     };
 
-    const [timeLeft, setTimeLeft] = useState({ hours: '00', minutes: '00', seconds: '00' });
+    const [timeLeft, setTimeLeft] = useState({ hours: '--', minutes: '--', seconds: '--' });
 
     useEffect(() => {
         if (auction_info.auction_end_time == 0n) return;
@@ -248,31 +271,51 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
                         </div>
                     </div>
 
-                    <div className="body">
-                        <p className="title">Ends In</p>
+                    {timeLeft.hours == '00' ||
+                    timeLeft.minutes == '00' ||
+                    timeLeft.seconds == '00' ? (
+                        <button onClick={completeAution} disabled={isBtnLoading}>
+                            {isBtnLoading ? (
+                                <span
+                                    className="loader-span-sm"
+                                    style={{ width: '17px', height: '17px' }}
+                                />
+                            ) : (
+                                <>
+                                    <i className="h h-check" />
+                                    <span>Complete auction</span>
+                                </>
+                            )}
+                        </button>
+                    ) : (
+                        <>
+                            <div className="body">
+                                <p className="title">Ends In</p>
 
-                        <div className="timer">
-                            <div>{timeLeft.hours}</div>
-                            <span>:</span>
-                            <div>{timeLeft.minutes}</div>
-                            <span>:</span>
-                            <div>{timeLeft.seconds}</div>
-                        </div>
-                    </div>
+                                <div className="timer">
+                                    <div>{timeLeft.hours}</div>
+                                    <span>:</span>
+                                    <div>{timeLeft.minutes}</div>
+                                    <span>:</span>
+                                    <div>{timeLeft.seconds}</div>
+                                </div>
+                            </div>
 
-                    <button onClick={placeBid} disabled={isBtnLoading}>
-                        {isBtnLoading ? (
-                            <span
-                                className="loader-span-sm"
-                                style={{ width: '17px', height: '17px' }}
-                            />
-                        ) : (
-                            <>
-                                <i className="h h-credit-card" />
-                                <span>Place Bid</span>
-                            </>
-                        )}
-                    </button>
+                            <button onClick={placeBid} disabled={isBtnLoading}>
+                                {isBtnLoading ? (
+                                    <span
+                                        className="loader-span-sm"
+                                        style={{ width: '17px', height: '17px' }}
+                                    />
+                                ) : (
+                                    <>
+                                        <i className="h h-credit-card" />
+                                        <span>Place Bid</span>
+                                    </>
+                                )}
+                            </button>
+                        </>
+                    )}
 
                     <AnchorLink
                         className="link"

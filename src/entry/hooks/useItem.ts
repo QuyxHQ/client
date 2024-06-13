@@ -49,7 +49,20 @@ export default function (address: Address) {
     }
 
     async function completeAuction() {
-        if (!contract || !wallet) return;
+        if (!contract || !wallet || !client) return;
+
+        try {
+            await contract.send(
+                sender,
+                { value: toNano(0.02) },
+                {
+                    $$type: 'CompleteAuction',
+                    query_id: 0n,
+                }
+            );
+        } catch (e: any) {
+            throw new Error(e);
+        }
     }
 
     return {

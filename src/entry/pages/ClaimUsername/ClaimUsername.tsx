@@ -113,6 +113,10 @@ const ClaimUsername = () => {
                         value={values.username}
                         style={error ? { border: '1px solid crimson' } : {}}
                     />
+
+                    <button type="submit" className="position-absolute">
+                        <i className="h h-corner-up-right" />
+                    </button>
                 </div>
 
                 {error ? <p className="pt-4 pb-2">{error}</p> : undefined}

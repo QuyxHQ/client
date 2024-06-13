@@ -33,14 +33,14 @@ const User = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
-                            <div className="px-2 user-page py-4">
-                                <div className="row align-items-center g-4 g-md-5">
+                            <div className="px-1 user-page py-4">
+                                <div className="row g-4 g-md-5">
                                     <div className="col-12 col-lg-4">
                                         <UserInfo user={user} />
                                     </div>
 
                                     <div className="col-12 col-lg-8">
-                                        <Nfts address={user.address} />
+                                        <Nfts address={user.address} user={user} />
                                     </div>
                                 </div>
                             </div>

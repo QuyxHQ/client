@@ -1,5 +1,6 @@
+//@ts-nocheck
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import useApi from '../../hooks/useApi';
 import { NotFound } from '..';
 import useItem from '../../hooks/useItem';
@@ -8,10 +9,13 @@ import { useEffect, useState } from 'react';
 
 const NameDetails = () => {
     const { address } = useParams() as { address: string };
+    const { state } = useLocation();
+
+    let just_claimed = false;
+    if (state) just_claimed = state.just_claimed;
 
     const { contract } = useItem(Address.parse(address));
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [metadata, setMetadata] = useState<any>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const { isPending, data: nft } = useQuery({
         queryKey: [address],
@@ -20,43 +24,6 @@ const NameDetails = () => {
             return await misc.getNft(address);
         },
     });
-
-    async function getMetadata() {
-        if (!contract) return;
-        setIsLoading(true);
-
-        const data = await contract.getGetNftData();
-        if (!data) return;
-
-        const uri = data.content.beginParse().loadStringTail();
-        const response = await fetch(uri);
-        const metadata = await response.json();
-
-        setIsLoading(false);
-        setMetadata(metadata);
-        // setMetadata({
-        //     name: '@morifeoluwa',
-        //     description:
-        //         'A part of Quyx username - the starting point of your decentralized identity management',
-        //     image: 'https://iili.io/JyLZR3v.png',
-        //     buttons: [
-        //         {
-        //             label: 'Open in Quyx',
-        //             uri: 'https://quyx.xyz',
-        //         },
-        //     ],
-        //     attributes: [
-        //         {
-        //             trait_type: 'Length',
-        //             value: 11,
-        //         },
-        //     ],
-        // });
-    }
-
-    useEffect(() => {
-        getMetadata();
-    }, [contract]);
 
     return (
         <>
@@ -81,17 +48,15 @@ const NameDetails = () => {
                                     <div className="row">
                                         <div className="col-12 col-md-5">
                                             <img
-                                                src={nft.metadata.image || metadata.image}
-                                                alt={nft.metadata.name || metadata.name}
+                                                src={nft.metadata.image}
+                                                alt={nft.metadata.name}
                                                 className="w-100"
                                             />
                                         </div>
 
                                         <div className="col-12 col-md-7">
-                                            <h1>{nft.metadata.name || metadata.name}</h1>
-                                            <p>
-                                                {nft.metadata.description || metadata.description}
-                                            </p>
+                                            <h1>{nft.metadata.name}</h1>
+                                            <p>{nft.metadata.description}</p>
                                         </div>
                                     </div>
                                 </div>
