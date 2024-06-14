@@ -8,7 +8,7 @@ import useModal from '../../../hooks/useModal';
 import toast from '../../../../utils/toast';
 import { useNavigate } from 'react-router-dom';
 import useApp from '../../../hooks/useApp';
-import { approx, sleep } from '../../../../utils/helper';
+import { approx, getAvatar, sleep } from '../../../../utils/helper';
 
 type Props = {
     address: Address;
@@ -203,7 +203,7 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
                             >
                                 <div className="img">
                                     <img
-                                        src={user?.pfp ?? '/images/default-user.png'}
+                                        src={getAvatar(user?.pfp!, user?.username!)}
                                         alt={user?.username}
                                     />
                                 </div>
@@ -243,11 +243,7 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
                                     >
                                         <div className="img">
                                             <img
-                                                src={
-                                                    user?.pfp
-                                                        ? user.pfp
-                                                        : '/images/default-user.png'
-                                                }
+                                                src={getAvatar(user?.pfp!, user?.username!)}
                                                 alt={user?.username}
                                             />
                                         </div>

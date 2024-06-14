@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { AnchorLink, ConnectBtn, GradientLogo, Logo, MenuIcon } from '..';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Address, fromNano } from 'ton-core';
-import { truncateAddress } from '../../../utils/helper';
+import { getAvatar, truncateAddress } from '../../../utils/helper';
 import useTonClient from '../../hooks/useTonClient';
 import useApp from '../../hooks/useApp';
 import useTonConnect from '../../hooks/useTonConnect';
@@ -148,11 +148,7 @@ const DefaultNavbar = () => {
                                         <div className="user d-flex align-items-center">
                                             <div className="position-relative">
                                                 <img
-                                                    src={
-                                                        user?.pfp
-                                                            ? user.pfp
-                                                            : '/images/default-user.png'
-                                                    }
+                                                    src={getAvatar(user?.pfp!, user?.username!)}
                                                     alt={user?.username}
                                                 />
 

@@ -68,21 +68,15 @@ type Session = Base & {
     isActive: boolean;
 };
 
-type Bookmark = Base &
-    NftItem & {
-        user: string;
-        address: string;
-    };
+type Bookmark = Base & {
+    user: string;
+    address: string;
+    nft: NftItem;
+    owner: User;
+    isBookmarked: boolean;
+};
 
 type User = Base & {
-    tg?: {
-        id?: number | null;
-        username?: string | null;
-        firstName?: string | null;
-        lastName?: string | null;
-        languageCode?: string | null;
-        photoUrl?: string | null;
-    };
     username: string;
     hasBlueTick: boolean;
     address: string;

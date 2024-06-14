@@ -11,6 +11,11 @@ type truncateAddressProps = {
     prefixLength?: number;
 };
 
+export function getAvatar(pfp: string | null, username: string) {
+    if (pfp) return pfp;
+    return `https://api.dicebear.com/8.x/adventurer-neutral/svg?seed=${username}`;
+}
+
 export function approx(number: bigint | string | number) {
     return Number(fromNano(number)).toFixed(2);
 }

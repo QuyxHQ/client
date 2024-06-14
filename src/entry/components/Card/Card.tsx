@@ -1,6 +1,6 @@
 import { Address } from 'ton-core';
 import { useEffect, useState } from 'react';
-import { approx } from '../../../utils/helper';
+import { approx, getAvatar } from '../../../utils/helper';
 import { AnchorLink, TonIcon } from '..';
 import useApi from '../../hooks/useApi';
 import useApp from '../../hooks/useApp';
@@ -59,7 +59,7 @@ const Card = ({ nft, user, isBookmarked, className }: CardProps) => {
                 <div className="position-absolute">
                     <AnchorLink to={`/user/${user?.username}`}>
                         <img
-                            src={user?.pfp ? user.pfp : '/images/default-user.png'}
+                            src={getAvatar(user?.pfp || null, user?.username || 'n/a')}
                             alt={user?.username}
                         />
                     </AnchorLink>

@@ -1,8 +1,10 @@
+import { getAvatar } from '../../../utils/helper';
+
 const Team = () => {
     const members = [
         {
             name: 'That Nerd Next Door',
-            image: '/images/default-user.png',
+            image: getAvatar(null, 'That Nerd Next Door'),
             role: 'Founder & Team Lead',
             socials: [
                 {
@@ -25,7 +27,7 @@ const Team = () => {
         },
         {
             name: 'moyinthegrait',
-            image: '/images/default-user.png',
+            image: getAvatar(null, 'moyinthegrait'),
             role: 'Co-Founder & Designer',
             socials: [
                 {
@@ -44,7 +46,7 @@ const Team = () => {
         },
         {
             name: 'resoluteFatty',
-            image: '/images/default-user.png',
+            image: getAvatar(null, 'resoluteFatty'),
             role: 'Frontend Engineer',
             socials: [
                 {
@@ -67,7 +69,7 @@ const Team = () => {
         },
         {
             name: 'Ralph',
-            image: '/images/default-user.png',
+            image: getAvatar(null, 'Ralph'),
             role: 'Project manager',
             socials: [
                 {
