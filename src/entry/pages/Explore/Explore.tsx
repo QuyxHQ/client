@@ -75,9 +75,9 @@ const Explore = () => {
                                         </div>
                                     </div>
                                 ) : data.length == 0 ? (
-                                    <div style={{ padding: '0rem 0' }}>
+                                    <div className="mb-4">
                                         <div
-                                            style={{ gap: '1.5rem', minHeight: '80dvh' }}
+                                            style={{ gap: '1.5rem', minHeight: '40vh' }}
                                             className="d-flex flex-column align-items-center justify-content-center px-3"
                                         >
                                             <EmptyIcon width={110} height={110} />

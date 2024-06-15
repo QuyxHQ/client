@@ -4,6 +4,8 @@ import { TonClient } from 'ton';
 import { getHttpEndpoint } from '@orbs-network/ton-access';
 import env from './env';
 import { NftItem } from '../contract/artefacts/tact_NftItem';
+import { AuctionContract } from '../contract/artefacts/tact_AuctionContract';
+import { FixedSaleContract } from '../contract/artefacts/tact_FixedSaleContract';
 
 type truncateAddressProps = {
     address: string;
@@ -18,6 +20,66 @@ export function getAvatar(pfp: string | null, username: string) {
 
 export function approx(number: bigint | string | number) {
     return Number(fromNano(number)).toFixed(2);
+}
+
+export function calcCountdown(time: number) {
+    const now = new Date().getTime();
+    const distance = new Date(time).getTime() - now;
+
+    if (distance < 0) {
+        return {
+            days: '00',
+            hours: '00',
+            minutes: '00',
+            seconds: '00',
+        };
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    return {
+        days: String(days),
+        hours: String(hours).padStart(2, '0'),
+        minutes: String(minutes).padStart(2, '0'),
+        seconds: String(seconds).padStart(2, '0'),
+    };
+}
+
+export async function getSaleInfo(address: string) {
+    try {
+        const addr = Address.parse(address);
+
+        const client = new TonClient({
+            endpoint: await getHttpEndpoint({
+                network: env.IS_TESTNET ? 'testnet' : 'mainnet',
+            }),
+        });
+
+        const auctionContract = client.open(AuctionContract.fromAddress(addr));
+        const fixedSaleContract = client.open(FixedSaleContract.fromAddress(addr));
+
+        let sale, auction;
+
+        try {
+            sale = await fixedSaleContract.getGetFixPriceData();
+        } catch (e: any) {
+            console.error(e.message);
+        }
+
+        try {
+            auction = await auctionContract.getGetAuctionData();
+        } catch (e: any) {
+            console.error(e.message);
+        }
+
+        return { sale, auction };
+    } catch (e: any) {
+        console.error(e.message);
+        return undefined;
+    }
 }
 
 export async function getNFTData(address: string) {
