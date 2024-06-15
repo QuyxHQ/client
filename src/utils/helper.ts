@@ -46,13 +46,13 @@ const auction_start_time = 1713135600; // Sun Apr 14 2024 23:00:00 GMT+0000
 const one_month = 60 * 60 * 24 * 30; // one month in seconds
 
 function getPriceRange(len: number) {
-    if (len == 4) return { start: 100, end: 1000 };
-    if (len == 5) return { start: 50, end: 500 };
-    if (len == 6) return { start: 40, end: 400 };
-    if (len == 7) return { start: 30, end: 300 };
-    if (len == 8) return { start: 20, end: 200 };
-    if (len == 9) return { start: 10, end: 100 };
-    if (len == 10) return { start: 5, end: 50 };
+    if (len == 4) return { start: 50, end: 500 };
+    if (len == 5) return { start: 40, end: 400 };
+    if (len == 6) return { start: 30, end: 300 };
+    if (len == 7) return { start: 20, end: 200 };
+    if (len == 8) return { start: 10, end: 100 };
+    if (len == 9) return { start: 5, end: 50 };
+    if (len == 10) return { start: 2, end: 20 };
 
     return { start: 1, end: 10 };
 }

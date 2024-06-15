@@ -6,6 +6,8 @@ import useModal from '../../../hooks/useModal';
 import { Address } from 'ton-core';
 
 const NftsModal = ({ pendingNFTs }: { pendingNFTs: PendingUsernameResp[] }) => {
+    const { closeModal } = useModal();
+
     const data = pendingNFTs.map((item) => {
         return { username: item.nft.metadata.name, address: item.address };
     });
@@ -23,7 +25,10 @@ const NftsModal = ({ pendingNFTs }: { pendingNFTs: PendingUsernameResp[] }) => {
                                 : item.username}
                         </span>
 
-                        <AnchorLink to={`/nft/${Address.parse(item.address)}`}>
+                        <AnchorLink
+                            to={`/nft/${Address.parse(item.address)}`}
+                            handleClick={closeModal}
+                        >
                             <span>Go</span>
                             <i className="h h-external-link" />
                         </AnchorLink>
