@@ -2967,6 +2967,7 @@ footer .bottom .socials i {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #fff;
 }
 
 .claim form button i {
@@ -3076,7 +3077,7 @@ footer .bottom .socials i {
 
 .team .member img {
     width: 100%;
-    height: auto;
+    min-height: 18rem;
     border-radius: 10px;
     background-color: #111;
 }
@@ -3676,7 +3677,7 @@ footer .bottom .socials i {
 .explore-page .form input {
     width: 100%;
     background-color: #000;
-    border: 1px solid #333;
+    border: 1px solid #444;
     padding: 1.5rem 5rem;
     border-radius: 100px;
     font-size: 0.9rem;
@@ -3713,19 +3714,13 @@ footer .bottom .socials i {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #fff;
 }
 
 .explore-page form button i {
     font-size: 1.2rem;
     color: #000;
     opacity: 0.7;
-}
-
-.events {
-    height: 100%;
-    background-color: #222;
-    min-height: 10rem;
-    border-radius: 10px;
 }
 
 .search-results {
@@ -3752,7 +3747,7 @@ footer .bottom .socials i {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.7rem;
+    padding: 0.6rem;
     gap: 0.8rem;
 }
 
@@ -3765,6 +3760,7 @@ footer .bottom .socials i {
     font-weight: 500;
     font-size: 0.8rem;
     color: #000;
+    background-color: #fff;
     width: max-content;
 }
 
@@ -3790,7 +3786,7 @@ footer .bottom .socials i {
 .search-results .result-list p {
     display: flex;
     align-items: center;
-    gap: 0.1rem;
+    gap: 0.25rem;
     width: 75%;
 }
 
@@ -3800,4 +3796,357 @@ footer .bottom .socials i {
     text-overflow: ellipsis;
     font-size: 0.9rem;
     font-weight: 500;
+}
+
+.bookmarks .top {
+    padding: 3rem 0;
+}
+
+.bookmarks h1 {
+    font-size: 3.2rem;
+    font-weight: 500;
+    margin-bottom: 0.55rem;
+}
+
+.bookmarks p {
+    font-size: 1.05rem;
+    opacity: 0.45;
+    line-height: 180%;
+}
+
+.pending-nft-div {
+    background-color: #111;
+    border: 1px solid #333;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem;
+    border-radius: 7px;
+    gap: 1.3rem;
+    margin-bottom: 2rem;
+}
+
+.pending-nft-div h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 170%;
+}
+
+.pending-nft-div button {
+    padding: 0.9rem 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background-color: #fff;
+    color: #000;
+}
+
+.pending-nft-div button i {
+    font-size: 1.2rem;
+    opacity: 0.5;
+}
+
+.pending-nft-div button span {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #000;
+}
+
+.pending-modal {
+    padding: 2rem;
+}
+
+.pending-modal h3 {
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.pending-modal ol {
+    font-size: 0.95rem;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.pending-modal ol li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pending-modal ol li > span {
+    opacity: 0.6;
+    font-weight: 300;
+}
+
+.pending-modal ol li a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border: 1px solid #555;
+    padding: 0.8rem 1.5rem;
+    border-radius: 100px;
+    font-size: 0.85rem;
+}
+
+.pending-modal ol li a i {
+    font-size: 1.1rem;
+    opacity: 0.5;
+}
+
+.nft-page .main-img {
+    position: sticky;
+    -webkit-position: -webkit-sticky;
+    top: 8rem;
+}
+
+.nft-page .main-img img {
+    width: 100%;
+    height: auto;
+    background-color: #111;
+    border: 1px solid #333;
+    border-radius: 20px;
+}
+
+.nft-info-main h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 0.7rem;
+}
+
+.nft-info-main .description {
+    font-size: 1rem;
+    width: 100%;
+    max-width: 35rem;
+    font-weight: 300;
+    line-height: 200%;
+    opacity: 0.45;
+}
+
+.nft-info-main .owner {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: max-content;
+    padding: 0.4rem;
+    border-radius: 100px;
+    border: 1px solid #333;
+}
+
+.nft-info-main .owner img {
+    width: 3.45rem;
+    height: 3.45rem;
+    border-radius: 50%;
+    display: block;
+}
+
+.nft-info-main .owner > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 0;
+    padding-right: 2rem;
+}
+
+.nft-info-main .owner > div > p {
+    display: flex;
+    align-items: center;
+    font-size: 1.05rem;
+    gap: 0.4rem;
+    font-weight: 500;
+}
+
+.nft-info-main .owner > div > span {
+    font-size: 0.8rem;
+    opacity: 0.6;
+    font-weight: 300;
+}
+
+.nft-info-main .body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+    max-width: 35rem;
+    background-color: #111;
+    padding: 1.2rem;
+    border-radius: 10px;
+    border: 1px solid #333;
+}
+
+.nft-info-main .body button {
+    padding: 1.2rem 1.5rem;
+    border-radius: 100px !important;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #000;
+}
+
+.nft-info-main .body button.bg-dark {
+    background-color: #333;
+}
+
+.nft-info-main .body button i {
+    opacity: 0.5;
+    font-size: 1.2rem;
+}
+
+.text-white {
+    color: #fff !important;
+}
+
+.fixed-sale > div {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+}
+
+.fixed-sale > div hr {
+    width: 3rem;
+    border: none;
+    background-color: #fff;
+    height: 1px;
+}
+
+.fixed-sale p {
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+.fixed-sale h3 {
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+.fixed-sale h3 svg {
+    opacity: 0.5;
+}
+
+.auction-sale {
+    border: 1px solid #333;
+    border-radius: 10px;
+}
+
+.auction-sale > div {
+    border-bottom: 1px solid #333;
+    padding: 1rem;
+}
+
+.auction-sale > div:last-child {
+    border-bottom: none;
+}
+
+.auction-sale .user {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.auction-sale .user img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: block;
+}
+
+.auction-sale .user > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.auction-sale .user > div h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-weight: 600;
+}
+
+.auction-sale .user > div h4 svg {
+    opacity: 0.5;
+}
+
+.auction-sale .user > div p {
+    font-size: 0.8rem;
+    opacity: 0.5;
+}
+
+.auction-sale .top ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.auction-sale .top ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+}
+
+.auction-sale .top ul li > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.auction-sale .top ul li > div p {
+    font-size: 0.98rem;
+    font-weight: 500;
+}
+
+.auction-sale .top ul li > div span {
+    font-size: 0.8rem;
+    opacity: 0.5;
+}
+
+.auction-sale .top ul li > p {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    gap: 0.3rem;
+}
+
+.auction-sale .top ul li > p svg {
+    opacity: 0.5;
+}
+
+.auction-sale .down {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.auction-sale .down span {
+    opacity: 0.6;
+}
+
+.nft-info-main .timer {
+    background-color: #333;
+    padding: 1.2rem 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 8px;
+}
+
+.nft-info-main .timer > div {
+    font-weight: 500;
+}
+
+.nft-info-main .timer > span {
+    opacity: 0.5;
 }

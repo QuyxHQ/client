@@ -1,6 +1,6 @@
 import { Address } from 'ton-core';
 import { AnchorLink, VerifiedIcon } from '../../..';
-import { copyToClipboard, truncateAddress } from '../../../../utils/helper';
+import { copyToClipboard, getAvatar, truncateAddress } from '../../../../utils/helper';
 import useApp from '../../../hooks/useApp';
 import env from '../../../../utils/env';
 
@@ -12,10 +12,7 @@ const UserInfo = ({ user }: { user: User }) => {
             <div className="container">
                 <div>
                     <div className="position-relative mb-3">
-                        <img
-                            src={user.pfp ? user.pfp : '/images/default-user.png'}
-                            alt={user.username}
-                        />
+                        <img src={getAvatar(user.pfp || null, user.username)} alt={user.username} />
 
                         {whoami && whoami._id == user._id ? (
                             <AnchorLink to="/edit-profile" className="position-absolute">

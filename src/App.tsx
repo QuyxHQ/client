@@ -9,6 +9,7 @@ import {
     Settings,
     ClaimUsername,
     NftDetails,
+    Bookmarks,
 } from './entry';
 import { Toaster } from 'react-hot-toast';
 
@@ -20,6 +21,10 @@ const App = () => {
             path: '/',
             element: <Middleware children={<Home />} />,
             errorElement: <NotFound />,
+        },
+        {
+            path: '/bookmarks',
+            element: <Middleware children={<Bookmarks />} />,
         },
         {
             path: '/user/:username',

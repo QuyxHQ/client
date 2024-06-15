@@ -6,7 +6,7 @@ export default class MiscSdk {
 
     async getNfts(page = 1, limit = 30) {
         const { error, data } = await this.client
-            .getInstanceWithoutAuth()
+            .getInstance()
             .get(`/misc/nfts?page=${page}&limit=${limit}`);
 
         if (error) return [];
@@ -37,5 +37,9 @@ export default class MiscSdk {
         }
 
         return (data?.data.uri as string) ?? undefined;
+    }
+
+    async triggerPendingUsernameUpdate(address: string) {
+        await this.client.getInstanceWithoutAuth().put(`/misc/update/${address}`);
     }
 }

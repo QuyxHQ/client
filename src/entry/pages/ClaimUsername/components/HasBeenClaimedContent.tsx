@@ -8,7 +8,7 @@ import useModal from '../../../hooks/useModal';
 import toast from '../../../../utils/toast';
 import { useNavigate } from 'react-router-dom';
 import useApp from '../../../hooks/useApp';
-import { approx, sleep } from '../../../../utils/helper';
+import { approx, calcCountdown, getAvatar, sleep } from '../../../../utils/helper';
 
 type Props = {
     address: Address;
@@ -115,6 +115,10 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
 
             if (!is_verified) throw new Error('Could not verify transaction');
 
+            const { misc } = await useApi();
+            // to update our db
+            await misc.triggerPendingUsernameUpdate(address.toRawString());
+
             closeModal();
             navigate(`/nft/${address.toString()}`);
         } catch (e: any) {
@@ -125,30 +129,10 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
         }
     }
 
-    const calcCountdown = (time: number) => {
-        const now = new Date().getTime();
-        const distance = new Date(time).getTime() - now;
-
-        if (distance < 0) {
-            return {
-                hours: '00',
-                minutes: '00',
-                seconds: '00',
-            };
-        }
-
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        return {
-            hours: String(hours).padStart(2, '0'),
-            minutes: String(minutes).padStart(2, '0'),
-            seconds: String(seconds).padStart(2, '0'),
-        };
-    };
-
-    const [timeLeft, setTimeLeft] = useState({ hours: '--', minutes: '--', seconds: '--' });
+    // const [timeLeft, setTimeLeft] = useState({ hours: '--', minutes: '--', seconds: '--' });
+    const [timeLeft, setTimeLeft] = useState(
+        calcCountdown(Number(auction_info.auction_end_time) * 1000)
+    );
 
     useEffect(() => {
         if (auction_info.auction_end_time == 0n) return;
@@ -203,7 +187,7 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
                             >
                                 <div className="img">
                                     <img
-                                        src={user?.pfp ?? '/images/default-user.png'}
+                                        src={getAvatar(user?.pfp!, user?.username!)}
                                         alt={user?.username}
                                     />
                                 </div>
@@ -243,11 +227,7 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
                                     >
                                         <div className="img">
                                             <img
-                                                src={
-                                                    user?.pfp
-                                                        ? user.pfp
-                                                        : '/images/default-user.png'
-                                                }
+                                                src={getAvatar(user?.pfp!, user?.username!)}
                                                 alt={user?.username}
                                             />
                                         </div>

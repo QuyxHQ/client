@@ -1,3 +1,4 @@
+export { default as Bookmarks } from './Bookmarks';
 export { default as ClaimUsername } from './ClaimUsername';
 export { default as User } from './User';
 export { default as Home } from './Home';

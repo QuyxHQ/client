@@ -7,11 +7,23 @@ import { NotFound } from '..';
 const User = () => {
     const { username } = useParams();
 
-    const { isPending, data: user } = useQuery({
+    const { isPending, data } = useQuery({
         queryKey: [`${username}-data`],
         queryFn: async function () {
             const { user } = await useApi();
-            return await user.getUser(username!);
+            const u = await user.getUser(username!);
+
+            if (u) {
+                let pendingNFTs;
+
+                if (u.pending_usernames && u.pending_usernames.length > 0) {
+                    pendingNFTs = await user.getUserPendingUsernames(u.username);
+                }
+
+                return { user: u, pendingNFTs };
+            }
+
+            return null;
         },
     });
 
@@ -20,14 +32,8 @@ const User = () => {
             <div className="bg" />
 
             {isPending ? (
-                <div
-                    style={{ padding: '1rem', gap: '1.5rem', height: '60dvh' }}
-                    className="d-flex flex-column align-items-center justify-content-center"
-                >
-                    <span className="loader-span-sm"></span>
-                    <p style={{ opacity: 0.5 }}>Loading...</p>
-                </div>
-            ) : !user ? (
+                <Loading />
+            ) : !data ? (
                 <NotFound />
             ) : (
                 <div className="container">
@@ -36,11 +42,11 @@ const User = () => {
                             <div className="px-1 user-page py-4">
                                 <div className="row g-4 g-md-5">
                                     <div className="col-12 col-lg-4">
-                                        <UserInfo user={user} />
+                                        <UserInfo user={data.user} />
                                     </div>
 
                                     <div className="col-12 col-lg-8">
-                                        <Nfts address={user.address} user={user} />
+                                        <Nfts user={data.user} pendingNFTs={data.pendingNFTs} />
                                     </div>
                                 </div>
                             </div>
@@ -49,6 +55,18 @@ const User = () => {
                 </div>
             )}
         </>
+    );
+};
+
+const Loading = () => {
+    return (
+        <div
+            style={{ padding: '1rem', gap: '1.5rem', height: '60dvh' }}
+            className="d-flex flex-column align-items-center justify-content-center"
+        >
+            <span className="loader-span-sm"></span>
+            <p style={{ opacity: 0.5 }}>Loading...</p>
+        </div>
     );
 };
 

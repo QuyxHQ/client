@@ -57,4 +57,9 @@ export default class UserSdk {
             data: (data?.data as User[]) ?? [],
         };
     }
+
+    async getUserPendingUsernames(username: string) {
+        const { data } = await this.client.getInstance().get(`/user/nft/pending/${username}`);
+        return (data.data as PendingUsernameResp[]) || [];
+    }
 }

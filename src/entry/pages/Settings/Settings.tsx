@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { LoginButton } from '@telegram-auth/react';
-import { isURL, toQs } from '../../../utils/helper';
+import { getAvatar, isURL, toQs } from '../../../utils/helper';
 import useApp from '../../hooks/useApp';
 import useApi from '../../hooks/useApi';
 
@@ -99,7 +99,7 @@ const Settings = () => {
                                                 src={
                                                     pfp && pfp.length > 0
                                                         ? pfp
-                                                        : '/images/default-user.png'
+                                                        : getAvatar(null, whoami?.username || '')
                                                 }
                                                 alt={username}
                                             />

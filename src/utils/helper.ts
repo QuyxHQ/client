@@ -4,6 +4,8 @@ import { TonClient } from 'ton';
 import { getHttpEndpoint } from '@orbs-network/ton-access';
 import env from './env';
 import { NftItem } from '../contract/artefacts/tact_NftItem';
+import { AuctionContract } from '../contract/artefacts/tact_AuctionContract';
+import { FixedSaleContract } from '../contract/artefacts/tact_FixedSaleContract';
 
 type truncateAddressProps = {
     address: string;
@@ -11,8 +13,73 @@ type truncateAddressProps = {
     prefixLength?: number;
 };
 
+export function getAvatar(pfp: string | null, username: string) {
+    if (pfp) return pfp;
+    return `https://api.dicebear.com/8.x/adventurer-neutral/svg?seed=${username}`;
+}
+
 export function approx(number: bigint | string | number) {
     return Number(fromNano(number)).toFixed(2);
+}
+
+export function calcCountdown(time: number) {
+    const now = new Date().getTime();
+    const distance = new Date(time).getTime() - now;
+
+    if (distance < 0) {
+        return {
+            days: '00',
+            hours: '00',
+            minutes: '00',
+            seconds: '00',
+        };
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    return {
+        days: String(days),
+        hours: String(hours).padStart(2, '0'),
+        minutes: String(minutes).padStart(2, '0'),
+        seconds: String(seconds).padStart(2, '0'),
+    };
+}
+
+export async function getSaleInfo(address: string) {
+    try {
+        const addr = Address.parse(address);
+
+        const client = new TonClient({
+            endpoint: await getHttpEndpoint({
+                network: env.IS_TESTNET ? 'testnet' : 'mainnet',
+            }),
+        });
+
+        const auctionContract = client.open(AuctionContract.fromAddress(addr));
+        const fixedSaleContract = client.open(FixedSaleContract.fromAddress(addr));
+
+        let sale, auction;
+
+        try {
+            sale = await fixedSaleContract.getGetFixPriceData();
+        } catch (e: any) {
+            console.error(e.message);
+        }
+
+        try {
+            auction = await auctionContract.getGetAuctionData();
+        } catch (e: any) {
+            console.error(e.message);
+        }
+
+        return { sale, auction };
+    } catch (e: any) {
+        console.error(e.message);
+        return undefined;
+    }
 }
 
 export async function getNFTData(address: string) {
@@ -41,13 +108,13 @@ const auction_start_time = 1713135600; // Sun Apr 14 2024 23:00:00 GMT+0000
 const one_month = 60 * 60 * 24 * 30; // one month in seconds
 
 function getPriceRange(len: number) {
-    if (len == 4) return { start: 100, end: 1000 };
-    if (len == 5) return { start: 50, end: 500 };
-    if (len == 6) return { start: 40, end: 400 };
-    if (len == 7) return { start: 30, end: 300 };
-    if (len == 8) return { start: 20, end: 200 };
-    if (len == 9) return { start: 10, end: 100 };
-    if (len == 10) return { start: 5, end: 50 };
+    if (len == 4) return { start: 50, end: 500 };
+    if (len == 5) return { start: 40, end: 400 };
+    if (len == 6) return { start: 30, end: 300 };
+    if (len == 7) return { start: 20, end: 200 };
+    if (len == 8) return { start: 10, end: 100 };
+    if (len == 9) return { start: 5, end: 50 };
+    if (len == 10) return { start: 2, end: 20 };
 
     return { start: 1, end: 10 };
 }
