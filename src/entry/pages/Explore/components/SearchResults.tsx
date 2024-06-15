@@ -44,7 +44,7 @@ const SearchResults = ({ isLoading, users }: { isLoading: boolean; users: User[]
                                 />
                                 <p>
                                     <span>{user.username}</span>
-                                    {!user.hasBlueTick ? <VerifiedIcon /> : null}
+                                    {user.hasBlueTick ? <VerifiedIcon /> : null}
                                 </p>
                             </div>
 

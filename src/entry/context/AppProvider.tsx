@@ -13,7 +13,7 @@ export const AppContext = createContext<AppContextProps>({
     isMounting: true,
     isAuthenticated: false,
     isAuthenticating: false,
-    actions: [],
+    events: [],
     setIsAuthenticating() {},
     login() {},
     logout() {},
@@ -44,7 +44,7 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     const [isMounting, setIsMounting] = useState<boolean>(true);
     const [isAuthenticated, setIsAutenticated] = useState<boolean>(false);
     const [isAuthenticating, setIsAuthenticating] = useState<boolean>(false);
-    const [actions, setActions] = useState<Action[]>([]);
+    const [events, setEvents] = useState<Events[]>([]);
 
     useEffect(() => {
         const socket = io(env.API_ENDPOINT, { reconnectionDelayMax: 10000 });
@@ -52,7 +52,7 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         socket.on('connect', () => console.info('Connected to ws'));
         socket.on('disconnect', () => console.info('Disconnected from ws'));
 
-        socket.on('message', (data) => setActions((prev) => [...prev, data]));
+        socket.on('message', (data) => setEvents((prev) => [...prev, data]));
 
         return () => {
             socket.disconnect();
@@ -101,7 +101,7 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
                 isMounting,
                 isAuthenticated,
                 isAuthenticating,
-                actions,
+                events,
                 setIsAuthenticating,
                 login,
                 logout,

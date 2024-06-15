@@ -115,6 +115,10 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
 
             if (!is_verified) throw new Error('Could not verify transaction');
 
+            const { misc } = await useApi();
+            // to update our db
+            await misc.triggerPendingUsernameUpdate(address.toRawString());
+
             closeModal();
             navigate(`/nft/${address.toString()}`);
         } catch (e: any) {
@@ -148,7 +152,10 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
         };
     };
 
-    const [timeLeft, setTimeLeft] = useState({ hours: '--', minutes: '--', seconds: '--' });
+    // const [timeLeft, setTimeLeft] = useState({ hours: '--', minutes: '--', seconds: '--' });
+    const [timeLeft, setTimeLeft] = useState(
+        calcCountdown(Number(auction_info.auction_end_time) * 1000)
+    );
 
     useEffect(() => {
         if (auction_info.auction_end_time == 0n) return;

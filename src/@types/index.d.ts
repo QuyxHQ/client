@@ -4,6 +4,11 @@ type Resp = {
     isBookmarked: boolean;
 };
 
+type PendingUsernameResp = {
+    nft: NftItem;
+    address: string;
+};
+
 type NftMetadata = {
     name: string;
     description: string;
@@ -12,10 +17,10 @@ type NftMetadata = {
     attributes: { trait_type: string; value: string }[];
 };
 
-type ActionType = 'started_auction' | 'username_assigned';
+type EventType = 'started_auction' | 'username_assigned';
 
-type Action = {
-    type: ActionType;
+type Events = {
+    type: EventType;
     username: string;
     address: string;
     user: User;
@@ -28,7 +33,7 @@ type AppContextProps = {
     isAuthenticating: boolean;
     setIsAuthenticating: React.Dispatch<React.SetStateAction<boolean>>;
     user?: User;
-    actions: Action[];
+    events: Events[];
     login: (user: User) => void;
     logout: () => void;
     getUser(params?: { access_token: string; refresh_token: string }): Promise<void>;
@@ -89,6 +94,10 @@ type User = Base & {
         tg?: string | null;
         other?: string | null;
     };
+    pending_usernames: {
+        username: string;
+        address: string;
+    }[];
 };
 
 type Base = {

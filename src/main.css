@@ -3812,3 +3812,86 @@ footer .bottom .socials i {
     opacity: 0.45;
     line-height: 180%;
 }
+
+.pending-nft-div {
+    background-color: #111;
+    border: 1px solid #333;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem;
+    border-radius: 7px;
+    gap: 1.3rem;
+    margin-bottom: 2rem;
+}
+
+.pending-nft-div h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 170%;
+}
+
+.pending-nft-div button {
+    padding: 0.9rem 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background-color: #fff;
+}
+
+.pending-nft-div button i {
+    font-size: 1.2rem;
+    opacity: 0.5;
+}
+
+.pending-nft-div button span {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #000;
+}
+
+.pending-modal {
+    padding: 2rem;
+}
+
+.pending-modal h3 {
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.pending-modal ol {
+    font-size: 0.95rem;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.pending-modal ol li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pending-modal ol li > span {
+    opacity: 0.6;
+    font-weight: 300;
+}
+
+.pending-modal ol li a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border: 1px solid #555;
+    padding: 0.8rem 1.5rem;
+    border-radius: 100px;
+    font-size: 0.85rem;
+}
+
+.pending-modal ol li a i {
+    font-size: 1.1rem;
+    opacity: 0.5;
+}
