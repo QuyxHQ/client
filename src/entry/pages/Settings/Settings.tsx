@@ -3,6 +3,7 @@ import { LoginButton } from '@telegram-auth/react';
 import { getAvatar, isURL, toQs } from '../../../utils/helper';
 import useApp from '../../hooks/useApp';
 import useApi from '../../hooks/useApi';
+import env from '../../../utils/env';
 
 const Settings = () => {
     const [pfp, setPfp] = useState<string>('');
@@ -225,35 +226,46 @@ const Settings = () => {
                                                 </div>
                                             </div>
 
-                                            <div className="alert info">
-                                                <div>
-                                                    <i className="h h-send" />
-                                                </div>
-                                                <div>
-                                                    <h4 className="mb-1">
-                                                        Connect Telegram Account
-                                                    </h4>
-                                                    <p>
-                                                        Helps you manage your digital identities and
-                                                        notifications in one place
-                                                    </p>
-                                                </div>
-                                            </div>
+                                            {!env.IS_TESTNET ? (
+                                                <>
+                                                    <div className="alert info">
+                                                        <div>
+                                                            <i className="h h-send" />
+                                                        </div>
+                                                        <div>
+                                                            <h4 className="mb-1">
+                                                                Connect Telegram Account
+                                                            </h4>
+                                                            <p>
+                                                                Helps you manage your digital
+                                                                identities and notifications in one
+                                                                place
+                                                            </p>
+                                                        </div>
+                                                    </div>
 
-                                            <LoginButton
-                                                botUsername="QuyxBot"
-                                                onAuthCallback={async (data) => {
-                                                    console.log(data);
+                                                    <LoginButton
+                                                        botUsername="QuyxBot"
+                                                        onAuthCallback={async (data) => {
+                                                            console.log(data);
 
-                                                    const { auth } = await useApi();
-                                                    const qs = toQs(data);
+                                                            const { auth } = await useApi();
+                                                            const qs = toQs(data);
 
-                                                    const resp = await auth.completeOnboarding(qs);
-                                                    if (resp) window.location.reload();
-                                                }}
-                                            />
+                                                            console.log(qs);
 
-                                            <div className="py-3"></div>
+                                                            const resp =
+                                                                await auth.completeOnboarding(qs);
+
+                                                            alert(JSON.stringify(resp));
+
+                                                            if (resp) window.location.reload();
+                                                        }}
+                                                    />
+
+                                                    <div className="py-3"></div>
+                                                </>
+                                            ) : null}
 
                                             <div className="form-group">
                                                 <button
