@@ -88,11 +88,8 @@ const Footer = () => {
                                         </li>
 
                                         <li>
-                                            <AnchorLink
-                                                to="mailto:momoreoluwaadedeji@gmail.com"
-                                                target="_blank"
-                                            >
-                                                <span>Reach out</span>
+                                            <AnchorLink to="//developers.quyx.xyz" target="_blank">
+                                                <span>Developers</span>
                                                 <i className="h h-external-link" />
                                             </AnchorLink>
                                         </li>
@@ -100,9 +97,19 @@ const Footer = () => {
                                 </div>
 
                                 <div className="col-6 col-lg-3">
-                                    <h4>Press</h4>
+                                    <h4>#####</h4>
 
                                     <ul>
+                                        <li>
+                                            <AnchorLink
+                                                to="https://t.me/QuyxBot?start"
+                                                target="_blank"
+                                            >
+                                                <span>Credentials</span>
+                                                <i className="h h-external-link" />
+                                            </AnchorLink>
+                                        </li>
+
                                         <li>
                                             <AnchorLink to="//blog.quyx.xyz" target="_blank">
                                                 <span>Blog</span>
@@ -111,15 +118,11 @@ const Footer = () => {
                                         </li>
 
                                         <li>
-                                            <AnchorLink to="//media.quyx.xyz" target="_blank">
-                                                <span>Multimedia</span>
-                                                <i className="h h-external-link" />
-                                            </AnchorLink>
-                                        </li>
-
-                                        <li>
-                                            <AnchorLink to="//community.quyx.xyz" target="_blank">
-                                                <span>Community</span>
+                                            <AnchorLink
+                                                to="mailto:momoreoluwaadedeji@gmail.com"
+                                                target="_blank"
+                                            >
+                                                <span>Reach out</span>
                                                 <i className="h h-external-link" />
                                             </AnchorLink>
                                         </li>
