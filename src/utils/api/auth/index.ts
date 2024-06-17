@@ -10,8 +10,8 @@ export default class AuthSdk {
         this.storage = env.storage;
     }
 
-    async completeOnboarding(tg_data: string) {
-        const { error, data } = await this.client.getInstance().put('/auth/callback', { tg_data });
+    async completeOnboarding(tg_auth: string) {
+        const { error, data } = await this.client.getInstance().put('/auth/callback', { tg_auth });
 
         if (error) {
             toast({

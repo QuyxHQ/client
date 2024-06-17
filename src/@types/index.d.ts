@@ -88,6 +88,14 @@ type User = Base & {
     did: string;
     pfp?: string | null;
     bio?: string | null;
+    tg?: {
+        id: number;
+        firstName: string;
+        lastName?: string | null;
+        username?: string | null;
+        languageCode?: string | null;
+        photoUrl?: string | null;
+    };
     socials?: {
         x?: string | null;
         yt?: string | null;
