@@ -238,7 +238,7 @@ const Settings = () => {
                                                 </div>
                                             </div>
 
-                                            {!env.IS_TESTNET ? (
+                                            {!env.IS_TESTNET && whoami ? (
                                                 <>
                                                     <div className="alert info">
                                                         <div>
@@ -256,7 +256,7 @@ const Settings = () => {
                                                         </div>
                                                     </div>
 
-                                                    {whoami?.tg && whoami.tg.id ? (
+                                                    {whoami.tg && whoami.tg.id ? (
                                                         <div className="tg-info mb-5">
                                                             <h4>
                                                                 {whoami.tg.username ||
