@@ -11,7 +11,9 @@ export default class AuthSdk {
     }
 
     async completeOnboarding(tg_auth: string) {
-        const { error, data } = await this.client.getInstance().put('/auth/callback', { tg_auth });
+        const { error, data } = await this.client
+            .getInstance()
+            .put('/auth/telegram/callback', { tg_auth });
 
         if (error) {
             toast({
