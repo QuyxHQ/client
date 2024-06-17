@@ -19,9 +19,9 @@ export default class ApiClient extends HttpClient {
         });
     }
 
-    _handleResponse({ data, status: statusCode, headers }: AxiosResponse<any>) {
+    async _handleResponse({ data, status: statusCode, headers }: AxiosResponse<any>) {
         const newAccessToken = headers['x-access-token'];
-        if (newAccessToken) env.storage.setItem('access_token', newAccessToken);
+        if (newAccessToken) await env.storage.setItem('access_token', newAccessToken);
 
         if (data.data && 'status' in data.data && !data.data.status) {
             return { error: true, statusCode, data };

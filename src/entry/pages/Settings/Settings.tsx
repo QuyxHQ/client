@@ -76,6 +76,18 @@ const Settings = () => {
         setIsLoading(false);
     }
 
+    async function unlinkTG() {
+        if (isLoading || !whoami) return;
+        if (!confirm('Are you sure you want to unlink your account?')) return;
+
+        setIsLoading(true);
+        const { user } = await useApi();
+        const resp = await user.unlinkTGAccount();
+
+        if (resp) login({ ...whoami, tg: undefined });
+        setIsLoading(false);
+    }
+
     return (
         <section className="mb-5">
             <div className="bg"></div>
@@ -93,8 +105,8 @@ const Settings = () => {
                                 method="post"
                                 onSubmit={editProfile}
                             >
-                                <div className="row flex-row-reverse g-4">
-                                    <div className="col-12 col-md-4">
+                                <div className="row flex-row-reverse g-4 g-md-5">
+                                    <div className="col-12 col-md-4 mb-md-5">
                                         <div className="position-relative settings-image">
                                             <img
                                                 src={
@@ -244,26 +256,46 @@ const Settings = () => {
                                                         </div>
                                                     </div>
 
-                                                    <LoginButton
-                                                        botUsername="QuyxBot"
-                                                        onAuthCallback={async (data) => {
-                                                            console.log(data);
+                                                    {whoami?.tg && whoami.tg.id ? (
+                                                        <div className="tg-info mb-5">
+                                                            <h4>
+                                                                {whoami.tg.username ||
+                                                                    whoami.tg.firstName}
+                                                            </h4>
 
-                                                            const { auth } = await useApi();
-                                                            const qs = toQs(data);
+                                                            <button
+                                                                type="button"
+                                                                onClick={unlinkTG}
+                                                                disabled={isLoading}
+                                                            >
+                                                                {isLoading ? (
+                                                                    <span className="loader-span-sm" />
+                                                                ) : (
+                                                                    <i className="h h-x" />
+                                                                )}
+                                                            </button>
+                                                        </div>
+                                                    ) : (
+                                                        <>
+                                                            <LoginButton
+                                                                botUsername="QuyxBot"
+                                                                onAuthCallback={async (data) => {
+                                                                    const { auth } = await useApi();
+                                                                    const qs = toQs(data);
 
-                                                            console.log(qs);
+                                                                    if (
+                                                                        await auth.completeOnboarding(
+                                                                            qs
+                                                                        )
+                                                                    ) {
+                                                                        window.location.reload();
+                                                                    }
+                                                                }}
+                                                            />
 
-                                                            const resp =
-                                                                await auth.completeOnboarding(qs);
-
-                                                            alert(JSON.stringify(resp));
-
-                                                            if (resp) window.location.reload();
-                                                        }}
-                                                    />
-
-                                                    <div className="py-3"></div>
+                                                            <div className="py-3"></div>
+                                                        </>
+                                                    )}
                                                 </>
                                             ) : null}
 

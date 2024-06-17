@@ -62,4 +62,19 @@ export default class UserSdk {
         const { data } = await this.client.getInstance().get(`/user/nft/pending/${username}`);
         return (data.data as PendingUsernameResp[]) || [];
     }
+
+    async unlinkTGAccount() {
+        const { data, error } = await this.client.getInstance().delete('/user/telegram');
+
+        if (error) {
+            toast({
+                type: 'error',
+                message: data.error || 'Could not unlink telegram account',
+            });
+
+            return false;
+        }
+
+        return true;
+    }
 }
