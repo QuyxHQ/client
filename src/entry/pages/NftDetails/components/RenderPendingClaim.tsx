@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { AuctionInfo } from '../../../../contract/artefacts/tact_NftItem';
-import { calcCountdown, sleep } from '../../../../utils/helper';
+import { approx, calcCountdown, getAvatar, getMinBid, sleep } from '../../../../utils/helper';
 import useItem from '../../../hooks/useItem';
 import { Address, fromNano, toNano } from 'ton-core';
 import toast from '../../../../utils/toast';
 import useApp from '../../../hooks/useApp';
 import useApi from '../../../hooks/useApi';
+import { AnchorLink, TonIcon } from '../../..';
 
 type Props = {
     auction_info: AuctionInfo;
@@ -18,6 +19,16 @@ const RenderPendingClaim = ({ auction_info, address }: Props) => {
     const [timeLeft, setTimeLeft] = useState(
         calcCountdown(Number(auction_info.auction_end_time) * 1000)
     );
+    const [user, setUser] = useState<User>();
+
+    useEffect(() => {
+        (async function () {
+            if (!auction_info.max_bid_address) return;
+
+            const { user } = await useApi();
+            setUser(await user.getUser(auction_info.max_bid_address.toString()));
+        })();
+    }, [auction_info]);
 
     const { user: whoami } = useApp();
 
@@ -33,9 +44,9 @@ const RenderPendingClaim = ({ auction_info, address }: Props) => {
             await methods.completeAuction();
 
             while (!is_verified && count > 0) {
-                const data = await methods.getNftItemData();
+                const data = await methods.getNftAuctionInfo();
 
-                if (data && data.owner) {
+                if (data && data.max_bid_address == null) {
                     is_verified = true;
                 } else {
                     count--;
@@ -131,23 +142,52 @@ const RenderPendingClaim = ({ auction_info, address }: Props) => {
     }, [auction_info]);
 
     return (
-        <div className="py-2">
-            <h3
-                style={{
-                    fontWeight: 600,
-                    textAlign: 'center',
-                }}
-                className="mb-4"
-            >
-                Pending Claim
-            </h3>
-
-            <div className="timer mb-3">
+        <>
+            <div className="timer">
                 <div>{timeLeft.hours} hours</div>
                 <span>:</span>
                 <div>{timeLeft.minutes}</div>
                 <span>:</span>
                 <div>{timeLeft.seconds}</div>
+            </div>
+
+            <div className="auction-sale mb-1">
+                {!user ? null : (
+                    <div className="user">
+                        <AnchorLink to={`/user/${user.username}`}>
+                            <img src={getAvatar(user.pfp || null, user.username)} alt="" />
+                        </AnchorLink>
+
+                        <div>
+                            <h4>
+                                <TonIcon />
+                                <span>{approx(auction_info.max_bid_amount)}</span>
+                            </h4>
+                            <p>Highest bidder</p>
+                        </div>
+                    </div>
+                )}
+
+                <div className="top">
+                    <ul>
+                        <li>
+                            <div>
+                                <p>min. bid</p>
+                            </div>
+
+                            <p>
+                                <TonIcon />
+                                <span>{getMinBid(auction_info.max_bid_amount, 5)}</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div className="down">
+                    <p>
+                        <span>Bid step:</span> 5%
+                    </p>
+                </div>
             </div>
 
             {timeLeft.hours == '00' && timeLeft.minutes == '00' && timeLeft.seconds == '00' ? (
@@ -166,14 +206,14 @@ const RenderPendingClaim = ({ auction_info, address }: Props) => {
                     {isLoading ? (
                         <span
                             className="loader-span-sm"
-                            style={{ width: '17px', height: '17px', borderTopColor: '#000' }}
+                            style={{ width: '17px', height: '17px', borderTopColor: '#fff' }}
                         />
                     ) : (
                         'Place bid'
                     )}
                 </button>
             )}
-        </div>
+        </>
     );
 };
 

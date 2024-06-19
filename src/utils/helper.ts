@@ -13,6 +13,38 @@ type truncateAddressProps = {
     prefixLength?: number;
 };
 
+export function isMemberofRoute(needle: string, haystack: string[]) {
+    let isMember = false;
+
+    for (let i of haystack) {
+        if (i.endsWith('/*')) {
+            const length = i.length - 2;
+
+            if (needle.substring(0, length) == i.substring(0, length)) {
+                isMember = true;
+                break;
+            }
+        } else {
+            if (needle == i) {
+                isMember = true;
+                break;
+            }
+        }
+    }
+
+    return isMember;
+}
+
+export function isValidAddress(address: string) {
+    try {
+        Address.parse(address);
+
+        return true;
+    } catch (e: any) {
+        return false;
+    }
+}
+
 export function getAvatar(pfp: string | null, username: string) {
     if (pfp) return pfp;
     return `https://api.dicebear.com/8.x/adventurer-neutral/svg?seed=${username}`;
@@ -98,6 +130,28 @@ export async function getNFTData(address: string) {
         console.error(e.message);
         return undefined;
     }
+}
+
+export async function getNFTAuctionInfo(address: string) {
+    try {
+        const addr = Address.parse(address);
+
+        const client = new TonClient({
+            endpoint: await getHttpEndpoint({
+                network: env.IS_TESTNET ? 'testnet' : 'mainnet',
+            }),
+        });
+
+        const contract = client.open(NftItem.fromAddress(addr));
+        return await contract.getGetAuctionInfo();
+    } catch (e: any) {
+        console.error(e.message);
+        return undefined;
+    }
+}
+
+export function getMinBid(bid: bigint, step: number) {
+    return ((Number(fromNano(bid)) * (100 + step)) / 100).toFixed(2);
 }
 
 export function sleep(seconds: number) {

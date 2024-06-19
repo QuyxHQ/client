@@ -1,8 +1,8 @@
-import { Address, toNano } from 'ton-core';
+import { Address, beginCell, toNano } from 'ton-core';
 import useAsyncInitialize from './useAsyncInitialize';
 import useTonClient from './useTonClient';
 import useTonConnect from './useTonConnect';
-import { NftItem } from '../../contract/artefacts/tact_NftItem';
+import { NftItem, Transfer } from '../../contract/artefacts/tact_NftItem';
 
 export default function (address: Address) {
     const { client } = useTonClient();
@@ -30,8 +30,24 @@ export default function (address: Address) {
         return await contract.getGetDomain();
     }
 
-    async function transfer() {
-        if (!contract || !wallet) return;
+    async function transfer(to: Address) {
+        if (!contract || !wallet || !client) return;
+
+        try {
+            const message: Transfer = {
+                $$type: 'Transfer',
+                query_id: BigInt(Date.now()),
+                custom_payload: null,
+                forward_amount: 1n,
+                forward_payload: beginCell().endCell(),
+                new_owner: to,
+                response_destination: Address.parse(wallet),
+            };
+
+            await contract.send(sender, { value: toNano(0.05) }, message);
+        } catch (e: any) {
+            throw new Error(e);
+        }
     }
 
     async function placeBid(bid: number) {

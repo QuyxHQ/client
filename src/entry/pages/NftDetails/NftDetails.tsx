@@ -3,23 +3,26 @@ import { useLocation, useParams } from 'react-router-dom';
 import useApi from '../../hooks/useApi';
 import { NotFound } from '..';
 import { Address } from 'ton-core';
-import { getAvatar, getSaleInfo, sleep } from '../../../utils/helper';
+import { getAvatar, getNFTAuctionInfo, getSaleInfo, sleep } from '../../../utils/helper';
 import { AnchorLink, VerifiedIcon } from '../..';
 import useApp from '../../hooks/useApp';
-import useItem from '../../hooks/useItem';
 import toast from '../../../utils/toast';
-import RenderPendingClaim from './components/RenderPendingClaim';
-import RenderAuction from './components/RenderAuction';
-import RenderFixSale from './components/RenderFixSale';
+import useModal from '../../hooks/useModal';
+import {
+    RenderAuction,
+    RenderPendingClaim,
+    RenderFixSale,
+    TransferModalContent,
+    PutOnSaleModal,
+} from './components';
 
 const NftDetails = () => {
     const { address } = useParams() as { address: string };
     const { state } = useLocation();
     const { user: whoami } = useApp();
-    const { contract } = useItem(Address.parse(address));
+    const { openModal, setModalBody } = useModal();
 
-    let just_claimed = false;
-    if (state) just_claimed = state.just_claimed;
+    const just_claimed = state && state.just_claimed ? state.just_claimed : false;
 
     const { isPending, data: nft } = useQuery({
         queryKey: [address],
@@ -28,7 +31,7 @@ const NftDetails = () => {
 
             let [data, auction_info] = await Promise.all([
                 misc.getNft(address),
-                contract?.getGetAuctionInfo(),
+                getNFTAuctionInfo(address),
             ]);
 
             while (!data && just_claimed) {
@@ -50,10 +53,18 @@ const NftDetails = () => {
         },
     });
 
+    function openTransferModal() {
+        setModalBody(<TransferModalContent address={address} />);
+        openModal();
+    }
+
+    function openPutOnModal() {
+        setModalBody(<PutOnSaleModal address={address} />);
+        openModal();
+    }
+
     return (
         <>
-            <div className="bg" />
-
             {isPending ? (
                 <div
                     style={{ padding: '1rem', gap: '1.5rem', height: '60dvh' }}
@@ -85,7 +96,7 @@ const NftDetails = () => {
                                             <div className="py-4 nft-info-main">
                                                 <AnchorLink
                                                     to={`/user/${nft.item.nft_owner?.username}`}
-                                                    className="owner mb-4"
+                                                    className="owner"
                                                 >
                                                     <img
                                                         src={getAvatar(
@@ -105,6 +116,8 @@ const NftDetails = () => {
                                                                 <VerifiedIcon />
                                                             ) : null}
                                                         </p>
+
+                                                        <hr />
 
                                                         <span>Owner</span>
                                                     </div>
@@ -144,12 +157,17 @@ const NftDetails = () => {
 
                                                     {nft.item.owner?.address == whoami?.address ? (
                                                         <>
-                                                            <button>Transfer</button>
+                                                            <button onClick={openTransferModal}>
+                                                                Transfer
+                                                            </button>
 
                                                             {!nft.sale_info?.auction &&
                                                             !nft.sale_info?.sale ? (
-                                                                <button className="bg-dark text-white">
-                                                                    Put for sale
+                                                                <button
+                                                                    className="bg-dark text-white"
+                                                                    onClick={openPutOnModal}
+                                                                >
+                                                                    Put on sale
                                                                 </button>
                                                             ) : null}
                                                         </>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnchorLink, ConnectBtn, GradientLogo, Logo, MenuIcon } from '..';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Address, fromNano } from 'ton-core';
@@ -14,10 +14,40 @@ const DefaultNavbar = () => {
     const [isLogoutLoading, setIsLogoutLoading] = useState<boolean>(false);
     const [balance, setBalance] = useState<string>();
 
+    const divRef = useRef<any>(null);
+    const [dropVisible, setDropVisible] = useState<boolean>(false);
+
     const { logout, user } = useApp();
     const { connected } = useTonConnect();
     const { client } = useTonClient();
     const [tonConnectUI] = useTonConnectUI();
+
+    const handleClickOutside = (e: any) => {
+        if (divRef.current && !divRef.current.contains(e.target)) {
+            setDropVisible(false);
+        }
+    };
+
+    const handleEscKeyPress = (e: any) => {
+        if (e.key === 'Escape') {
+            setDropVisible(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('keydown', handleEscKeyPress);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('keydown', handleEscKeyPress);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (dropVisible) document.body.classList.add('scroll-disabled');
+        else document.body.classList.remove('scroll-disabled');
+    }, [dropVisible]);
 
     useEffect(() => {
         (async function () {
@@ -52,7 +82,7 @@ const DefaultNavbar = () => {
         },
         {
             title: 'Edit profile',
-            icon: 'edit',
+            icon: 'edit-2',
             to: '/edit-profile',
         },
         {
@@ -145,14 +175,22 @@ const DefaultNavbar = () => {
                                     style={{ gap: '1.5rem' }}
                                 >
                                     {connected ? (
-                                        <div className="user d-flex align-items-center">
+                                        <div
+                                            className="user d-flex align-items-center"
+                                            onClick={() => setDropVisible(true)}
+                                            ref={divRef}
+                                        >
                                             <div className="position-relative">
                                                 <img
                                                     src={getAvatar(user?.pfp!, user?.username!)}
                                                     alt={user?.username}
                                                 />
 
-                                                <div className="position-absolute nav-navigate">
+                                                <div
+                                                    className={`position-absolute nav-navigate ${
+                                                        dropVisible ? 'd-block' : 'd-none'
+                                                    }`}
+                                                >
                                                     <AnchorLink
                                                         className="top-shi"
                                                         to={`/user/${user ? user.username : ''}`}
@@ -167,7 +205,7 @@ const DefaultNavbar = () => {
                                                                         : '',
                                                                 })}
                                                             </h2>
-                                                            <p>Go to dashboard</p>
+                                                            <p>Go to profile</p>
                                                         </div>
                                                     </AnchorLink>
 
