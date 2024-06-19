@@ -38,9 +38,9 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
             await methods.completeAuction();
 
             while (!is_verified && count > 0) {
-                const data = await methods.getNftItemData();
+                const data = await methods.getNftAuctionInfo();
 
-                if (data && data.owner) {
+                if (data && data.max_bid_address == null) {
                     is_verified = true;
                 } else {
                     count--;

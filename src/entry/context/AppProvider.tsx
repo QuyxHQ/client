@@ -16,7 +16,7 @@ export const AppContext = createContext<AppContextProps>({
     events: [],
     setIsAuthenticating() {},
     login() {},
-    logout() {},
+    async logout() {},
     async getUser(_?: { access_token: string; refresh_token: string }) {},
 });
 

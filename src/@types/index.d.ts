@@ -35,7 +35,7 @@ type AppContextProps = {
     user?: User;
     events: Events[];
     login: (user: User) => void;
-    logout: () => void;
+    logout: () => Promise<void>;
     getUser(params?: { access_token: string; refresh_token: string }): Promise<void>;
 };
 

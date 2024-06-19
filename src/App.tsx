@@ -10,6 +10,8 @@ import {
     ClaimUsername,
     NftDetails,
     Bookmarks,
+    Sale,
+    Unauthorized,
 } from './entry';
 import { Toaster } from 'react-hot-toast';
 
@@ -53,6 +55,18 @@ const App = () => {
         {
             path: '/claim/:username',
             element: <Middleware children={<ClaimUsername />} />,
+        },
+        {
+            path: '/sale/fixed/:address',
+            element: <Middleware children={<Sale type="fixed" />} />,
+        },
+        {
+            path: '/sale/auction/:address',
+            element: <Middleware children={<Sale type="auction" />} />,
+        },
+        {
+            path: '/unauthorized',
+            element: <Middleware children={<Unauthorized />} />,
         },
     ]);
 
