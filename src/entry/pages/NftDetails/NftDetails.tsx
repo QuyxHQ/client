@@ -88,6 +88,8 @@ const NftDetails = () => {
                                                     src={nft.item.metadata.image}
                                                     alt={nft.item.metadata.name}
                                                     className="w-100"
+                                                    width={500}
+                                                    height={499}
                                                 />
                                             </div>
                                         </div>

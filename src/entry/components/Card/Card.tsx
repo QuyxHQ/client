@@ -53,7 +53,14 @@ const Card = ({ nft, user, isBookmarked, className }: CardProps) => {
                 </span>
 
                 <AnchorLink to={`/nft/${Address.parse(nft.address).toString()}`}>
-                    <img className="main" src={nft.metadata.image} alt={nft.metadata.name} />
+                    <img
+                        className="main"
+                        src={nft.metadata.image}
+                        alt={nft.metadata.name}
+                        loading="lazy"
+                        height={499}
+                        width={500}
+                    />
                 </AnchorLink>
 
                 <div className="position-absolute">
