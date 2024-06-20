@@ -2363,12 +2363,13 @@ input[type='datetime-local'] {
 }
 
 .hero p {
-    font-size: 1.05rem;
+    font-size: 1.03rem;
     text-align: center;
-    max-width: 38rem;
+    max-width: 40rem;
     margin: 0% auto;
-    line-height: 210%;
+    line-height: 235%;
     color: #888;
+    font-weight: 300;
     margin-bottom: 2.5rem;
 }
 
@@ -2463,18 +2464,24 @@ input[type='datetime-local'] {
 }
 
 .how-it-works .content h4 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 600;
-    margin-bottom: 0.7rem;
+    line-height: 175%;
+    margin-bottom: 0.2rem;
 }
 
 .how-it-works .content p {
     width: 100%;
     max-width: 20rem;
-    font-size: 1.05rem;
-    line-height: 180%;
+    font-size: 0.95rem;
+    line-height: 205%;
     font-weight: 300;
     color: #999;
+}
+
+.how-it-works .content p a {
+    color: dodgerblue;
+    border-bottom: 1px solid dodgerblue;
 }
 
 .how-it-works .d-md-block .item {
@@ -2633,7 +2640,7 @@ input[type='datetime-local'] {
 .features .item-sm {
     background-color: #171717;
     border-radius: 15px;
-    padding: 1.8rem;
+    padding: 1.7rem;
     padding-bottom: 2.1rem;
     width: 100%;
     position: relative;
@@ -2650,6 +2657,7 @@ input[type='datetime-local'] {
     position: absolute;
     right: -1.2rem;
     top: -1.2rem;
+    z-index: 0;
 }
 
 .features .item {
@@ -2664,6 +2672,7 @@ input[type='datetime-local'] {
     position: absolute;
     left: -4rem;
     top: 0.5rem;
+    z-index: 1;
 }
 
 .features .item-sm p,
@@ -2677,11 +2686,11 @@ input[type='datetime-local'] {
 
 .features .item-sm h3,
 .features .item h3 {
-    font-size: calc(1vw + 1.5rem);
+    font-size: calc(1vw + 1.1rem);
     z-index: 1;
-    width: 100%;
-    max-width: 25rem;
-    line-height: 160%;
+    width: 95%;
+    max-width: 24rem;
+    line-height: 175%;
     font-weight: 500;
 }
 
@@ -2754,16 +2763,16 @@ input[type='datetime-local'] {
     font-size: 1.1rem;
     font-weight: 300;
     color: #999;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.65rem;
     z-index: 1;
 }
 
 .about .item-sm h3,
 .about .item h3 {
-    font-size: 1.17rem;
+    font-size: 1.15rem;
     z-index: 1;
     width: 100%;
-    line-height: 200%;
+    line-height: 215%;
     font-weight: 400;
 }
 
@@ -2836,7 +2845,7 @@ input[type='datetime-local'] {
     font-weight: 600;
     margin-bottom: 1rem;
     line-height: 150%;
-    max-width: 35rem;
+    max-width: 30rem;
 }
 
 .subscribe .header p {

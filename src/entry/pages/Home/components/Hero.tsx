@@ -3,16 +3,17 @@ import { AnchorLink } from '../../..';
 const Hero = () => {
     return (
         <div className="hero">
-            <h1>Craft your digital identity</h1>
+            <h1>Control your social identity</h1>
             <p>
-                In a world of digital identities, QUYX brings together visionaries and artists to
-                redefine personal identity(ies) online.
+                Your unified social identity on The Open Network (TON). Claim your unique username,
+                secure your credentials, and join a community that values privacy and control.
             </p>
 
             <div className="buttons d-flex flex-column flex-md-row">
                 <AnchorLink to="/claim">
                     <button>
-                        <span>Claim Username</span>
+                        <i className="h h-chevron-right" />
+                        <span>Get Started</span>
                     </button>
                 </AnchorLink>
 

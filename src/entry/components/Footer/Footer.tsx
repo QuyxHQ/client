@@ -45,33 +45,7 @@ const Footer = () => {
                                 </div>
 
                                 <div className="col-6 col-lg-3">
-                                    <h4>Resources</h4>
-
-                                    <ul>
-                                        <li>
-                                            <AnchorLink to="//github.com/QuyxHQ" target="_blank">
-                                                <span>Github</span>
-                                                <i className="h h-external-link" />
-                                            </AnchorLink>
-                                        </li>
-
-                                        <li>
-                                            <AnchorLink to="/whitepaper.pdf">
-                                                <span>Whitepaper</span>
-                                                <i className="h h-external-link" />
-                                            </AnchorLink>
-                                        </li>
-                                        <li>
-                                            <AnchorLink to="#" target="_blank">
-                                                <span>Pitchdeck</span>
-                                                <i className="h h-external-link" />
-                                            </AnchorLink>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div className="col-6 col-lg-3">
-                                    <h4>Other</h4>
+                                    <h4>#####</h4>
 
                                     <ul>
                                         <li>
@@ -80,6 +54,29 @@ const Footer = () => {
                                             </AnchorLink>
                                         </li>
 
+                                        <li>
+                                            <AnchorLink
+                                                to="https://t.me/QuyxBot?start"
+                                                target="_blank"
+                                            >
+                                                <span>Telegram mini app</span>
+                                                <i className="h h-external-link" />
+                                            </AnchorLink>
+                                        </li>
+
+                                        <li>
+                                            <AnchorLink to="//github.com/QuyxHQ" target="_blank">
+                                                <span>Github</span>
+                                                <i className="h h-external-link" />
+                                            </AnchorLink>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div className="col-6 col-lg-3">
+                                    <h4>Resources</h4>
+
+                                    <ul>
                                         <li>
                                             <AnchorLink to="//docs.quyx.xyz" target="_blank">
                                                 <span>Docs</span>
@@ -93,26 +90,30 @@ const Footer = () => {
                                                 <i className="h h-external-link" />
                                             </AnchorLink>
                                         </li>
+
+                                        <li>
+                                            <AnchorLink to="//blog.quyx.xyz" target="_blank">
+                                                <span>Blog</span>
+                                                <i className="h h-external-link" />
+                                            </AnchorLink>
+                                        </li>
                                     </ul>
                                 </div>
 
                                 <div className="col-6 col-lg-3">
-                                    <h4>#####</h4>
+                                    <h4>Other</h4>
 
                                     <ul>
                                         <li>
-                                            <AnchorLink
-                                                to="https://t.me/QuyxBot?start"
-                                                target="_blank"
-                                            >
-                                                <span>Credentials</span>
+                                            <AnchorLink to="/whitepaper.pdf">
+                                                <span>Whitepaper</span>
                                                 <i className="h h-external-link" />
                                             </AnchorLink>
                                         </li>
 
                                         <li>
-                                            <AnchorLink to="//blog.quyx.xyz" target="_blank">
-                                                <span>Blog</span>
+                                            <AnchorLink to="/pitchdeck.pdf" target="_blank">
+                                                <span>Pitchdeck</span>
                                                 <i className="h h-external-link" />
                                             </AnchorLink>
                                         </li>
