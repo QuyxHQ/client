@@ -79,7 +79,10 @@ export default function () {
         if (!contract || !wallet || !client) return;
 
         try {
-            const collection = client.open(NftCollection.fromAddress(env.CONTRACT_ADDR));
+            const collection = client.open(
+                NftCollection.fromAddress(Address.parse(env.CONTRACT_ADDR))
+            );
+
             const royaltyParams = await collection.getGetRoyaltyParams();
 
             const mp_fee = (price * 3) / 100;
@@ -108,7 +111,7 @@ export default function () {
                     $$type: 'Transfer',
                     query_id: BigInt(Date.now()),
                     custom_payload: null,
-                    forward_amount: toNano(0.1),
+                    forward_amount: 1n,
                     forward_payload: body,
                     new_owner: Address.parse(env.MARKETPLACE_ADDR),
                     response_destination: sender.address!,

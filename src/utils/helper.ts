@@ -80,6 +80,42 @@ export function calcCountdown(time: number) {
     };
 }
 
+export async function getFixedSaleInfo(address: string) {
+    try {
+        const addr = Address.parse(address);
+
+        const client = new TonClient({
+            endpoint: await getHttpEndpoint({
+                network: env.IS_TESTNET ? 'testnet' : 'mainnet',
+            }),
+        });
+
+        const fixedSaleContract = client.open(FixedSaleContract.fromAddress(addr));
+        return await fixedSaleContract.getGetFixPriceData();
+    } catch (e: any) {
+        console.error(e.message);
+        return;
+    }
+}
+
+export async function getAuctionSaleInfo(address: string) {
+    try {
+        const addr = Address.parse(address);
+
+        const client = new TonClient({
+            endpoint: await getHttpEndpoint({
+                network: env.IS_TESTNET ? 'testnet' : 'mainnet',
+            }),
+        });
+
+        const auctionSaleContract = client.open(AuctionContract.fromAddress(addr));
+        return await auctionSaleContract.getGetAuctionData();
+    } catch (e: any) {
+        console.error(e.message);
+        return;
+    }
+}
+
 export async function getSaleInfo(address: string) {
     try {
         const addr = Address.parse(address);

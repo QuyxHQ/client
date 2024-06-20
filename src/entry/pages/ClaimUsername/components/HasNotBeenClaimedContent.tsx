@@ -3,9 +3,9 @@ import { TonIcon } from '../../..';
 import { useEffect, useState } from 'react';
 import toast from '../../../../utils/toast';
 import useCollection from '../../../hooks/useCollection';
-import useTonConnect from '../../../hooks/useTonConnect';
 import { useNavigate } from 'react-router-dom';
 import useModal from '../../../hooks/useModal';
+import useApp from '../../../hooks/useApp';
 
 type Props = {
     username: string;
@@ -17,13 +17,18 @@ const HasNotBeenClaimedContent = ({ username, address }: Props) => {
     const [price, setPrice] = useState<string>('0');
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const { contract, methods } = useCollection();
-    const { connected } = useTonConnect();
     const navigate = useNavigate();
     const { closeModal } = useModal();
+    const {user:whoami} = useApp()
 
     useEffect(() => setPrice(String(getUsernameMinPrice(username))), [username]);
 
     async function startAuction() {
+         if (!whoami) {
+             toast({ type: 'info', message: 'Connect wallet first' });
+             return;
+         }
+
         if (Number(price) < getUsernameMinPrice(username)) {
             toast({
                 type: 'error',
@@ -103,7 +108,7 @@ const HasNotBeenClaimedContent = ({ username, address }: Props) => {
                 </p>
             </div>
 
-            <button onClick={startAuction} disabled={isLoading || !connected}>
+            <button onClick={startAuction} disabled={isLoading}>
                 {isLoading ? (
                     <span className="loader-span-sm" style={{ width: '17px', height: '17px' }} />
                 ) : (
@@ -113,8 +118,6 @@ const HasNotBeenClaimedContent = ({ username, address }: Props) => {
                     </>
                 )}
             </button>
-
-            {!connected ? <p className="error">Connect your wallet to place bid</p> : null}
         </div>
     );
 };
