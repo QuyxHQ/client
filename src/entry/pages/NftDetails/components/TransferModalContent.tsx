@@ -5,15 +5,21 @@ import useForm from '../../../hooks/useForm';
 import { isValidAddress, sleep } from '../../../../utils/helper';
 import toast from '../../../../utils/toast';
 import useModal from '../../../hooks/useModal';
+import useApp from '../../../hooks/useApp';
 
 const TransferModalContent = ({ address }: { address: string }) => {
     const { contract, methods } = useItem(Address.parse(address));
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const { onChange, onSubmit, values } = useForm(transfer, { to: '' });
     const { closeModal } = useModal();
+    const { user: whoami } = useApp();
 
     async function transfer() {
         if (!values.to || !contract || isLoading) return;
+        if (!whoami) {
+            toast({ type: 'info', message: 'Connect wallet first' });
+            return;
+        }
 
         if (!isValidAddress(values.to)) {
             toast({ type: 'error', message: 'Invalid address provided' });

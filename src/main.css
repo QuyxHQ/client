@@ -4303,3 +4303,42 @@ footer .bottom .socials i {
     font-size: 1.65rem;
     opacity: 0.35;
 }
+
+.fixed-sale-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #111;
+    border: 1px solid #333;
+    padding: 0.5rem;
+    border-radius: 9px;
+    margin-bottom: 1.6rem;
+}
+
+.fixed-sale-info img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 7px;
+    background-color: #000;
+    border: 1px solid #222;
+}
+
+.fixed-sale-info > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.fixed-sale-info > div h3 {
+    font-weight: 500;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 1.15rem;
+}
+
+.fixed-sale-info > div p {
+    font-size: 0.8rem;
+    opacity: 0.5;
+}

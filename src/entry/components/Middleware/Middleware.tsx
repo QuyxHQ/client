@@ -12,7 +12,7 @@ const PROTECTED_ROUTES = ['/bookmarks', '/edit-profile', '/sale/*'];
 const Middleware = ({ children }: { children: React.ReactNode }) => {
     const { connected } = useTonConnect();
     const isConnectionRestored = useIsConnectionRestored();
-    const { logout, isMounting, isAuthenticated, user } = useApp();
+    const { logout, isMounting, isAuthenticated, isAuthenticating, user } = useApp();
     const location = useLocation();
     const navigate = useNavigate();
     const [tonConnectUI] = useTonConnectUI();
@@ -20,8 +20,10 @@ const Middleware = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         (async function () {
             if (!isMounting && isConnectionRestored) {
-                if ((user && !connected) || (connected && !user)) {
-                    await Promise.all([logout(), tonConnectUI.disconnect()]);
+                if (!isAuthenticating) {
+                    if ((user && !connected) || (connected && !user)) {
+                        await Promise.all([logout(), tonConnectUI.disconnect()]);
+                    }
                 }
 
                 if (
@@ -38,7 +40,15 @@ const Middleware = ({ children }: { children: React.ReactNode }) => {
                 }
             }
         })();
-    }, [connected, isMounting, isConnectionRestored, user, isAuthenticated, location]);
+    }, [
+        connected,
+        isMounting,
+        isConnectionRestored,
+        user,
+        isAuthenticated,
+        isAuthenticating,
+        location,
+    ]);
 
     return (
         <>

@@ -33,7 +33,11 @@ const RenderPendingClaim = ({ auction_info, address }: Props) => {
     const { user: whoami } = useApp();
 
     async function completeAution() {
-        if (isLoading || !contract || !whoami) return;
+        if (isLoading || !contract) return;
+        if (!whoami) {
+            toast({ type: 'info', message: 'Connect wallet first' });
+            return;
+        }
 
         setIsLoading(true);
 
@@ -64,7 +68,11 @@ const RenderPendingClaim = ({ auction_info, address }: Props) => {
     }
 
     async function placeBid() {
-        if (isLoading || !contract || !whoami) return;
+        if (isLoading || !contract) return;
+        if (!whoami) {
+            toast({ type: 'info', message: 'Connect wallet first' });
+            return;
+        }
 
         const current_bid = fromNano(auction_info.max_bid_amount);
         const min = (Number(current_bid) * 105) / 100;

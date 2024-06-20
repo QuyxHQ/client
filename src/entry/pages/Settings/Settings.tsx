@@ -90,7 +90,7 @@ const Settings = () => {
 
     return (
         <section className="mb-5">
-            <div className="bg"></div>
+            <div className="bg" />
             <div className="container-fluid container-xl">
                 <div className="row">
                     <div className="col-12">
