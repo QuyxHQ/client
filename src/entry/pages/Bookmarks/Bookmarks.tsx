@@ -49,7 +49,7 @@ const Bookmarks = () => {
                                                     />
                                                 </div>
                                             </div>
-                                        ) : !content || content.length == 0 ? (
+                                        ) : !content || content[0].length == 0 ? (
                                             <div style={{ padding: '0rem 0' }} className="mb-5">
                                                 <div
                                                     style={{ gap: '1.5rem', minHeight: '40dvh' }}

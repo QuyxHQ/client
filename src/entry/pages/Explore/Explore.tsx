@@ -41,6 +41,8 @@ const Explore = () => {
         ));
     });
 
+    console.log(content);
+
     return (
         <>
             <div className="bg" />
@@ -86,7 +88,7 @@ const Explore = () => {
                                             <CardLoader size={12} col="col-6 col-lg-4 col-xl-3" />
                                         </div>
                                     </div>
-                                ) : !content || content.length == 0 ? (
+                                ) : !content || content[0].length == 0 ? (
                                     <div className="mb-4">
                                         <div
                                             style={{ gap: '1.5rem', minHeight: '40vh' }}

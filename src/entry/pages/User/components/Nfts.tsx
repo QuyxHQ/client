@@ -95,7 +95,7 @@ const Nfts = ({ user, pendingNFTs }: { user: User; pendingNFTs?: PendingUsername
                         </div>
                     ) : null}
 
-                    {!content || content.length == 0 ? (
+                    {!content || content[0].length == 0 ? (
                         <div
                             style={{ gap: '1.5rem', height: '55dvh' }}
                             className="d-flex flex-column align-items-center justify-content-center"
