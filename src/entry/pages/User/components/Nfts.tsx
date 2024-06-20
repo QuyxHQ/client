@@ -1,9 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
 import useApi from '../../../hooks/useApi';
 import { AnchorLink, Card, CardLoader, EmptyIcon } from '../../..';
 import useApp from '../../../hooks/useApp';
 import useModal from '../../../hooks/useModal';
 import { Address } from 'ton-core';
+import useCustomQuery from '../../../hooks/useCustomQuery';
 
 const NftsModal = ({ pendingNFTs }: { pendingNFTs: PendingUsernameResp[] }) => {
     const { closeModal } = useModal();
@@ -50,17 +50,29 @@ const Nfts = ({ user, pendingNFTs }: { user: User; pendingNFTs?: PendingUsername
         openModal();
     }
 
-    const { isPending, data } = useQuery({
-        queryKey: [`nfts-for-${user.address}`],
-        queryFn: async function () {
+    const { data, ref, isFetchingNextPage, status } = useCustomQuery({
+        key: `nfts-for-${user.address}`,
+        fn: async function ({ pageParam }) {
             const { user: sdk } = await useApi();
-            return await sdk.getUserNfts(user.address);
+            return await sdk.getUserNfts(user.address, pageParam);
         },
+    });
+
+    const content = data?.pages.map(function (items) {
+        return items.map((item, i) => (
+            <div
+                ref={items.length == i + 1 ? ref : undefined}
+                className="col-6 col-xl-4"
+                key={`item-${i}`}
+            >
+                <Card nft={item.nft} user={user} isBookmarked={item.isBookmarked} />
+            </div>
+        ));
     });
 
     return (
         <div className="nfts  my-5 my-lg-0 py-lg-4 ps-lg-4">
-            {isPending || !data ? (
+            {status == 'pending' ? (
                 <div className="col-12">
                     <div className="row g-3">
                         <CardLoader col="col-6 col-xl-4" />
@@ -83,7 +95,7 @@ const Nfts = ({ user, pendingNFTs }: { user: User; pendingNFTs?: PendingUsername
                         </div>
                     ) : null}
 
-                    {data.length == 0 ? (
+                    {!content || content.length == 0 ? (
                         <div
                             style={{ gap: '1.5rem', height: '55dvh' }}
                             className="d-flex flex-column align-items-center justify-content-center"
@@ -104,15 +116,21 @@ const Nfts = ({ user, pendingNFTs }: { user: User; pendingNFTs?: PendingUsername
                     ) : (
                         <div className="col-12">
                             <div className="row g-3">
-                                {data.map((item, i) => (
-                                    <div className="col-6 col-xl-4" key={`item-${i}`}>
-                                        <Card
-                                            nft={item.nft}
-                                            user={user}
-                                            isBookmarked={item.isBookmarked}
-                                        />
+                                {content}
+
+                                {isFetchingNextPage ? (
+                                    <div className="col-12">
+                                        <div className="d-flex align-items-center justify-content-center pt-4 pb-0">
+                                            <span
+                                                className="loader-span-sm"
+                                                style={{
+                                                    width: '25px',
+                                                    height: '25px',
+                                                }}
+                                            />
+                                        </div>
                                     </div>
-                                ))}
+                                ) : null}
                             </div>
                         </div>
                     )}

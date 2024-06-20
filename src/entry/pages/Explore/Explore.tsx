@@ -1,19 +1,19 @@
 import useApi from '../../hooks/useApi';
 import { Card, CardLoader, EmptyIcon } from '../..';
-import { useQuery } from '@tanstack/react-query';
 import useForm from '../../hooks/useForm';
 import useModal from '../../hooks/useModal';
 import SearchResults from './components/SearchResults';
+import useCustomQuery from '../../hooks/useCustomQuery';
 
 const Explore = () => {
     const { openModal, setModalBody } = useModal();
     const { onChange, onSubmit, values } = useForm(search, { q: '' });
 
-    const { isPending, data } = useQuery({
-        queryKey: ['explore'],
-        queryFn: async function () {
+    const { data, ref, isFetchingNextPage, status } = useCustomQuery({
+        key: 'explore',
+        fn: async function ({ pageParam }) {
             const { misc } = await useApi();
-            return await misc.getNfts();
+            return await misc.getNfts(pageParam);
         },
     });
 
@@ -28,6 +28,18 @@ const Explore = () => {
 
         setModalBody(<SearchResults isLoading={false} users={result.data} />);
     }
+
+    const content = data?.pages.map(function (items) {
+        return items.map((item, i) => (
+            <div
+                ref={items.length == i + 1 ? ref : undefined}
+                className="col-6 col-lg-4 col-xl-3"
+                key={`item-${i}`}
+            >
+                <Card nft={item.nft} user={item.user} isBookmarked={item.isBookmarked} />
+            </div>
+        ));
+    });
 
     return (
         <>
@@ -68,13 +80,13 @@ const Explore = () => {
                             </div>
 
                             <div className="col-12">
-                                {isPending || !data ? (
+                                {status === 'pending' ? (
                                     <div className="col-12">
                                         <div className="row g-3">
                                             <CardLoader size={12} col="col-6 col-lg-4 col-xl-3" />
                                         </div>
                                     </div>
-                                ) : data.length == 0 ? (
+                                ) : !content || content.length == 0 ? (
                                     <div className="mb-4">
                                         <div
                                             style={{ gap: '1.5rem', minHeight: '40vh' }}
@@ -97,18 +109,18 @@ const Explore = () => {
                                     </div>
                                 ) : (
                                     <div className="row g-3">
-                                        {data.map((item, i) => (
-                                            <div
-                                                className="col-6 col-lg-4 col-xl-3"
-                                                key={`item-${i}`}
-                                            >
-                                                <Card
-                                                    nft={item.nft}
-                                                    user={item.user}
-                                                    isBookmarked={item.isBookmarked}
-                                                />
+                                        {content}
+
+                                        {isFetchingNextPage ? (
+                                            <div className="col-12">
+                                                <div className="d-flex align-items-center justify-content-center pt-4 pb-0">
+                                                    <span
+                                                        className="loader-span-sm"
+                                                        style={{ width: '25px', height: '25px' }}
+                                                    />
+                                                </div>
                                             </div>
-                                        ))}
+                                        ) : null}
                                     </div>
                                 )}
                             </div>

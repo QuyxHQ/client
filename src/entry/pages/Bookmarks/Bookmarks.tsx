@@ -1,14 +1,26 @@
-import { useQuery } from '@tanstack/react-query';
 import useApi from '../../hooks/useApi';
 import { Card, CardLoader, EmptyIcon } from '../..';
+import useCustomQuery from '../../hooks/useCustomQuery';
 
 const Bookmarks = () => {
-    const { isPending, data } = useQuery({
-        queryKey: ['bookmarks'],
-        queryFn: async function () {
+    const { data, ref, isFetchingNextPage, status } = useCustomQuery({
+        key: 'bookmarks',
+        fn: async function ({ pageParam }) {
             const { bookmark } = await useApi();
-            return await bookmark.getBookmarks();
+            return (await bookmark.getBookmarks(pageParam)) || [];
         },
+    });
+
+    const content = data?.pages.map(function (items) {
+        return items.map((item, i) => (
+            <div
+                ref={items.length == i + 1 ? ref : undefined}
+                className="col-6 col-lg-4 col-xl-3"
+                key={`item-${i}`}
+            >
+                <Card nft={item.nft} user={item.owner} isBookmarked={item.isBookmarked} />
+            </div>
+        ));
     });
 
     return (
@@ -28,7 +40,7 @@ const Bookmarks = () => {
                                     </div>
 
                                     <div className="col-12">
-                                        {isPending || !data ? (
+                                        {status == 'pending' ? (
                                             <div className="col-12">
                                                 <div className="row g-3">
                                                     <CardLoader
@@ -37,7 +49,7 @@ const Bookmarks = () => {
                                                     />
                                                 </div>
                                             </div>
-                                        ) : data.length == 0 ? (
+                                        ) : !content || content.length == 0 ? (
                                             <div style={{ padding: '0rem 0' }} className="mb-5">
                                                 <div
                                                     style={{ gap: '1.5rem', minHeight: '40dvh' }}
@@ -60,18 +72,21 @@ const Bookmarks = () => {
                                             </div>
                                         ) : (
                                             <div className="row g-3">
-                                                {data.map((item, i) => (
-                                                    <div
-                                                        className="col-6 col-lg-4 col-xl-3"
-                                                        key={`item-${i}`}
-                                                    >
-                                                        <Card
-                                                            nft={item.nft}
-                                                            user={item.owner}
-                                                            isBookmarked={item.isBookmarked}
-                                                        />
+                                                {content}
+
+                                                {isFetchingNextPage ? (
+                                                    <div className="col-12">
+                                                        <div className="d-flex align-items-center justify-content-center pt-4 pb-0">
+                                                            <span
+                                                                className="loader-span-sm"
+                                                                style={{
+                                                                    width: '25px',
+                                                                    height: '25px',
+                                                                }}
+                                                            />
+                                                        </div>
                                                     </div>
-                                                ))}
+                                                ) : null}
                                             </div>
                                         )}
                                     </div>
