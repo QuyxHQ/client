@@ -6,13 +6,13 @@ const Hero = () => {
             <h1>Control your social identity</h1>
             <p>
                 Your unified social identity on The Open Network (TON). Claim your unique username,
-                secure your credentials, and join a community that values privacy and control.
+                secure your credentials, & join a community that values privacy & control.
             </p>
 
             <div className="buttons d-flex flex-column flex-md-row">
                 <AnchorLink to="/claim">
                     <button>
-                        <i className="h h-chevron-right" />
+                        <i className="h h-arrow-right" />
                         <span>Get Started</span>
                     </button>
                 </AnchorLink>
