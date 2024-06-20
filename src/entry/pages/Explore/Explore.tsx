@@ -41,8 +41,6 @@ const Explore = () => {
         ));
     });
 
-    console.log(content);
-
     return (
         <>
             <div className="bg" />

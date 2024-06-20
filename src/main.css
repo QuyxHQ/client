@@ -4424,3 +4424,38 @@ footer .bottom .socials i {
     -webkit-line-clamp: 2;
     line-clamp: 2;
 }
+
+.unauth {
+    width: 100%;
+    max-width: 33rem;
+    padding: 6.5rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.unauth i {
+    font-size: 6rem;
+    opacity: 0.5;
+    margin-bottom: 1rem;
+}
+
+.unauth h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    line-height: 140%;
+}
+
+.unauth p {
+    margin-bottom: 2.1rem;
+    line-height: 220%;
+    font-size: 1rem;
+    opacity: 0.5;
+}
+
+.unauth button {
+    color: #fff;
+    font-weight: 500;
+    gap: 0.6rem;
+    padding: 1.1rem 2.2rem;
+}

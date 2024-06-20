@@ -174,7 +174,7 @@ const DefaultNavbar = () => {
                                     className="d-flex align-items-center"
                                     style={{ gap: '1.5rem' }}
                                 >
-                                    {connected ? (
+                                    {connected && user ? (
                                         <div
                                             className="user d-flex align-items-center"
                                             onClick={() => setDropVisible(true)}
