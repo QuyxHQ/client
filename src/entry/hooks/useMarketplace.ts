@@ -26,16 +26,20 @@ export default function () {
     async function startAuctionSale(
         nft_addr: Address,
         min_bid: number,
-        end_time: number,
+        end_date: number,
         min_step: number = 5, // next bid must be 5% more than previous
-        step_time: number = 60 * 30, // 30 minutes extra
-        max_bid: number = 0
+        max_bid: number = 0,
+        step_time: number = 60 * 30 // 30 minutes extra
     ) {
         if (!contract || !wallet || !client) return;
 
         try {
-            const collection = client.open(NftCollection.fromAddress(env.CONTRACT_ADDR));
+            const collection = client.open(
+                NftCollection.fromAddress(Address.parse(env.CONTRACT_ADDR))
+            );
+
             const royaltyParams = await collection.getGetRoyaltyParams();
+            console.log(royaltyParams);
 
             const fees = beginCell()
                 .storeAddress(Address.parse(env.MARKETPLACE_FEE_ADDR))
@@ -50,7 +54,7 @@ export default function () {
                 .storeCoins(toNano(min_bid))
                 .storeCoins(toNano(max_bid))
                 .storeUint(min_step, 8)
-                .storeUint(end_time, 32)
+                .storeUint(end_date, 32)
                 .storeUint(step_time, 16)
                 .endCell();
 

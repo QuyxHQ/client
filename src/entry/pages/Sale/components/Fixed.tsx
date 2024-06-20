@@ -2,7 +2,13 @@ import { useState } from 'react';
 import useForm from '../../../hooks/useForm';
 import { TonIcon } from '../../..';
 import { useQuery } from '@tanstack/react-query';
-import { getNFTAuctionInfo, sleep, getSaleInfo, getFixedSaleInfo } from '../../../../utils/helper';
+import {
+    getNFTAuctionInfo,
+    sleep,
+    getSaleInfo,
+    getFixedSaleInfo,
+    truncateAddress,
+} from '../../../../utils/helper';
 import useApi from '../../../hooks/useApi';
 import { useNavigate } from 'react-router-dom';
 import { Address } from 'ton-core';
@@ -10,7 +16,7 @@ import useMarketplace from '../../../hooks/useMarketplace';
 import toast from '../../../../utils/toast';
 
 const Fixed = ({ address }: { address: string }) => {
-    const { onChange, onSubmit, values } = useForm(staartSale, { price: '' });
+    const { onChange, onSubmit, values } = useForm(startSale, { price: '' });
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const { contract, methods } = useMarketplace();
@@ -55,13 +61,12 @@ const Fixed = ({ address }: { address: string }) => {
         },
     });
 
-    async function staartSale() {
+    async function startSale() {
         if (isLoading || !contract || !values.price) return;
 
         setIsLoading(true);
 
         try {
-            console.log(address);
             await methods.startFixedSale(Address.parse(address), Number(values.price));
 
             let is_verified = false;
@@ -142,7 +147,15 @@ const Fixed = ({ address }: { address: string }) => {
 
                                             <div>
                                                 <h3>{nft.item.metadata.name}</h3>
-                                                <p>{nft.item.collection?.name}</p>
+                                                <p>
+                                                    {truncateAddress({
+                                                        address: Address.parse(
+                                                            nft.item.address
+                                                        ).toString(),
+                                                        prefixLength: 7,
+                                                        suffixLength: 5,
+                                                    })}
+                                                </p>
                                             </div>
                                         </>
                                     )}
