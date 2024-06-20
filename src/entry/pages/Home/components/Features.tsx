@@ -1,71 +1,61 @@
-import Features1 from "../../../svgs/Features1";
-import Features2 from "../../../svgs/Features2";
+import Features1 from '../../../svgs/Features1';
+import Features2 from '../../../svgs/Features2';
 
 const Features = () => {
-  return (
-    <div className="features" id="features">
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <div className="header">
-              <h2>Powerful Features</h2>
-              <p>
-                Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua.
-              </p>
-            </div>
-          </div>
-
-          <div className="col-12">
-            <div className="row g-4">
-              <div className="col-12 col-md-6">
-                <div className="item">
-                  <Features1 />
-
-                  <p>Interchain Accounts</p>
-                  <h3>One secure account for all your digital assets.</h3>
-                </div>
-              </div>
-
-              <div className="col-12 col-md-6">
-                <div className="row g-4">
-                  <div className="col-12">
-                    <div className="item-sm">
-                      <p>Decentralized Exchange</p>
-                      <h3>Swap tokens & collectibles.</h3>
-
-                      <div className="d-none d-lg-block">
-                        <Features2 />
-                      </div>
-
-                      <div className="d-block d-lg-none">
-                        <Features2 width={180} height={180} />
-                      </div>
+    return (
+        <div className="features" id="features">
+            <div className="container">
+                <div className="row">
+                    <div className="col-12">
+                        <div className="header">
+                            <h2>Powerful Features</h2>
+                            <p>
+                                Explore cutting-edge features designed to give you complete control
+                                over your social identity.
+                            </p>
+                        </div>
                     </div>
-                  </div>
 
-                  <div className="col-12">
-                    <div className="item-sm">
-                      <p>Decentralized Exchange</p>
-                      <h3>Swap tokens & collectibles.</h3>
+                    <div className="col-12">
+                        <div className="row g-4">
+                            <div className="col-12 col-md-6">
+                                <div className="item">
+                                    <Features1 />
 
-                      <div className="d-block d-lg-none">
-                        <Features2 width={180} height={180} />
-                      </div>
+                                    <p>Secure auctions</p>
+                                    <h3>Safely bid on & secure your preferred usernames.</h3>
+                                </div>
+                            </div>
 
-                      <div className="d-none d-lg-block">
-                        <Features2 />
-                      </div>
+                            <div className="col-12 col-md-6">
+                                <div className="row g-4">
+                                    <div className="col-12">
+                                        <div className="item-sm">
+                                            <p>Credential management</p>
+                                            <h3>
+                                                Easily create, manage, & revoke your credentials.
+                                            </h3>
+
+                                            <Features2 width={215} height={215} />
+                                        </div>
+                                    </div>
+
+                                    <div className="col-12">
+                                        <div className="item-sm">
+                                            <p>Zero marketplace fees</p>
+                                            <h3>Buy & sell usernames with no additional costs.</h3>
+
+                                            <Features2 width={215} height={215} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Features;

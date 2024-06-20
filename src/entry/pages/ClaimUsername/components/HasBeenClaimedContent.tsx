@@ -1,5 +1,5 @@
 import { Address, fromNano, toNano } from 'ton-core';
-import { AuctionInfo, NftItemData } from '../../../../contract/artefacts/tact_NftItem';
+import { AuctionInfo } from '../../../../contract/artefacts/tact_NftItem';
 import { useEffect, useState } from 'react';
 import useItem from '../../../hooks/useItem';
 import useApi from '../../../hooks/useApi';
@@ -14,15 +14,13 @@ type Props = {
     address: Address;
     username: string;
     auction_info: AuctionInfo;
-    nft_data: NftItemData;
+    user?: User;
 };
 
-const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Props) => {
+const HasBeenClaimedContent = ({ address, username, auction_info, user }: Props) => {
     const { contract, methods } = useItem(address);
     const { closeModal } = useModal();
-    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isBtnLoading, setIsBtnLoading] = useState<boolean>(false);
-    const [user, setUser] = useState<User>();
     const navigate = useNavigate();
     const { user: whoami } = useApp();
 
@@ -137,7 +135,6 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
         }
     }
 
-    // const [timeLeft, setTimeLeft] = useState({ hours: '--', minutes: '--', seconds: '--' });
     const [timeLeft, setTimeLeft] = useState(
         calcCountdown(Number(auction_info.auction_end_time) * 1000)
     );
@@ -154,25 +151,7 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
         return () => clearInterval(timer);
     }, [auction_info]);
 
-    useEffect(() => {
-        (async function () {
-            if (!contract) return;
-
-            let { max_bid_address: addr } = auction_info;
-            if (!addr) addr = nft_data.owner;
-
-            const { user } = await useApi();
-
-            setUser(await user.getUser(addr.toString()));
-            setIsLoading(false);
-        })();
-    }, [auction_info, nft_data, contract]);
-
-    return isLoading ? (
-        <div className="d-flex align-items-center justify-content-center py-5">
-            <span className="loader-span-sm" />
-        </div>
-    ) : (
+    return (
         <div className="claim-modal">
             <span className={`badge ${auction_info.max_bid_address == null ? 'red' : 'gold'}`}>
                 {auction_info.max_bid_address == null ? 'Taken' : 'In Auction'}
@@ -259,8 +238,8 @@ const HasBeenClaimedContent = ({ address, username, auction_info, nft_data }: Pr
                         </div>
                     </div>
 
-                    {timeLeft.hours == '00' ||
-                    timeLeft.minutes == '00' ||
+                    {timeLeft.hours == '00' &&
+                    timeLeft.minutes == '00' &&
                     timeLeft.seconds == '00' ? (
                         <button onClick={completeAution} disabled={isBtnLoading}>
                             {isBtnLoading ? (

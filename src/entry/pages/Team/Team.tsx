@@ -36,7 +36,7 @@ const Team = () => {
                 },
                 {
                     icon: 'linkedin',
-                    url: '//www.linkedin.com/in/morifeoluwa',
+                    url: 'http://linkedin.com/in/moyinthegrait',
                 },
                 {
                     icon: 'send',
@@ -59,7 +59,7 @@ const Team = () => {
                 },
                 {
                     icon: 'linkedin',
-                    url: '//www.linkedin.com/in/morifeoluwa',
+                    url: '//www.linkedin.com/in/odusiji-fatiha',
                 },
                 {
                     icon: 'send',
@@ -77,12 +77,16 @@ const Team = () => {
                     url: '//twitter.com/@everything_devv',
                 },
                 {
+                    icon: 'github',
+                    url: '//github.com/Raphae23',
+                },
+                {
                     icon: 'linkedin',
-                    url: '//www.linkedin.com/in/morifeoluwa',
+                    url: '//www.linkedin.com/in/raphael-omonayin-45a63225b',
                 },
                 {
                     icon: 'send',
-                    url: '//t.me/resolutefatty',
+                    url: '//t.me/raphaelomo20',
                 },
             ],
         },

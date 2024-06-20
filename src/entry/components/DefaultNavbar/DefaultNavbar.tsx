@@ -67,8 +67,8 @@ const DefaultNavbar = () => {
         const { session } = await useApi();
         const resp = await session.deleteCurrentSession();
         if (resp) {
-            await tonConnectUI.disconnect();
-            logout();
+            await Promise.all([tonConnectUI.disconnect(), logout()]);
+            setDropVisible(false);
         }
 
         setIsLogoutLoading(false);
@@ -174,7 +174,7 @@ const DefaultNavbar = () => {
                                     className="d-flex align-items-center"
                                     style={{ gap: '1.5rem' }}
                                 >
-                                    {connected ? (
+                                    {connected && user ? (
                                         <div
                                             className="user d-flex align-items-center"
                                             onClick={() => setDropVisible(true)}
