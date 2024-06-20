@@ -39,6 +39,26 @@ export default class MiscSdk {
         return (data?.data.uri as string) ?? undefined;
     }
 
+    async subscribe(email: string) {
+        const { error } = await this.client.getInstance().post('/misc/subscribe', { email });
+
+        if (error) {
+            toast({
+                type: 'error',
+                message: 'Unable to subscribe to newsletter',
+            });
+
+            return false;
+        }
+
+        toast({
+            type: 'success',
+            message: 'Successfully subscribed to newsletter!',
+        });
+
+        return true;
+    }
+
     async triggerPendingUsernameUpdate(address: string) {
         await this.client.getInstanceWithoutAuth().put(`/misc/update/${address}`);
     }

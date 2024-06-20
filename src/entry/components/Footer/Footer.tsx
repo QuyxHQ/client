@@ -59,7 +59,7 @@ const Footer = () => {
                                                 to="https://t.me/QuyxBot?start"
                                                 target="_blank"
                                             >
-                                                <span>Telegram mini app</span>
+                                                <span>QuyxBot</span>
                                                 <i className="h h-external-link" />
                                             </AnchorLink>
                                         </li>

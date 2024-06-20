@@ -2599,7 +2599,8 @@ input[type='datetime-local'] {
 }
 
 .metrics p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    line-height: 180%;
     color: #888;
     font-weight: 300;
 }
@@ -2837,7 +2838,7 @@ input[type='datetime-local'] {
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
 }
 
 .subscribe .header h2 {
@@ -2845,16 +2846,65 @@ input[type='datetime-local'] {
     font-weight: 600;
     margin-bottom: 1rem;
     line-height: 150%;
+    width: 90%;
     max-width: 30rem;
 }
 
 .subscribe .header p {
-    width: 100%;
+    width: 90%;
     max-width: 35rem;
     text-align: center;
     line-height: 200%;
     font-size: 1rem;
     color: #aaa;
+}
+
+.subscribe .item {
+    width: max-content;
+    margin: 0% auto;
+}
+
+.subscribe button {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        linear-gradient(100.09deg, #9327ff 0%, #ffa927 100%);
+    padding: 1.15rem 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #fff;
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+.subscribe input {
+    border: none;
+    background-color: inherit;
+    outline: none;
+    color: #fff;
+    padding: 0.9rem 1rem;
+}
+
+.subscribe .item .d-flex input {
+    left: 50%;
+    transform: translateX(-91%);
+    bottom: 5rem;
+}
+
+.subscribe .item .d-flex button {
+    bottom: -0.7rem;
+    left: 50%;
+    transform: translateX(-100%);
+}
+
+.subscribe .item .d-none input {
+    bottom: 0.2rem;
+    left: 0.5rem;
+}
+
+.subscribe .item .d-none button {
+    right: -9.7rem;
+    bottom: 0.5rem;
 }
 
 footer {
