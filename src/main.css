@@ -2890,6 +2890,7 @@ input[type='datetime-local'] {
     left: 50%;
     transform: translateX(-78%);
     bottom: 5rem;
+    padding-left: 1.8rem;
 }
 
 .subscribe .item .d-flex button {
@@ -2901,6 +2902,7 @@ input[type='datetime-local'] {
 .subscribe .item .d-none input {
     bottom: 0.2rem;
     left: 0.5rem;
+    width: 58%;
 }
 
 .subscribe .item .d-none button {
