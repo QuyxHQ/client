@@ -12,7 +12,7 @@ const Hero = () => {
             <div className="buttons d-flex flex-column flex-md-row">
                 <AnchorLink to="/claim">
                     <button>
-                        <i className="h h-arrow-right" />
+                        <i className="h h-chevron-right" />
                         <span>Get Started</span>
                     </button>
                 </AnchorLink>
