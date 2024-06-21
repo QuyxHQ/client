@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const AnchorLink = (props: AnchorLinkProps) => {
     function click() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'instant' });
         if (typeof props.handleClick != 'undefined') return props.handleClick();
     }
 

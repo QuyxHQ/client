@@ -66,12 +66,12 @@ export default function () {
                 { value: toNano(0.15) },
                 {
                     $$type: 'Transfer',
-                    query_id: BigInt(Date.now()),
+                    query_id: 0n,
                     custom_payload: null,
                     forward_amount: toNano(0.1),
                     forward_payload: body,
                     new_owner: Address.parse(env.MARKETPLACE_ADDR),
-                    response_destination: sender.address!,
+                    response_destination: Address.parse(wallet),
                 }
             );
         } catch (e: any) {
@@ -113,12 +113,12 @@ export default function () {
                 { value: toNano(0.15) },
                 {
                     $$type: 'Transfer',
-                    query_id: BigInt(Date.now()),
+                    query_id: 0n,
                     custom_payload: null,
                     forward_amount: 1n,
                     forward_payload: body,
                     new_owner: Address.parse(env.MARKETPLACE_ADDR),
-                    response_destination: sender.address!,
+                    response_destination: Address.parse(wallet),
                 }
             );
         } catch (e: any) {
