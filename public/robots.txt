@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /bookmarks
+Disallow: /edit-profile
+Disallow: /sale
+
+Sitemap: https://quyx.xyz/sitemap.xml
