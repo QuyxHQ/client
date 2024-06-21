@@ -2348,7 +2348,7 @@ input[type='datetime-local'] {
     align-items: center;
     justify-content: center;
     min-height: 88vh;
-    padding: 3rem 2.5rem;
+    padding: 5rem 2.5rem;
 }
 
 .hero h1 {
@@ -2883,11 +2883,12 @@ input[type='datetime-local'] {
     outline: none;
     color: #fff;
     padding: 0.9rem 1rem;
+    font-size: 0.9rem;
 }
 
 .subscribe .item .d-flex input {
     left: 50%;
-    transform: translateX(-91%);
+    transform: translateX(-78%);
     bottom: 5rem;
 }
 
@@ -4433,12 +4434,6 @@ footer .bottom .socials i {
     flex-direction: column;
 }
 
-.unauth i {
-    font-size: 6rem;
-    opacity: 0.5;
-    margin-bottom: 1rem;
-}
-
 .unauth h1 {
     font-size: 2.5rem;
     font-weight: 600;
@@ -4457,5 +4452,5 @@ footer .bottom .socials i {
     color: #fff;
     font-weight: 500;
     gap: 0.6rem;
-    padding: 1.1rem 2.2rem;
+    padding: 1.2rem 2.25rem;
 }

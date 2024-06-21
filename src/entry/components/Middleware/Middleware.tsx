@@ -1,15 +1,18 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Address } from 'ton-core';
+import LoadingBar from 'react-top-loading-bar';
 import { Layout, Modal } from '..';
 import useTonConnect from '../../hooks/useTonConnect';
 import useApp from '../../hooks/useApp';
 import { useIsConnectionRestored, useTonConnectUI } from '@tonconnect/ui-react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { isMemberofRoute } from '../../../utils/helper';
-import { Address } from 'ton-core';
 
 const PROTECTED_ROUTES = ['/bookmarks', '/edit-profile', '/sale/*'];
 
 const Middleware = ({ children }: { children: React.ReactNode }) => {
+    const ref = useRef<any>(null);
+
     const { connected } = useTonConnect();
     const isConnectionRestored = useIsConnectionRestored();
     const { logout, isMounting, isAuthenticated, isAuthenticating, user } = useApp();
@@ -50,9 +53,23 @@ const Middleware = ({ children }: { children: React.ReactNode }) => {
         location,
     ]);
 
+    useEffect(() => {
+        ref.current.continuousStart();
+
+        if (!isConnectionRestored && isMemberofRoute(location.pathname, PROTECTED_ROUTES)) {
+            return ref.current.continuousStart();
+        }
+
+        if (!isMounting) return ref.current.complete();
+
+        if (!isMounting && isConnectionRestored) ref.current.complete();
+    }, [location, isMounting, isConnectionRestored]);
+
     return (
         <>
             <Modal />
+            <LoadingBar color="#9327ff" ref={ref} height={2} shadow={true} />
+
             {isMounting ? null : !isConnectionRestored &&
               isMemberofRoute(location.pathname, PROTECTED_ROUTES) ? null : (
                 <Layout children={children} />
