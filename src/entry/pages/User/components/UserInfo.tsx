@@ -1,6 +1,6 @@
 import { Address } from 'ton-core';
 import { AnchorLink, VerifiedIcon } from '../../..';
-import { copyToClipboard, getAvatar, truncateAddress } from '../../../../utils/helper';
+import { getAvatar } from '../../../../utils/helper';
 import useApp from '../../../hooks/useApp';
 import env from '../../../../utils/env';
 
@@ -26,20 +26,7 @@ const UserInfo = ({ user }: { user: User }) => {
                         {user.hasBlueTick ? <VerifiedIcon width={28} height={28} /> : null}
                     </h1>
 
-                    <p className="bio mb-4"> {user.bio ? <>&raquo; {user.bio}</> : null}</p>
-
-                    <p
-                        className="addr"
-                        onClick={() => copyToClipboard(Address.parse(user.address).toString())}
-                    >
-                        <span>
-                            {truncateAddress({ address: Address.parse(user.address).toString() })}
-                        </span>
-
-                        <span>
-                            <i className="h h-copy" />
-                        </span>
-                    </p>
+                    <p className="bio mb-5"> {user.bio ? <>&raquo; {user.bio}</> : null}</p>
 
                     <div className="socials">
                         {user.socials?.x ? (

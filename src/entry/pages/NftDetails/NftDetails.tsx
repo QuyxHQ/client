@@ -65,6 +65,8 @@ const NftDetails = () => {
 
     return (
         <>
+            <div className="bg" />
+
             {isPending ? (
                 <div
                     style={{ padding: '1rem', gap: '1.5rem', height: '60dvh' }}

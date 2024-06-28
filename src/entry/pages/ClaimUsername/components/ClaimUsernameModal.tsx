@@ -24,22 +24,28 @@ const ClaimUsernameModal = ({ username }: { username: string }) => {
             const index = await contract.getGetIndex(username);
             const addr = await methods.getNftItemAddressFromIndex(index);
 
-            const [auction_info, nft_data] = await Promise.all([
-                getNFTAuctionInfo(addr!.toString()),
-                getNFTData(addr!.toString()!),
-            ]);
+            if (addr) {
+                const [auction_info, nft_data] = await Promise.all([
+                    getNFTAuctionInfo(addr.toString()),
+                    getNFTData(addr.toString()!),
+                ]);
 
-            let owner;
-            if (auction_info && auction_info.max_bid_address != null) {
-                owner = auction_info.max_bid_address;
-            } else owner = nft_data?.owner;
+                let owner;
 
-            const { user: sdk } = await useApi();
-            if (owner) setUser(await sdk.getUser(owner.toString()));
+                if (auction_info && auction_info.max_bid_address != null) {
+                    owner = auction_info.max_bid_address;
+                } else {
+                    owner = nft_data?.owner;
+                }
 
-            setAddress(addr);
-            setAuctionInfo(auction_info);
-            setNftData(nft_data);
+                const { user: sdk } = await useApi();
+                if (owner) setUser(await sdk.getUser(owner.toString()));
+
+                setAddress(addr);
+                setAuctionInfo(auction_info);
+                setNftData(nft_data);
+            }
+
             setIsLoading(false);
         })();
     }, [username, contract]);
