@@ -5,12 +5,12 @@ const Metrics = () => {
             id="metrics"
         >
             <div className="col col-md-5 col-lg-2">
-                <h3>10</h3>
+                <h3>10k</h3>
                 <p>Usernames claimed</p>
             </div>
 
             <div className="col col-md-5 col-lg-2">
-                <h3>25</h3>
+                <h3>250k</h3>
                 <p>Total users</p>
             </div>
 
@@ -20,7 +20,7 @@ const Metrics = () => {
             </div>
 
             <div className="col col-md-5 col-lg-2">
-                <h3>3</h3>
+                <h3>300</h3>
                 <p>Platform integrations</p>
             </div>
         </div>

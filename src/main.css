@@ -122,6 +122,95 @@ img {
     z-index: 9;
 }
 
+.marquee {
+    margin-top: -1.05rem;
+    padding: 0.8rem 0;
+    padding-bottom: 0;
+    background-color: #000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1.05rem;
+}
+
+.marquee .main-marquee {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.2rem 0;
+}
+
+.marquee .info {
+    background-color: #111;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 0.9rem;
+    width: 100%;
+    padding: 0.65rem 0rem;
+    text-align: right;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.marquee .info p {
+    opacity: 0.6;
+}
+
+.marquee .welcome {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 3em;
+}
+
+.marquee hr {
+    width: 3rem;
+    height: 1px;
+    border: none;
+    background-color: #555;
+}
+
+.marquee .welcome h4 {
+    font-weight: 500;
+}
+
+.marquee .event {
+    padding: 0 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.marquee .event a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.marquee .event a > div:first-child {
+    border-right: 1px solid #555;
+    padding-right: 0.6rem;
+}
+
+.marquee .event a img {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.marquee .event a h5 {
+    font-weight: 500;
+    margin-bottom: 0.15rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.marquee .event a p {
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: lowercase;
+}
+
 .gradient-border {
     background: linear-gradient(93deg, #140029 0%, #010101 100%);
     padding: 0.1rem;
@@ -3983,13 +4072,14 @@ footer .bottom .socials i {
 .nft-page .main-img {
     position: sticky;
     -webkit-position: -webkit-sticky;
-    top: 8rem;
+    top: 13.5rem;
 }
 
 .nft-page .main-img img {
     width: 100%;
     height: auto;
-    border-radius: 20px;
+    border-radius: 15px;
+    border: 1px solid #222;
 }
 
 .nft-info-main h1 {

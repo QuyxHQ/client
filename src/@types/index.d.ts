@@ -17,7 +17,7 @@ type NftMetadata = {
     attributes: { trait_type: string; value: string }[];
 };
 
-type EventType = 'started_auction' | 'username_assigned';
+type EventType = 'started_auction' | 'username_assigned' | 'welcome';
 
 type Events = {
     type: EventType;
